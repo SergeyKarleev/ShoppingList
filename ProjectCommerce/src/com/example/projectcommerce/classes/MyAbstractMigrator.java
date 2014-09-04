@@ -9,5 +9,10 @@ public abstract class MyAbstractMigrator {
 		
 	}
 	
-	q
+	/**Метод экспорта данных в базу
+	 * 
+	 */
+	private void Export(){
+		
+	}
 }
