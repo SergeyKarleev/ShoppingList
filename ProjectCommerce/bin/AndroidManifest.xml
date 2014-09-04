@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.projectcommerce"
+    android:versionCode="1"
+    android:versionName="0.082" >
+
+    <!-- Версия 0.100 реализация поддержки старых телефонов --> 
+    
+    
+    <!-- Версия 0.080 реализация импорт/экспорта (паттерн Адаптер) -->	    
+	    <!-- Версия 0.081 импорт Xml -->
+	    <!-- Версия 0.082 экспорт Xml -->
+	    <!-- Версия 0.08n импорт Csv -->
+	    <!-- Версия 0.08n экспорт Csv -->	    
+	    <!-- Версия 0.08n один обработчик onclick на все кнопки -->
+	    
+	    
+    <!-- Версия 0.070 тест багов первой части проекта -->
+    <!-- Версия 0.060 реализация простого ViewPager -->
+	    <!-- Версия 0.061 фиксить баг исчезновения ViewPager при переключении между фрагментами -->
+	    <!-- Версия 0.062 обработчик кнопки "Купить" -->
+	    <!-- Версия 0.063 игнорировать модели с количеством = 0 -->	        	
+    <!-- Версия 0.050 обработка кода согласно Java Convention -->
+    	<!-- Версия 0.051 обработка <TODO> комментариев -->
+    	<!-- Версия 0.052 обработка "магических чисел" -->
+    	<!-- Версия 0.053 обработка переменных и названий классов -->
+    	<!-- Версия 0.054 документирование собственного класса MyDBManager для работы с БД -->    	
+    <!-- Версия 0.040 переход к support.v4 фрагментам -->
+    <!-- Версия 0.030 исправлена ошибка при сохранении параметров устройства после поворота диалога -->
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="15" />
+    
+ 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.projectcommerce.activities.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

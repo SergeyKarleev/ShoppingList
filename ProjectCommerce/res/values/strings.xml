@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="pkg_name">com.example.backend</string>    
+    <string name="app_name">ProjectCommerce</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- ID всех активити и фрагментов -->
+    <string name="mainActivity">MainActivity</string>
+    <string name="fragment_backend">MyFragmentBackend</string>
+    <string name="fragment_navigation">MyFragmentNavigation</string>
+    <string name="fragment_storefront">MyFragmentStorefront</string>
+    <string name="fragment_universal">Fr_universal</string>
+    <string name="fragment_dialog">Fr_element</string>
+    <string name="fragment_pager">MyFragmentPager</string>
+
+</resources>

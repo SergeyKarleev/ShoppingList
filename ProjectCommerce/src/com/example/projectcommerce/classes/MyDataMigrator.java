@@ -1,0 +1,248 @@
+package com.example.projectcommerce.classes;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URI;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.projectcommerce.R;
+import com.example.projectcommerce.fragments.MyFragmentBackend;
+
+/**
+ * Класс является реализацией паттерна Адаптер, выполняющей работу по
+ * импорту/экспорту данных
+ */
+public class MyDataMigrator {
+
+	final String LOG_TAG = "myLogs";
+
+	private static MyDBManager mDataBase;
+	private static MyFragmentBackend mFragmentBackend;
+
+	// режим импорта - для добавления записей (1) или полного обновления (2)
+	public final int MODE_ACTION_ADD = 1;
+	public final int MODE_ACTION_UPDATE = 2;
+	
+	//расширения для файлов различных типов
+	private final String TYPE_XML = ".xml";
+	private final String TYPE_CSV = ".csv";
+
+	// путь и имя файла импорта/экспорта
+	private final String FILEPATH = "/ProjectCommerce/";
+	private final String FILENAME = "db";
+
+	// TODO: Техническое задание:
+	// 1. Доступ к импорту/экспорту осуществляется через меню фрагмента Backend
+	// 2. Импорт
+	// ~ осуществить режим добавления и полной замены (с предупреждением) устройств
+	// ~ режим импорта передавать аргументом и обрабатывать в одном методе
+	// ~ должен включать реализацию XML (опц. - csv, binary, json)
+	// ~ файл импорта находится на SD карте (опц. - загрузка через Web)
+	// ~ для каждого типа файла реализуем свой отдельный метод
+	// 3. Экспорт
+	// ~ должен включать реализацию XML (опц. - binary, json, csv)
+	// ~ экспорт на SD карту в определённую директорию
+	// 4. Все методы и/э реализованы в данном классе (паттерн "Адаптер")
+	// 5. Все методы и/э типа boolean. True - успешное выполнение, false - нет
+	// это нужно для обновления ListView адаптера во фрагменте Backend
+	// 6. В Backend фрагменте доступ к импорту/экспорту осуществлен через меню
+
+	/**
+	 * Через конструктор устанавливаем статическую ссылку на базу данных,
+	 * открытую в FragmentBackend
+	 * 
+	 * @param mDataBase
+	 *            ссылка на базу данных
+	 * @param mActivity
+	 *            ссылка на активити для вызова диалогов
+	 * @param mFragmentBackend
+	 *            ссылка на FragmentBackend для перезаписи адаптера ListView
+	 */
+	public MyDataMigrator(MyDBManager mDataBase,
+			MyFragmentBackend mFragmentBackend) {
+		super();
+		this.mDataBase = mDataBase;
+		this.mFragmentBackend = mFragmentBackend;
+	}
+
+	/**
+	 * Импорт XML
+	 * 
+	 * @param mode
+	 *            добавление или перезапись
+	 * @param webLoad
+	 *            адрес xml файла в сети
+	 * @return true если импорт выполнен без ошибок
+	 */
+	public boolean ImportXML(int mode, URI webLoad) {
+		if (webLoad == null) {
+			try {
+				XmlPullParser xpp = null;
+				try {
+					// создаем парсер xml из нашего файла в ресурсах
+					XmlPullParserFactory factory = XmlPullParserFactory
+							.newInstance();
+					xpp = factory.newPullParser();
+					// InputStream isr =
+					// mFragmentBackend.getResources().openRawResource(R.raw.data);
+					File file = new File(
+							Environment.getExternalStorageDirectory()
+									+ FILEPATH + FILENAME + TYPE_XML);
+					FileInputStream fis = new FileInputStream(file);
+					xpp.setInput(new InputStreamReader(fis));
+
+					if (mode == MODE_ACTION_UPDATE)
+						mDataBase.delRecord();
+					Log.d(LOG_TAG, "Данные в БД перед импортом очищены");
+				} catch (Exception e) {
+					e.printStackTrace();
+					Log.d(LOG_TAG, "Ошибка импорта " + e.toString());
+				}
+
+				// пока не увидим тег конца документа
+				while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
+					if ((xpp.getEventType() == XmlPullParser.START_TAG)
+							&& (xpp.getName().equals("Product"))) {
+						String _name = xpp.getAttributeValue(null, "name");
+						Float _price = Float.valueOf(xpp.getAttributeValue(
+								null, "price"));
+						int _count = Integer.valueOf(xpp.getAttributeValue(
+								null, "count"));
+						mDataBase.addRecord(_name, _price, _count);
+						Log.d(LOG_TAG, "Импорт из XML файла прошел успешно");
+					}
+					xpp.next();
+				}
+				Log.d(LOG_TAG, "Возвращаем true из импорта");
+				return true;
+
+			} catch (XmlPullParserException e) {
+				e.printStackTrace();
+				Log.d(LOG_TAG, "Ошибка импорта " + e.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+				Log.d(LOG_TAG, "Ошика импорта " + e.toString());
+			} catch (Throwable t) {
+				Log.d(LOG_TAG, "Ошибка загрузки файла " + t.toString() + "\n"
+						+ t.getStackTrace());
+			}
+		} else {
+			// TODO: В РАЗРАБОТКЕ. Здесь будет реализация импорта XML через Web
+		}
+		return false;
+	}
+
+	/**
+	 * Перегрузка метода импорта при размещении файла на SD-карте
+	 * 
+	 * @param mode
+	 *            добавление или перезапись
+	 */
+	public boolean ImportXML(int mode) {
+		return ImportXML(mode, null);
+	}
+
+	/**
+	 * Экспорт базы в виде файла XML на SD-карту
+	 * 
+	 * @return успешный или неудачный экспорт
+	 */
+	public boolean ExportXML() {
+		Cursor mData = mDataBase.getData();
+
+		// проверяем, доступна ли карта памяти
+		if (!Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
+			Log.d(LOG_TAG,
+					"SD-карта не доступна: "
+							+ Environment.getExternalStorageState());
+			return false;
+		}
+		if (mData != null) {
+			// создаем стрингбилдер для постепенного заполнения xml строки
+			StringBuilder xmlString = new StringBuilder();
+			// записываем начальный тег
+			xmlString.append("<data>");
+			// каждый элемент из таблицы в БД записываем в отдельный тег с
+			// аргументами
+			mData.moveToFirst();
+			do {
+				xmlString.append("<Product name='");
+				xmlString.append(mData.getString(mData
+						.getColumnIndex(mDataBase.PRODUCTS_NAME)));
+				xmlString.append("' price='");
+				xmlString.append(String.valueOf(mData.getFloat(mData
+						.getColumnIndex(mDataBase.PRODUCTS_PRICE))));
+				xmlString.append("' count='");
+				xmlString.append(String.valueOf(mData.getInt(mData
+						.getColumnIndex(mDataBase.PRODUCTS_COUNT))));
+				xmlString.append("'/>");
+			} while (mData.moveToNext());
+			// дописываем конечный тег
+			xmlString.append("</data>");
+			Log.d(LOG_TAG, "Лог из экспорта " + xmlString.toString());
+			return writeFile(xmlString.toString(),TYPE_XML);
+		}
+		return false;
+	}
+
+	/**
+	 * В данном методе происходит непосредственная запись xml строки в файл на
+	 * диске
+	 * 
+	 * @param saveString
+	 *            строка с элементами базы данных
+	 * @param type
+	 * 			  расширение файла (выбрать из констант)
+	 * @return результат записи: успешно или нет
+	 */
+	private boolean writeFile(String saveString, String type) {
+
+		try {
+			File sdFile = new File(Environment.getExternalStorageDirectory()
+					+ FILEPATH, FILENAME + TYPE_XML);
+			// отрываем поток для записи
+			BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile));
+			// пишем данные
+			bw.write(saveString);
+			// закрываем поток
+			bw.close();
+			Toast.makeText(mFragmentBackend.getActivity(),
+					"Экспортировано в " + sdFile.getAbsoluteFile().toString(),
+					Toast.LENGTH_SHORT).show();
+			return true;
+		} catch (FileNotFoundException e) {
+			Log.d(LOG_TAG, "FileNotFoundException: " + e.toString());
+			e.printStackTrace();
+		} catch (IOException e) {
+			Toast.makeText(mFragmentBackend.getActivity(),
+					"Ошибка записи на SD-карту", Toast.LENGTH_SHORT).show();
+			Log.d(LOG_TAG, "EXPORT_XML: IOException " + e.toString());
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+}
