@@ -34,24 +34,13 @@ import com.example.projectcommerce.fragments.MyFragmentBackend;
  * Класс является реализацией паттерна Адаптер, выполняющей работу по
  * импорту/экспорту данных
  */
-public class MyDataMigrator {
+public class MyMigratorXML extends MyAbstractMigrator{
 
 	final String LOG_TAG = "myLogs";
 
-	private static MyDBManager mDataBase;
-	private static MyFragmentBackend mFragmentBackend;
-
-	// режим импорта - для добавления записей (1) или полного обновления (2)
-	public final int MODE_ACTION_ADD = 1;
-	public final int MODE_ACTION_UPDATE = 2;
-	
-	//расширения для файлов различных типов
-	private final String TYPE_XML = ".xml";
-	private final String TYPE_CSV = ".csv";
-
 	// путь и имя файла импорта/экспорта
-	private final String FILEPATH = "/ProjectCommerce/";
-	private final String FILENAME = "db";
+	private final String FILEPATH = "/ProjectCommerce/";	
+	private final String FILENAME = "db.xml";
 
 	// TODO: Техническое задание:
 	// 1. Доступ к импорту/экспорту осуществляется через меню фрагмента Backend
@@ -80,12 +69,14 @@ public class MyDataMigrator {
 	 * @param mFragmentBackend
 	 *            ссылка на FragmentBackend для перезаписи адаптера ListView
 	 */
-	public MyDataMigrator(MyDBManager mDataBase,
+	public MyMigratorXML(MyDBManager mDataBase,
 			MyFragmentBackend mFragmentBackend) {
 		super();
 		this.mDataBase = mDataBase;
 		this.mFragmentBackend = mFragmentBackend;
 	}
+	
+	
 
 	/**
 	 * Импорт XML
@@ -96,7 +87,7 @@ public class MyDataMigrator {
 	 *            адрес xml файла в сети
 	 * @return true если импорт выполнен без ошибок
 	 */
-	public boolean ImportXML(int mode, URI webLoad) {
+	public boolean ImportData(int mode, URI webLoad) {
 		if (webLoad == null) {
 			try {
 				XmlPullParser xpp = null;
@@ -109,11 +100,11 @@ public class MyDataMigrator {
 					// mFragmentBackend.getResources().openRawResource(R.raw.data);
 					File file = new File(
 							Environment.getExternalStorageDirectory()
-									+ FILEPATH + FILENAME + TYPE_XML);
+									+ FILEPATH + FILENAME);
 					FileInputStream fis = new FileInputStream(file);
 					xpp.setInput(new InputStreamReader(fis));
 
-					if (mode == MODE_ACTION_UPDATE)
+					if (mode ==  MODE_ACTION_UPDATE)
 						mDataBase.delRecord();
 					Log.d(LOG_TAG, "Данные в БД перед импортом очищены");
 				} catch (Exception e) {
@@ -154,22 +145,13 @@ public class MyDataMigrator {
 		return false;
 	}
 
-	/**
-	 * Перегрузка метода импорта при размещении файла на SD-карте
-	 * 
-	 * @param mode
-	 *            добавление или перезапись
-	 */
-	public boolean ImportXML(int mode) {
-		return ImportXML(mode, null);
-	}
-
+	
 	/**
 	 * Экспорт базы в виде файла XML на SD-карту
 	 * 
 	 * @return успешный или неудачный экспорт
 	 */
-	public boolean ExportXML() {
+	public boolean ExportData() {
 		Cursor mData = mDataBase.getData();
 
 		// проверяем, доступна ли карта памяти
@@ -203,7 +185,7 @@ public class MyDataMigrator {
 			// дописываем конечный тег
 			xmlString.append("</data>");
 			Log.d(LOG_TAG, "Лог из экспорта " + xmlString.toString());
-			return writeFile(xmlString.toString(),TYPE_XML);
+			return writeFile(xmlString.toString());
 		}
 		return false;
 	}
@@ -218,11 +200,11 @@ public class MyDataMigrator {
 	 * 			  расширение файла (выбрать из констант)
 	 * @return результат записи: успешно или нет
 	 */
-	private boolean writeFile(String saveString, String type) {
+	private boolean writeFile(String saveString) {
 
 		try {
 			File sdFile = new File(Environment.getExternalStorageDirectory()
-					+ FILEPATH, FILENAME + TYPE_XML);
+					+ FILEPATH, FILENAME);
 			// отрываем поток для записи
 			BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile));
 			// пишем данные

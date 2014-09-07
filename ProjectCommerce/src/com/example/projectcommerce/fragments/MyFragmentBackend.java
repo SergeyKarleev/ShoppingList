@@ -29,12 +29,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.projectcommerce.R;
+import com.example.projectcommerce.classes.MyAbstractMigrator;
 import com.example.projectcommerce.classes.MyDBManager;
-import com.example.projectcommerce.classes.MyDataMigrator;
+import com.example.projectcommerce.classes.MyMigratorXML;
 
 public class MyFragmentBackend extends ListFragment implements OnClickListener {
-
-	private static final String FILENAME = "DB.xml";
 
 	final String LOG_TAG = "myLogs";
 
@@ -43,18 +42,17 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	final int ACTION_UPDATE = 2;	
 
 	private Button btnAdd;
-	private Button btnImport;
-	private Button btnExport;
-
 	private DialogFragment mDialogFragmentCreate;
 	private DialogFragment mDialogFragmentEdit;
 
 	private MyFragmentBackend mContext;
-
-	MyDataMigrator mDataMigrator;
+	
 	MyDBManager mDataBase;
 	private Cursor mData;
 	SimpleCursorAdapter scAdapter;
+	
+	// лассы импорта/экспорта различных типов хранилища
+	MyMigratorXML mDataMigrator;
 
 	// TODO: сделать свой scAdapter.setViewBinder(new myBinder) класс,
 	// добавл€ющий к Count слово "штук"
@@ -89,7 +87,7 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 
 		// -------------------- Ѕлок работы с импорт/экспортом-----------//
 
-		mDataMigrator = new MyDataMigrator(mDataBase, this);
+		mDataMigrator = new MyMigratorXML(mDataBase, this);
 		return v;
 	}
 
@@ -135,23 +133,23 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	}	
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.importXMLPut:
-			if (mDataMigrator.ImportXML(mDataMigrator.MODE_ACTION_ADD))
+	public boolean onOptionsItemSelected(MenuItem item) {		
+		switch (item.getItemId()) {		
+		case R.id.importXMLPut:			
+			if (mDataMigrator.ImportData(mDataMigrator.MODE_ACTION_ADD))
 				updateListAdapter();
 			else 
 				Toast.makeText(getActivity(), "ќшибка импорта", Toast.LENGTH_SHORT).show();
 			break;
-		case R.id.importXMLReplace:
-			if (mDataMigrator.ImportXML(mDataMigrator.MODE_ACTION_UPDATE))
+		case R.id.importXMLReplace:			
+			if (mDataMigrator.ImportData(mDataMigrator.MODE_ACTION_UPDATE))
 				updateListAdapter();
 			else
 				Toast.makeText(getActivity(), "ќшибка импорта", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.exportXML:
 			//TODO: вызвать метод экспорта XML
-			if (mDataMigrator.ExportXML())
+			if (mDataMigrator.ExportData())
 				updateListAdapter();
 			else
 				Toast.makeText(getActivity(), "ќшибка экспорта", Toast.LENGTH_SHORT).show();
