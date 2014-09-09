@@ -7,6 +7,8 @@ import com.example.projectcommerce.R;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -32,6 +34,17 @@ public class MyPagerAdapter extends PagerAdapter {
 	private String mName;
 	private float mPrice;
 	private int mCount;
+
+	private final int BUY_OPERATION_START = 1;
+	private final int BUY_OPERATION_FINISH_TRUE = 2;
+	private final int BUY_OPERATION_FINISH_FALSE = 0;
+
+	private Handler h;
+
+	TextView tvModelPager;
+	TextView tvPricePager;
+	TextView tvCountPager;
+	Button btnBuyPager;
 
 	/**
 	 * Конструктор адаптера
@@ -60,37 +73,41 @@ public class MyPagerAdapter extends PagerAdapter {
 		LayoutInflater inflater = LayoutInflater.from(activity);
 		View v = inflater.inflate(R.layout.fr_pager, null);
 
-		TextView tvModelPager = (TextView) v.findViewById(R.id.tvModelPager);
-		TextView tvPricePager = (TextView) v.findViewById(R.id.tvPricePager);
-		TextView tvCountPager = (TextView) v.findViewById(R.id.tvCountPager);
-		Button btnBuyPager = (Button) v.findViewById(R.id.btnBuyPager);
-
-		/*
-		 * Data содержит выборку всех строк из БД, где Count>0;
-		 * mData.moveToPosition(position) перемещает курсор на строку с
-		 * позицией, совпадающей со значением номера текущей страницы во
-		 * ViewPager
-		 */
-
-		// TODO:обернуть строки заполнения TextView в отдельный метод
-		// TODO:настроить обработчик нажатия кнопки "Купить"
-
-		/*
-		 * mData.moveToPosition(position);
-		 * 
-		 * mId = mData.getLong(mData.getColumnIndex(mDataBase.PRODUCTS_ID));
-		 * mName = mData
-		 * .getString(mData.getColumnIndex(MyDBManager.PRODUCTS_NAME)); mPrice =
-		 * mData.getFloat(mData .getColumnIndex(MyDBManager.PRODUCTS_PRICE));
-		 * mCount =
-		 * mData.getInt(mData.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
-		 */
+		tvModelPager = (TextView) v.findViewById(R.id.tvModelPager);
+		tvPricePager = (TextView) v.findViewById(R.id.tvPricePager);
+		tvCountPager = (TextView) v.findViewById(R.id.tvCountPager);
+		btnBuyPager = (Button) v.findViewById(R.id.btnBuyPager);
 
 		mSetVariables(position);
 
-//		Log.d(LOG_TAG, "ID = " + mId + ", Name = " + mName + ", Price = "
-//				+ mPrice + ", Count = " + mCount + "; getCurrentItem "
-//				+ ((ViewPager) container).getCurrentItem());
+		// Реализуем Handler, работающий с двумя типами сообщений
+		// Покупка успешно завершена - обновляем адаптер для получения новых
+		// данных
+		// TODO: Покупка неудачна - откатываем изменения (надо ли?)
+
+		h = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+				case BUY_OPERATION_START:
+					btnBuyPager.setEnabled(false);
+					break;
+				case BUY_OPERATION_FINISH_TRUE:
+					btnBuyPager.setEnabled(true);
+					notifyDataSetChanged();
+					Toast.makeText(activity, "Проведение заказа успешно",
+							Toast.LENGTH_SHORT).show();
+					break;
+				case BUY_OPERATION_FINISH_FALSE:
+					Toast.makeText(activity,
+							"Проведение заказа завершилось неудачей",
+							Toast.LENGTH_SHORT).show();
+					break;
+				}
+			}
+
+		};
 
 		tvModelPager.setText(mName);
 		tvPricePager.setText(mPrice + " рублей");
@@ -99,23 +116,42 @@ public class MyPagerAdapter extends PagerAdapter {
 		// Добавляем наш View на ViewPager
 		((ViewPager) container).addView(v);
 
-		// TODO: Вынести кнопку в MyFragmentStorefront или реализовать обратный
-		// вызов?
 		btnBuyPager.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				if (mCount > 0) {
-
 					// записываем в переменные значения полей текущей страницы
 					mSetVariables(((ViewPager) container).getCurrentItem());
-					
-					mDataBase.editRecord(mId, mName, mPrice, mCount - 1);
-					mData = mDataBase.getDataNonEmpty();
-					mDataCount = mData.getCount();
-					Toast.makeText(activity, "Заказ успешно проведён",
-							Toast.LENGTH_SHORT).show();
-					notifyDataSetChanged();
+
+					// создаем поток для совершения покупки и изменения данных в
+					// БД
+					Thread thread = new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+
+							// посылаем сообщение Handler о начале транзакции
+							// (деактивируем кнопку "Купить")
+							h.sendEmptyMessage(BUY_OPERATION_START);
+
+							// в базе минусуем количество проданного товара,
+							// получаем новое количество и выдаем сообщение
+							// "успех", иначе сообщение "неудача"
+
+							try {
+								mDataBase.editRecord(mId, mName, mPrice,
+										mCount - 1);
+								mData = mDataBase.getDataNonEmpty();
+								mDataCount = mData.getCount();
+								h.sendEmptyMessage(BUY_OPERATION_FINISH_TRUE);
+							} catch (Exception e) {
+								h.sendEmptyMessage(BUY_OPERATION_FINISH_FALSE);
+							}
+
+						}
+					});
+					thread.start();
 				} else {
 					Toast.makeText(activity, "На складе нет данной модели",
 							Toast.LENGTH_SHORT).show();
