@@ -141,12 +141,14 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 			else 
 				Toast.makeText(getActivity(), "Ошибка импорта", Toast.LENGTH_SHORT).show();
 			break;
+			
 		case R.id.importXMLReplace:			
 			if (mDataMigrator.ImportData(mDataMigrator.MODE_ACTION_UPDATE))
 				updateListAdapter();
 			else
 				Toast.makeText(getActivity(), "Ошибка импорта", Toast.LENGTH_SHORT).show();
 			break;
+			
 		case R.id.exportXML:
 			//TODO: вызвать метод экспорта XML
 			if (mDataMigrator.ExportData())
