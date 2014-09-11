@@ -140,11 +140,12 @@ public class MyPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getItemPosition(Object object) {
+		//ошибка отработки метода при использовании AsyncTask
 		return POSITION_NONE;
 	}
 
 	// Вспомогательный класс для реализации действий с базой данных
-	public class MyThread extends AsyncTask<Void, Void, Void> {
+	private class MyThread extends AsyncTask<Void, Void, Void> {
 		
 		@Override
 		protected void onPreExecute() {
@@ -171,7 +172,8 @@ public class MyPagerAdapter extends PagerAdapter {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			bufferView.setEnabled(true);		
+			bufferView.setEnabled(true);	
+			notifyDataSetChanged();
 			Toast.makeText(activity, "Покупка совершена", Toast.LENGTH_SHORT).show();
 		}
 

@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.projectcommerce"
     android:versionCode="1"
-    android:versionName="0.091" >
+    android:versionName="0.092" >
 
-    <!-- Версия 0.100 реализация поддержки старых телефонов --> 
+    <!-- Версия 0.100 тестирования на разных моделях--> 
     
     <!-- Версия 0.090 оборачиваем в потоки "тяжелые" методы -->
     	<!-- Версия 0.091 покупка товара в отдельном потоке -->

@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.ListFragment;
@@ -187,22 +188,9 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	 * @param act
 	 *            производимое действие: добавление или обновление значения
 	 */
-	public void onGetRow(ContentValues cv, int act) {
-		switch (act) {
-		case ACTION_ADD:
-			mDataBase.addRecord(cv.getAsString("name"), cv.getAsFloat("price"),
-					cv.getAsInteger("count"));
-			break;
-		case ACTION_UPDATE:
-			mDataBase.editRecord(cv.getAsInteger("_id"),
-					cv.getAsString("name"), cv.getAsFloat("price"),
-					cv.getAsInteger("count"));
-			break;
-
-		default:
-			break;
-		}
-		updateListAdapter();
+	public void onGetRow(ContentValues cv, int act) {		
+		MyThread myThread =  new MyThread(cv, act);
+		myThread.execute();		
 	}
 
 	/**
@@ -213,6 +201,54 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	}
 
 	
+	private class MyThread extends AsyncTask<Void, Void, Void>{
+		
+		private ContentValues cv;
+		private int act;
+		
+		/** Конструктор создания потока для внесения изменений в базу
+		 * @param cv значения добавляемой/изменяемой строки
+		 * @param act действие: добавление или изменение
+		 */
+		public MyThread(ContentValues cv, int act) {
+			super();
+			this.cv = cv;
+			this.act = act;
+		}
+		
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			switch (act) {
+			case ACTION_ADD:
+				mDataBase.addRecord(cv.getAsString("name"), cv.getAsFloat("price"),
+						cv.getAsInteger("count"));
+				break;
+			case ACTION_UPDATE:
+				mDataBase.editRecord(cv.getAsInteger("_id"),
+						cv.getAsString("name"), cv.getAsFloat("price"),
+						cv.getAsInteger("count"));
+				break;
+
+			default:
+				break;
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			updateListAdapter();
+		}
+
+		
+
+		
+
+		
+		
+	}
 
 	
 
