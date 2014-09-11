@@ -157,8 +157,7 @@ public class MyPagerAdapter extends PagerAdapter {
 		
 		protected Void doInBackground(Void...params) {
 			
-			try {
-				Thread.sleep(5000);
+			try {				
 				mDataBase.editRecord(mId, mName, mPrice, mCount - 1);
 				mData = mDataBase.getDataNonEmpty();
 				mDataCount = mData.getCount();
