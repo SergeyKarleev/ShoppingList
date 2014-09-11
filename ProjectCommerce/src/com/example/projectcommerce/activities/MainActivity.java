@@ -53,23 +53,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-	}
-
-	@Override
-	protected void onDestroy() {
-		Log.d(LOG_TAG, "MainActivity onDestroy");
-		super.onDestroy();
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
