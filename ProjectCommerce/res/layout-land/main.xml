@@ -14,23 +14,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:padding="@dimen/btn_margin">
 
         <Button
             android:id="@+id/btnStoreFront"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_land_height"
+            android:layout_height="@dimen/btn_main_land_height"
+            android:layout_marginRight="@dimen/btn_margin"
             android:layout_weight="1"
-            android:textSize="@dimen/button_land_font_size"
-            android:text="@string/btnStoreFront" />
+            android:textSize="@dimen/btn_grand_land_font_size"
+            android:text="@string/btnStoreFront" 
+            android:background="@drawable/button_background"/>
 
         <Button
             android:id="@+id/btnBackEnd"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_land_height"
+            android:layout_height="@dimen/btn_main_land_height"
             android:layout_weight="1"
-            android:textSize="@dimen/button_land_font_size"
-            android:text="@string/btnBackEnd" />
+            android:textSize="@dimen/btn_grand_land_font_size"
+            android:text="@string/btnBackEnd" 
+            android:background="@drawable/button_background"/>
     </LinearLayout>
 
 </LinearLayout>

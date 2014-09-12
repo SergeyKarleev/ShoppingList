@@ -14,7 +14,7 @@
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_land_height"            
+            android:layout_height="@dimen/btn_main_land_height"            
             android:text="@string/btnAdd" />
     </LinearLayout>
 

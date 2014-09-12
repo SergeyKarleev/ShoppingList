@@ -22,24 +22,27 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
         /**  Параметры кнопок 
          */
-        public static final int button_land_font_size=0x7f040002;
-        public static final int button_land_height=0x7f040003;
-        public static final int item_arrow_size=0x7f04000a;
-        public static final int item_tvcount_size=0x7f040009;
-        public static final int item_tvmodel_size=0x7f040008;
+        public static final int btn_grand_land_font_size=0x7f040002;
+        public static final int button_height=0x7f040003;
+        public static final int button_land_height=0x7f040004;
+        public static final int button_margin=0x7f040005;
+        public static final int item_arrow_size=0x7f04000c;
+        public static final int item_tvcount_size=0x7f04000b;
+        public static final int item_tvmodel_size=0x7f04000a;
         /**  Диалог создания/редактирования модели 
          */
-        public static final int label_font_dialog=0x7f040004;
-        public static final int label_font_dialog_land=0x7f040005;
-        public static final int marginBottom_element_dialog=0x7f040006;
+        public static final int label_font_dialog=0x7f040006;
+        public static final int label_font_dialog_land=0x7f040007;
+        public static final int marginBottom_element_dialog=0x7f040008;
         /**  Размеры элементов в PagerAdapter 
          */
-        public static final int text_size_pageradapter=0x7f040007;
+        public static final int text_size_pageradapter=0x7f040009;
     }
     public static final class drawable {
         public static final int btn_normal=0x7f020000;
         public static final int btn_pressed=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
+        public static final int button_background=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
         public static final int action_settings=0x7f08000f;
