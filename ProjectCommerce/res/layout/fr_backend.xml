@@ -16,7 +16,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
-            android:text="+" />
+            android:text="@string/btnAdd" />
     </LinearLayout>
 
     <!-- Организовать появляющийся бегунок при прокрутке ListView -->
@@ -35,6 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Отсутствуют товары на складе" />
+        android:text="@string/listViewBackEnd"/>
 
 </LinearLayout>

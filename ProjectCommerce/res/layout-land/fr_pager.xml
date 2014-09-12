@@ -10,7 +10,7 @@
         android:layout_height="45dp"
         android:layout_weight="1"
         android:text="Здесь отображается модель устройства"
-        android:textSize="15dp" />
+        android:textSize="@dimen/text_size_pageradapter" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="Цена"
-            android:textSize="15dp" />
+            android:textSize="@dimen/text_size_pageradapter" />
 
         <TextView
             android:id="@+id/tvPricePager"
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="Количество"
-            android:textSize="15dp" />
+            android:text="@string/modelCount"
+            android:textSize="@dimen/text_size_pageradapter" />
 
         <TextView
             android:id="@+id/tvCountPager"
@@ -67,8 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"        
         android:layout_gravity="center"
-        android:textSize="15dp"
-        android:text="Купить" />
+        android:textSize="@dimen/text_size_pageradapter"
+        android:text="@string/btnBuyPager" />
     
     <TextView 
         android:layout_width="match_parent"

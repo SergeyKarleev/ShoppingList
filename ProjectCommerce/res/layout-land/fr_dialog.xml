@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        
         android:orientation="horizontal" >
 
         <Button
@@ -17,30 +17,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Отменить"
-            android:textSize="16dp" />
+            android:text="@string/btnCancel"
+            android:textSize="@dimen/button_land_font_size" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Сохранить"
-            android:textSize="16dp" />
+            android:text="@string/btnSave"
+            android:textSize="@dimen/button_land_font_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"        
+        android:layout_marginTop="15dp"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:text="Название"
-            android:textSize="16dp" />
+            android:text="@string/modelName"
+            android:textSize="@dimen/label_font_dialog_land" />
 
         <EditText
             android:id="@+id/etName"
@@ -60,33 +60,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Цена"
-            android:textSize="16dp" />
+            android:text="@string/modelPrice"
+            android:textSize="@dimen/label_font_dialog_land" />
 
         <EditText
             android:id="@+id/etPrice"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_weight="1"           
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:inputType="numberDecimal"
             android:numeric="decimal" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"            
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Количество"            
-            android:textSize="16dp" />
-
-        <!-- вместо etCount можно реализовать DatePicker -->
+            android:text="@string/modelCount"
+            android:textSize="@dimen/label_font_dialog_land" />       
 
         <EditText
             android:id="@+id/etCount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_weight="1"           
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:inputType="numberSigned"
-            android:numeric="integer"             />
+            android:numeric="integer" />
     </LinearLayout>
 
 </LinearLayout>

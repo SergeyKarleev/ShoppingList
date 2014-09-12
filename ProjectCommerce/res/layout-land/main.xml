@@ -19,18 +19,18 @@
         <Button
             android:id="@+id/btnStoreFront"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/button_land_height"
             android:layout_weight="1"
-            android:textSize="16dp"
-            android:text="Store-Front" />
+            android:textSize="@dimen/button_land_font_size"
+            android:text="@string/btnStoreFront" />
 
         <Button
             android:id="@+id/btnBackEnd"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="@dimen/button_land_height"
             android:layout_weight="1"
-            android:textSize="16dp"
-            android:text="Back-End" />
+            android:textSize="@dimen/button_land_font_size"
+            android:text="@string/btnBackEnd" />
     </LinearLayout>
 
 </LinearLayout>

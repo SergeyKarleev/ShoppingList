@@ -13,7 +13,7 @@
             android:layout_height="75dp"
             android:layout_weight="10"
             android:text="model"
-            android:textSize="20dp" />
+            android:textSize="@dimen/item_tvmodel_size"/>
 
         <TextView
             android:id="@+id/tvCount"
@@ -22,13 +22,13 @@
             android:gravity="center_vertical"
             android:text=""
             android:textColor="@android:color/darker_gray"
-            android:textSize="14dp" />
+            android:textSize="@dimen/item_tvcount_size"/>
 
         <TextView
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text=">"
-            android:textSize="28dp" />
+            android:textSize="@dimen/item_arrow_size"/>
     </TableRow>
 
 </TableLayout>
