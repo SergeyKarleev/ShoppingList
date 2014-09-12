@@ -30,17 +30,7 @@ public class MyPagerAdapter extends PagerAdapter {
 	private int mDataCount;
 	private Cursor mData;
 	private MyDBManager mDataBase;
-
-	private long mId;
-	private String mName;
-	private float mPrice;
-	private int mCount;
-
-	private final int BUY_OPERATION_START = 1;
-	private final int BUY_OPERATION_FINISH_TRUE = 2;
-	private final int BUY_OPERATION_FINISH_FALSE = 0;
-
-	View bufferView;
+	
 
 	/**
 	 * Конструктор адаптера
@@ -54,7 +44,6 @@ public class MyPagerAdapter extends PagerAdapter {
 	public MyPagerAdapter(Context activity, MyDBManager mDataBase) {
 		super();
 		this.activity = activity;
-
 		this.mDataBase = mDataBase;
 		mData = mDataBase.getDataNonEmpty();
 		mDataCount = mData.getCount();
@@ -64,60 +53,58 @@ public class MyPagerAdapter extends PagerAdapter {
 	 * Метод возвращает View страницы для ViewPager
 	 */
 
-	public Object instantiateItem(final ViewGroup container, int position) {
+	public Object instantiateItem(final ViewGroup container, final int position) {
 
 		LayoutInflater inflater = LayoutInflater.from(activity);
 		View v = inflater.inflate(R.layout.fr_pager, null);
+
+		// Извлекаем значения из строки в БД, номер которой совпадает с позицией
+		// страницы во ViewPager
+		mData.moveToPosition(position);
+		final String mName = mData.getString(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_NAME));
+		final float mPrice = mData.getFloat(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
+		final int mCount = mData.getInt(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
 
 		TextView tvModelPager = (TextView) v.findViewById(R.id.tvModelPager);
 		TextView tvPricePager = (TextView) v.findViewById(R.id.tvPricePager);
 		TextView tvCountPager = (TextView) v.findViewById(R.id.tvCountPager);
 		Button btnBuyPager = (Button) v.findViewById(R.id.btnBuyPager);
+		btnBuyPager.setOnClickListener(new OnClickListener() {
 
-		mSetVariables(position);
+			@Override
+			public void onClick(View v) {
+				if (mCount > 0) {					
+					MyThread myThread = new MyThread(v, position);
+					myThread.execute();
 
+				} else {
+					Toast.makeText(activity, "На складе нет данной модели",
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		// Записываем в элементы значения из БД
 		tvModelPager.setText(mName);
 		tvPricePager.setText(mPrice + " рублей");
 		tvCountPager.setText(mCount + " штук");
 
 		// Добавляем наш View на ViewPager
 		((ViewPager) container).addView(v);
-
-		btnBuyPager.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (mCount > 0) {
-					
-					// записываем в переменные значения полей текущей страницы
-					mSetVariables(((ViewPager) container).getCurrentItem());
-					
-					bufferView = v;
-					 MyThread myThread = new MyThread();
-					 myThread.execute();
-
-				} else {
-					Toast.makeText(activity, "На складе нет данной модели",
-							Toast.LENGTH_SHORT).show();
-				}
-
-			}
-		});
-
 		return v;
 	}
 
-	// Установка переменных исходя из позиции курсора
-	private void mSetVariables(int position) {
-		mData.moveToPosition(position);
+	// Обработчик нажатия кнопки "Купить"
+	OnClickListener onClickBuy = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
 
-		mId = mData.getLong(mData.getColumnIndex(mDataBase.PRODUCTS_ID));
-		mName = mData
-				.getString(mData.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-		mPrice = mData.getFloat(mData
-				.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
-		mCount = mData.getInt(mData.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
-	}
+		}
+
+	};
 
 	// Удаляем нашу страницу из ViewPager
 	@Override
@@ -140,24 +127,49 @@ public class MyPagerAdapter extends PagerAdapter {
 
 	@Override
 	public int getItemPosition(Object object) {
-		//ошибка отработки метода при использовании AsyncTask
+		// ошибка отработки метода при использовании AsyncTask
 		return POSITION_NONE;
 	}
 
-	// Вспомогательный класс для реализации действий с базой данных
+	// Вспомогательный класс, создание потока для реализации действий с базой
+	// данных
 	private class MyThread extends AsyncTask<Void, Void, Void> {
+
+		private View bufferView;
+		private int position;
 		
+		private long mId;
+		private String mName;
+		private float mPrice;
+		private int mCount;
+				
+		public MyThread(View bufferView, int position) {
+			super();
+			this.bufferView = bufferView;
+			this.position = position;
+		}
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			// деактивируем кнопку Купить
-			bufferView.setEnabled(false);		
+			bufferView.setEnabled(false);
 			
+			//устанавливаем значения переменных (параметров текущего устройства)
+			mData.moveToPosition(position);
+			mId = mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID));
+			mName = mData.getString(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
+			mPrice = mData.getFloat(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
+			mCount = mData.getInt(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
 		}
-		
-		protected Void doInBackground(Void...params) {
-			
-			try {				
+
+		protected Void doInBackground(Void... params) {
+
+			try {
+				Thread.sleep(5000);
 				mDataBase.editRecord(mId, mName, mPrice, mCount - 1);
 				mData = mDataBase.getDataNonEmpty();
 				mDataCount = mData.getCount();
@@ -167,13 +179,14 @@ public class MyPagerAdapter extends PagerAdapter {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			bufferView.setEnabled(true);	
+			bufferView.setEnabled(true);
 			notifyDataSetChanged();
-			Toast.makeText(activity, "Покупка совершена", Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity, "Покупка совершена", Toast.LENGTH_SHORT)
+					.show();
 		}
 
 	}
