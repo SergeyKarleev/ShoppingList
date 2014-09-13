@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="@dimen/pager_padding" >
 
     <TextView
         android:id="@+id/tvModelPager"
@@ -10,7 +11,7 @@
         android:layout_height="45dp"
         android:layout_weight="1"
         android:text="Здесь отображается модель устройства"
-        android:textSize="@dimen/text_size_pageradapter" />
+        android:textSize="@dimen/text_size_pageradapter_land" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +25,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="Цена"
-            android:textSize="@dimen/text_size_pageradapter" />
+            android:textSize="@dimen/text_size_pageradapter_land" />
 
         <TextView
             android:id="@+id/tvPricePager"
@@ -49,7 +50,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="@string/modelCount"
-            android:textSize="@dimen/text_size_pageradapter" />
+            android:textSize="@dimen/text_size_pageradapter_land" />
 
         <TextView
             android:id="@+id/tvCountPager"
@@ -65,10 +66,10 @@
     <Button
         android:id="@+id/btnBuyPager"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/text_size_pageradapter"
-        android:text="@string/btnBuyPager" />
+        android:layout_weight="2"
+        android:background="@drawable/btn_buy" />
     
     <TextView 
         android:layout_width="match_parent"

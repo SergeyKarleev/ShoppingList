@@ -29,9 +29,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);		
-		
-		//создаем базу данных с начальными значениями и сразу закрываем
+		setContentView(R.layout.main);
+
+		// создаем базу данных с начальными значениями и сразу закрываем
 		MyDBManager mDataBase = new MyDBManager(this);
 		mDataBase.close();
 
@@ -52,7 +52,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

@@ -20,6 +20,7 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
+        public static final int btn_buy_size=0x7f04000d;
         public static final int btn_grand_land_font_size=0x7f040005;
         /**  Параметры кнопок 
          */
@@ -34,20 +35,22 @@ public final class R {
         public static final int label_font_dialog=0x7f040006;
         public static final int label_font_dialog_land=0x7f040007;
         public static final int marginBottom_element_dialog=0x7f040008;
+        public static final int pager_padding=0x7f04000e;
         /**  Размеры элементов в PagerAdapter 
          */
-        public static final int text_size_pageradapter=0x7f040009;
+        public static final int text_size_pageradapter_land=0x7f040009;
     }
     public static final class drawable {
         public static final int btn_add=0x7f020000;
         public static final int btn_add_normal=0x7f020001;
         public static final int btn_add_pressed=0x7f020002;
-        public static final int btn_buy_normal=0x7f020003;
-        public static final int btn_buy_pressed=0x7f020004;
-        public static final int btn_normal=0x7f020005;
-        public static final int btn_pressed=0x7f020006;
-        public static final int button_background=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
+        public static final int btn_buy=0x7f020003;
+        public static final int btn_buy_normal=0x7f020004;
+        public static final int btn_buy_pressed=0x7f020005;
+        public static final int btn_normal=0x7f020006;
+        public static final int btn_pressed=0x7f020007;
+        public static final int button_background=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
     }
     public static final class id {
         public static final int action_settings=0x7f08000f;
@@ -90,7 +93,6 @@ public final class R {
         public static final int action_settings=0x7f050003;
         public static final int app_name=0x7f050001;
         public static final int btnBackEnd=0x7f05000c;
-        public static final int btnBuyPager=0x7f05000f;
         public static final int btnCancel=0x7f05000d;
         public static final int btnSave=0x7f05000e;
         /**  Тексты кнопок в приложении 
@@ -105,17 +107,17 @@ public final class R {
         public static final int hello_world=0x7f050002;
         /**  Содержание текстовых элементов по-умолчанию 
          */
-        public static final int listViewBackEnd=0x7f050010;
+        public static final int listViewBackEnd=0x7f05000f;
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f050004;
-        public static final int modelCount=0x7f050014;
+        public static final int modelCount=0x7f050013;
         /**  Метки диалог-фрагмента 
          */
-        public static final int modelName=0x7f050012;
-        public static final int modelPrice=0x7f050013;
+        public static final int modelName=0x7f050011;
+        public static final int modelPrice=0x7f050012;
         public static final int pkg_name=0x7f050000;
-        public static final int tvModelPager=0x7f050011;
+        public static final int tvModelPager=0x7f050010;
     }
     public static final class style {
         /** 
@@ -144,5 +146,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
+        public static final int pager_font_style=0x7f060002;
     }
 }

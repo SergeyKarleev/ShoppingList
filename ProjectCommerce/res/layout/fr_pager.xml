@@ -2,28 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="@dimen/pager_padding" >
 
     <TextView
         android:id="@+id/tvModelPager"
+        style="@style/pager_font_style"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_weight="1"
-        android:text="@string/tvModelPager"
-        android:textSize="@dimen/text_size_pageradapter"/>
+        android:text="@string/tvModelPager" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_weight="1">
+        android:layout_weight="1" >
 
         <TextView
+            style="@style/pager_font_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="@string/modelPrice"
-            android:textSize="@dimen/text_size_pageradapter"/>
+            android:text="@string/modelPrice" />
 
         <TextView
             android:id="@+id/tvPricePager"
@@ -39,16 +40,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp" >
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" >
 
         <TextView
+            style="@style/pager_font_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="@string/modelCount"
-            android:textSize="@dimen/text_size_pageradapter" />
+            android:text="@string/modelCount" />
 
         <TextView
             android:id="@+id/tvCountPager"
@@ -63,15 +64,9 @@
 
     <Button
         android:id="@+id/btnBuyPager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
+        android:layout_width="@dimen/btn_buy_size"
+        android:layout_height="@dimen/btn_buy_size"
         android:layout_gravity="center"
-        android:textSize="@dimen/text_size_pageradapter"
-        android:text="@string/btnBuyPager"/>
-    
-    <TextView 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="4"/>
+        android:background="@drawable/btn_buy" />
 
 </LinearLayout>

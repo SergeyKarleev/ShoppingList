@@ -19,8 +19,7 @@
     <string name="btnStoreFront">Store-Front</string>
     <string name="btnBackEnd">Back-End</string>    
     <string name="btnCancel">Отменить</string>
-    <string name="btnSave">Сохранить</string>
-    <string name="btnBuyPager">Купить</string>
+    <string name="btnSave">Сохранить</string>    
 
     <!-- Содержание текстовых элементов по-умолчанию -->
     <string name="listViewBackEnd">Отсутствуют товары на складе</string>
