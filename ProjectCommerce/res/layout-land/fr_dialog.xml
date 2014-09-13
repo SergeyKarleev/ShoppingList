@@ -8,25 +8,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content"        
+        android:orientation="horizontal" 
+        android:padding="@dimen/btn_margin">
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/btn_main_land_height"
             android:layout_weight="1"
+            android:layout_marginRight="3dp"
             android:text="@string/btnCancel"
-            android:textSize="@dimen/btn_grand_land_font_size" />
+            android:textSize="@dimen/btn_grand_land_font_size" 
+            android:background="@drawable/button_background"/>
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/btn_main_land_height"
             android:layout_weight="1"
             android:text="@string/btnSave"
-            android:textSize="@dimen/btn_grand_land_font_size" />
+            android:textSize="@dimen/btn_grand_land_font_size" 
+            android:background="@drawable/button_background"/>
     </LinearLayout>
 
     <LinearLayout
