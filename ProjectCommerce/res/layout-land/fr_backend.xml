@@ -7,15 +7,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
+        android:background="#E6E6FA"
         android:gravity="right"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/btn_main_land_height"            
-            android:text="@string/btnAdd" />
+            android:layout_height="wrap_content"            
+            android:background="@drawable/btn_add" />
     </LinearLayout>
 
     <!-- Организовать появляющийся бегунок при прокрутке ListView -->
