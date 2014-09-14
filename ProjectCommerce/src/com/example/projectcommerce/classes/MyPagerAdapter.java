@@ -89,12 +89,26 @@ public class MyPagerAdapter extends PagerAdapter {
 
 		// Записываем в элементы значения из БД
 		tvModelPager.setText(mName);
-		tvPricePager.setText(mPrice + " рублей");
-		tvCountPager.setText(mCount + " штук");
+		tvPricePager.setText(mPrice + " рублей");		
+		tvCountPager.setText(mCount + setSign(mCount));
 
 		// Добавляем наш View на ViewPager
 		((ViewPager) container).addView(v);
 		return v;
+	}
+
+	/** Определяет слово "штука" в правильную форму
+	 * @param cnt количество
+	 * @return слово в правильной форме
+	 */
+	private String setSign(int cnt) {
+		int rem = cnt%10;
+		if (rem==1){
+			return " штука";
+		}else if ((rem==2)||(rem==3)||(rem==4)) {
+			return " штуки";
+		}		
+		return " штук";
 	}
 
 	// Обработчик нажатия кнопки "Купить"
