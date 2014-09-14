@@ -15,20 +15,19 @@
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_main_land_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="3dp"
-            android:text="@string/btnCancel"
-            android:textSize="@dimen/btn_grand_land_font_size" 
+            android:text="@string/btnCancel"  
             android:background="@drawable/button_background"/>
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_main_land_height"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/btnSave"
-            android:textSize="@dimen/btn_grand_land_font_size" 
+  
             android:background="@drawable/button_background"/>
     </LinearLayout>
 
@@ -36,12 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:padding="@dimen/label_padding">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="3"
             android:text="@string/modelName"
             android:textSize="@dimen/label_font_dialog_land" />
 
@@ -57,12 +57,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="@dimen/label_padding" >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1"            
             android:text="@string/modelPrice"
             android:textSize="@dimen/label_font_dialog_land" />
 
@@ -77,7 +78,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
+            android:gravity="right"
             android:text="@string/modelCount"
             android:textSize="@dimen/label_font_dialog_land" />       
 

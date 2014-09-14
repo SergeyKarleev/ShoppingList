@@ -20,21 +20,21 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
+        public static final int btn_add_size=0x7f040004;
         public static final int btn_buy_size=0x7f04000d;
-        public static final int btn_grand_land_font_size=0x7f040005;
         /**  Параметры кнопок 
          */
         public static final int btn_main_height=0x7f040002;
-        public static final int btn_main_land_height=0x7f040003;
-        public static final int btn_margin=0x7f040004;
+        public static final int btn_margin=0x7f040003;
         public static final int item_arrow_size=0x7f04000c;
         public static final int item_tvcount_size=0x7f04000b;
         public static final int item_tvmodel_size=0x7f04000a;
         /**  Диалог создания/редактирования модели 
          */
-        public static final int label_font_dialog=0x7f040006;
-        public static final int label_font_dialog_land=0x7f040007;
-        public static final int marginBottom_element_dialog=0x7f040008;
+        public static final int label_font_dialog=0x7f040005;
+        public static final int label_font_dialog_land=0x7f040006;
+        public static final int label_padding=0x7f040008;
+        public static final int marginBottom_element_dialog=0x7f040007;
         public static final int pager_padding=0x7f04000e;
         /**  Размеры элементов в PagerAdapter 
          */
@@ -105,6 +105,7 @@ public final class R {
         public static final int fragment_storefront=0x7f050007;
         public static final int fragment_universal=0x7f050008;
         public static final int hello_world=0x7f050002;
+        public static final int item_arrow=0x7f050015;
         /**  Содержание текстовых элементов по-умолчанию 
          */
         public static final int listViewBackEnd=0x7f05000f;
@@ -118,6 +119,9 @@ public final class R {
         public static final int modelPrice=0x7f050012;
         public static final int pkg_name=0x7f050000;
         public static final int tvModelPager=0x7f050010;
+        /**  item.xml 
+         */
+        public static final int tvModel_name=0x7f050014;
     }
     public static final class style {
         /** 

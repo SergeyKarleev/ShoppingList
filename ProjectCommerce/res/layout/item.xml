@@ -10,9 +10,10 @@
         <TextView
             android:id="@+id/tvModel"
             android:layout_width="50dp"
-            android:layout_height="75dp"
+            android:layout_height="55dp"
             android:layout_weight="10"
-            android:text="model"
+            android:textStyle="bold"
+            android:text="@string/tvModel_name"
             android:textSize="@dimen/item_tvmodel_size"/>
 
         <TextView
@@ -27,7 +28,7 @@
         <TextView
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text=">"
+            android:text="@string/item_arrow"
             android:textSize="@dimen/item_arrow_size"/>
     </TableRow>
 

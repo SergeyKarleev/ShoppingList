@@ -14,12 +14,10 @@
         <Button
             android:id="@+id/btnAdd"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_add" />
+            android:layout_width="@dimen/btn_add_size"
+            android:layout_height="@dimen/btn_add_size"
+            android:background="@drawable/btn_add"/>
     </LinearLayout>
-
-    <!-- Организовать появляющийся бегунок при прокрутке ListView -->
 
     <ListView
         android:id="@id/android:list"

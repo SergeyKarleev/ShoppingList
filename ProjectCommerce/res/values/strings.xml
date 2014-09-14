@@ -29,5 +29,9 @@
     <string name="modelName">Название</string>
     <string name="modelPrice">Цена</string>
     <string name="modelCount">Количество</string>
+    
+    <!-- item.xml -->
+    <string name="tvModel_name">model</string>
+    <string name="item_arrow">></string>
 
 </resources>
