@@ -22,5 +22,8 @@
     <dimen name="item_arrow_size">24dp</dimen>
     <dimen name="btn_buy_size">100dp</dimen>
     <dimen name="pager_padding">14dp</dimen>
+    
+    <!-- item.xml -->
+    <dimen name="arrow_size">18dp</dimen>
 
 </resources>

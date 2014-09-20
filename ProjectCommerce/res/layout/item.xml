@@ -25,11 +25,12 @@
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/item_tvcount_size"/>
 
-        <TextView
-            android:layout_height="match_parent"
+        <ImageView 
+            android:layout_height="@dimen/arrow_size"
+            android:layout_width="@dimen/arrow_size"
             android:layout_weight="1"
-            android:text="@string/item_arrow"
-            android:textSize="@dimen/item_arrow_size"/>
+            android:layout_gravity="center"
+            android:src="@drawable/arrow"/>               
     </TableRow>
 
 </TableLayout>

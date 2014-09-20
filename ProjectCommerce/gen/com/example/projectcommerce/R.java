@@ -20,6 +20,9 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
+        /**  item.xml 
+         */
+        public static final int arrow_size=0x7f04000f;
         public static final int btn_add_size=0x7f040004;
         public static final int btn_buy_size=0x7f04000d;
         /**  Параметры кнопок 
@@ -41,19 +44,19 @@ public final class R {
         public static final int text_size_pageradapter_land=0x7f040009;
     }
     public static final class drawable {
-        public static final int btn_add=0x7f020000;
-        public static final int btn_add_normal=0x7f020001;
-        public static final int btn_add_pressed=0x7f020002;
-        public static final int btn_buy=0x7f020003;
-        public static final int btn_buy_normal=0x7f020004;
-        public static final int btn_buy_pressed=0x7f020005;
-        public static final int btn_normal=0x7f020006;
-        public static final int btn_pressed=0x7f020007;
-        public static final int button_background=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
+        public static final int arrow=0x7f020000;
+        public static final int btn_add=0x7f020001;
+        public static final int btn_add_normal=0x7f020002;
+        public static final int btn_add_pressed=0x7f020003;
+        public static final int btn_buy=0x7f020004;
+        public static final int btn_buy_normal=0x7f020005;
+        public static final int btn_buy_pressed=0x7f020006;
+        public static final int btn_normal=0x7f020007;
+        public static final int btn_pressed=0x7f020008;
+        public static final int button_background=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
         public static final int btnAdd=0x7f080000;
         public static final int btnBackEnd=0x7f08000e;
         public static final int btnBuyPager=0x7f080009;
@@ -63,13 +66,13 @@ public final class R {
         public static final int etCount=0x7f080005;
         public static final int etName=0x7f080003;
         public static final int etPrice=0x7f080004;
-        public static final int exportXML=0x7f080016;
-        public static final int importWEBPut=0x7f080013;
-        public static final int importWEBReplace=0x7f080014;
-        public static final int importXMLPut=0x7f080011;
-        public static final int importXMLReplace=0x7f080012;
-        public static final int menuExport=0x7f080015;
-        public static final int menuImport=0x7f080010;
+        public static final int exportXML=0x7f080015;
+        public static final int importWEBPut=0x7f080012;
+        public static final int importWEBReplace=0x7f080013;
+        public static final int importXMLPut=0x7f080010;
+        public static final int importXMLReplace=0x7f080011;
+        public static final int menuExport=0x7f080014;
+        public static final int menuImport=0x7f08000f;
         public static final int pager=0x7f08000a;
         public static final int tvCount=0x7f08000c;
         public static final int tvCountPager=0x7f080008;
@@ -86,42 +89,39 @@ public final class R {
         public static final int main=0x7f030005;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
-        public static final int mymenu=0x7f070001;
+        public static final int mymenu=0x7f070000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050003;
         public static final int app_name=0x7f050001;
-        public static final int btnBackEnd=0x7f05000c;
-        public static final int btnCancel=0x7f05000d;
-        public static final int btnSave=0x7f05000e;
+        public static final int btnBackEnd=0x7f05000a;
+        public static final int btnCancel=0x7f05000b;
+        public static final int btnSave=0x7f05000c;
         /**  Тексты кнопок в приложении 
          */
-        public static final int btnStoreFront=0x7f05000b;
-        public static final int fragment_backend=0x7f050005;
-        public static final int fragment_dialog=0x7f050009;
-        public static final int fragment_navigation=0x7f050006;
-        public static final int fragment_pager=0x7f05000a;
-        public static final int fragment_storefront=0x7f050007;
-        public static final int fragment_universal=0x7f050008;
-        public static final int hello_world=0x7f050002;
-        public static final int item_arrow=0x7f050015;
+        public static final int btnStoreFront=0x7f050009;
+        public static final int dialogTitle=0x7f050012;
+        public static final int fragment_backend=0x7f050003;
+        public static final int fragment_dialog=0x7f050007;
+        public static final int fragment_navigation=0x7f050004;
+        public static final int fragment_pager=0x7f050008;
+        public static final int fragment_storefront=0x7f050005;
+        public static final int fragment_universal=0x7f050006;
         /**  Содержание текстовых элементов по-умолчанию 
          */
-        public static final int listViewBackEnd=0x7f05000f;
+        public static final int listViewBackEnd=0x7f05000d;
         /**  ID всех активити и фрагментов 
          */
-        public static final int mainActivity=0x7f050004;
-        public static final int modelCount=0x7f050013;
+        public static final int mainActivity=0x7f050002;
+        public static final int modelCount=0x7f050011;
         /**  Метки диалог-фрагмента 
          */
-        public static final int modelName=0x7f050011;
-        public static final int modelPrice=0x7f050012;
+        public static final int modelName=0x7f05000f;
+        public static final int modelPrice=0x7f050010;
         public static final int pkg_name=0x7f050000;
-        public static final int tvModelPager=0x7f050010;
+        public static final int tvModelPager=0x7f05000e;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f050014;
+        public static final int tvModel_name=0x7f050013;
     }
     public static final class style {
         /** 

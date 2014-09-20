@@ -72,7 +72,7 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		getDialog().setTitle("Устройство");
+		getDialog().setTitle(R.string.dialogTitle);
 		View v = inflater.inflate(R.layout.fr_dialog, null);
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnSave).setOnClickListener(this);

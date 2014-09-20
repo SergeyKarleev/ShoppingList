@@ -2,9 +2,7 @@
 <resources>
 
     <string name="pkg_name">com.example.backend</string>
-    <string name="app_name">ProjectCommerce</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Список покупок</string>    
 
     <!-- ID всех активити и фрагментов -->
     <string name="mainActivity">MainActivity</string>
@@ -16,22 +14,22 @@
     <string name="fragment_pager">MyFragmentPager</string>
 
     <!-- Тексты кнопок в приложении -->
-    <string name="btnStoreFront">Store-Front</string>
-    <string name="btnBackEnd">Back-End</string>    
+    <string name="btnStoreFront">Магазин</string>
+    <string name="btnBackEnd">Список покупок</string>    
     <string name="btnCancel">Отменить</string>
     <string name="btnSave">Сохранить</string>    
 
     <!-- Содержание текстовых элементов по-умолчанию -->
-    <string name="listViewBackEnd">Отсутствуют товары на складе</string>
-    <string name="tvModelPager">Здесь отображается модель устройства</string>
+    <string name="listViewBackEnd">Список покупок пуст</string>
+    <string name="tvModelPager">Здесь отображается название товара</string>
     
     <!-- Метки диалог-фрагмента -->
     <string name="modelName">Название</string>
     <string name="modelPrice">Цена</string>
     <string name="modelCount">Количество</string>
+    <string name="dialogTitle">Продукты</string>
     
     <!-- item.xml -->
-    <string name="tvModel_name">model</string>
-    <string name="item_arrow">></string>
+    <string name="tvModel_name">Товар</string>   
 
 </resources>
