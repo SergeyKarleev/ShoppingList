@@ -24,6 +24,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Environment;
+import android.provider.ContactsContract.Directory;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -163,6 +164,7 @@ public class MyMigratorXML extends MyAbstractMigrator{
 			return false;
 		}
 		if (mData != null) {
+			
 			// создаем стрингбилдер для постепенного заполнения xml строки
 			StringBuilder xmlString = new StringBuilder();
 			// записываем начальный тег
@@ -203,8 +205,14 @@ public class MyMigratorXML extends MyAbstractMigrator{
 	private boolean writeFile(String saveString) {
 
 		try {
+			//Создаем каталог миграции данных на карте памяти
+			File sdPath = Environment.getExternalStorageDirectory();
+			sdPath = new File(sdPath.getAbsolutePath()+"/"+FILEPATH);
+			sdPath.mkdirs();
+			
 			File sdFile = new File(Environment.getExternalStorageDirectory()
 					+ FILEPATH, FILENAME);
+			
 			// отрываем поток для записи
 			BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile));
 			// пишем данные

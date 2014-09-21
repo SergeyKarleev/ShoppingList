@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.projectcommerce"
     android:versionCode="1"
-    android:versionName="1.000" >
+    android:versionName="1.001" >
 
     <!-- Версия 1.000 релиз списка покупок, опытная эксплуатация -->
-    
+    	<!-- Версия 1.001 автоматическое создание папки для экспорта -->
+    	
     <!-- Версия 0.110 затачивание программы под список покупок -->
     <!-- Версия 0.100 тестирования на разных моделях-->
     	<!-- Версия 0.101 удаление служебной информации -->
