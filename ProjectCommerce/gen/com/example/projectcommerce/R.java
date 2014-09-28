@@ -22,23 +22,26 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
         /**  item.xml 
          */
-        public static final int arrow_size=0x7f04000f;
+        public static final int arrow_size=0x7f040010;
+        public static final int btnBuy_size=0x7f04000e;
         public static final int btn_add_size=0x7f040004;
-        public static final int btn_buy_size=0x7f04000d;
         /**  Параметры кнопок 
          */
         public static final int btn_main_height=0x7f040002;
         public static final int btn_margin=0x7f040003;
-        public static final int item_arrow_size=0x7f04000c;
-        public static final int item_tvcount_size=0x7f04000b;
-        public static final int item_tvmodel_size=0x7f04000a;
+        public static final int item_arrow_size=0x7f04000d;
+        public static final int item_tvCategory_size=0x7f04000b;
+        public static final int item_tvCount_size=0x7f04000c;
+        public static final int item_tvModel_size=0x7f04000a;
         /**  Диалог создания/редактирования модели 
          */
         public static final int label_font_dialog=0x7f040005;
         public static final int label_font_dialog_land=0x7f040006;
         public static final int label_padding=0x7f040008;
         public static final int marginBottom_element_dialog=0x7f040007;
-        public static final int pager_padding=0x7f04000e;
+        public static final int model_text_height=0x7f040011;
+        public static final int model_text_width=0x7f040012;
+        public static final int pager_padding=0x7f04000f;
         /**  Размеры элементов в PagerAdapter 
          */
         public static final int text_size_pageradapter_land=0x7f040009;
@@ -58,24 +61,26 @@ public final class R {
     }
     public static final class id {
         public static final int btnAdd=0x7f080000;
-        public static final int btnBackEnd=0x7f08000e;
+        public static final int btnBackEnd=0x7f080010;
         public static final int btnBuyPager=0x7f080009;
         public static final int btnCancel=0x7f080001;
         public static final int btnSave=0x7f080002;
-        public static final int btnStoreFront=0x7f08000d;
+        public static final int btnStoreFront=0x7f08000f;
         public static final int etCount=0x7f080005;
         public static final int etName=0x7f080003;
         public static final int etPrice=0x7f080004;
-        public static final int exportXML=0x7f080015;
-        public static final int importWEBPut=0x7f080012;
-        public static final int importWEBReplace=0x7f080013;
-        public static final int importXMLPut=0x7f080010;
-        public static final int importXMLReplace=0x7f080011;
-        public static final int menuExport=0x7f080014;
-        public static final int menuImport=0x7f08000f;
+        public static final int exportXML=0x7f080017;
+        public static final int importWEBPut=0x7f080014;
+        public static final int importWEBReplace=0x7f080015;
+        public static final int importXMLPut=0x7f080012;
+        public static final int importXMLReplace=0x7f080013;
+        public static final int menuExport=0x7f080016;
+        public static final int menuImport=0x7f080011;
         public static final int pager=0x7f08000a;
-        public static final int tvCount=0x7f08000c;
+        public static final int tvCategory=0x7f08000c;
+        public static final int tvCount=0x7f08000e;
         public static final int tvCountPager=0x7f080008;
+        public static final int tvLot=0x7f08000d;
         public static final int tvModel=0x7f08000b;
         public static final int tvModelPager=0x7f080006;
         public static final int tvPricePager=0x7f080007;

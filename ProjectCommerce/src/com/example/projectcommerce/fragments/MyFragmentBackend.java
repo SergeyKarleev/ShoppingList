@@ -54,10 +54,7 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	
 	// лассы импорта/экспорта различных типов хранилища
 	MyMigratorXML mDataMigrator;
-
-	// TODO: сделать свой scAdapter.setViewBinder(new myBinder) класс,
-	// добавл€ющий к Count слово "штук"
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -221,13 +218,10 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		protected Void doInBackground(Void... params) {
 			switch (act) {
 			case ACTION_ADD:
-				mDataBase.addRecord(cv.getAsString("name"), cv.getAsFloat("price"),
-						cv.getAsInteger("count"));
+				mDataBase.addRecord(cv);
 				break;
 			case ACTION_UPDATE:
-				mDataBase.editRecord(cv.getAsInteger("_id"),
-						cv.getAsString("name"), cv.getAsFloat("price"),
-						cv.getAsInteger("count"));
+				mDataBase.editRecord(cv);
 				break;
 
 			default:

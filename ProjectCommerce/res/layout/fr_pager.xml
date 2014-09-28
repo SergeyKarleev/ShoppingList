@@ -62,8 +62,8 @@
 
     <Button
         android:id="@+id/btnBuyPager"
-        android:layout_width="@dimen/btn_buy_size"
-        android:layout_height="@dimen/btn_buy_size"
+        android:layout_width="@dimen/btnBuy_size"
+        android:layout_height="@dimen/btnBuy_size"
         android:layout_gravity="center"
         android:background="@drawable/btn_buy" />
 

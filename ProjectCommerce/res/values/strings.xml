@@ -2,7 +2,7 @@
 <resources>
 
     <string name="pkg_name">com.example.backend</string>
-    <string name="app_name">Список покупок</string>    
+    <string name="app_name">Список покупок(1.1)</string>    
 
     <!-- ID всех активити и фрагментов -->
     <string name="mainActivity">MainActivity</string>

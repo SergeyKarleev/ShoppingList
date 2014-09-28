@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -76,8 +77,6 @@ public class MyMigratorXML extends MyAbstractMigrator{
 		this.mDataBase = mDataBase;
 		this.mFragmentBackend = mFragmentBackend;
 	}
-	
-	
 
 	/**
 	 * Импорт XML
@@ -121,7 +120,7 @@ public class MyMigratorXML extends MyAbstractMigrator{
 						Float _price = Float.valueOf(xpp.getAttributeValue(
 								null, "price"));
 						int _count = Integer.valueOf(xpp.getAttributeValue(
-								null, "count"));
+								null, "count"));												
 						mDataBase.addRecord(_name, _price, _count);
 						Log.d(LOG_TAG, "Импорт из XML файла прошел успешно");
 					}

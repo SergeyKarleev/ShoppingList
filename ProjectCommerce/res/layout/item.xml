@@ -7,30 +7,75 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:layout_weight="50">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvModel"
+                    android:layout_width="@dimen/model_text_width"
+                    android:layout_height="@dimen/model_text_height"
+                    android:text="@string/tvModel_name"
+                    android:textSize="@dimen/item_tvModel_size"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Категория"
+                    android:textSize="@dimen/item_tvCategory_size"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#CEB7B7" />
+            </TableRow>
+        </TableLayout>
+
         <TextView
-            android:id="@+id/tvModel"
-            android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_weight="10"
-            android:textStyle="bold"
-            android:text="@string/tvModel_name"
-            android:textSize="@dimen/item_tvmodel_size"/>
+            android:id="@+id/tvLot"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:text="Лот"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/item_tvCount_size" />
+
+        <TextView            
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="/"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/item_tvCount_size" />
 
         <TextView
             android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text=""
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:text="Количество"
             android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/item_tvcount_size"/>
+            android:textSize="@dimen/item_tvCount_size" />
 
-        <ImageView 
-            android:layout_height="@dimen/arrow_size"
+        <ImageView
             android:layout_width="@dimen/arrow_size"
-            android:layout_weight="1"
+            android:layout_height="@dimen/arrow_size"            
             android:layout_gravity="center"
-            android:src="@drawable/arrow"/>               
+            android:layout_weight="1"
+            android:src="@drawable/arrow" />
+
     </TableRow>
 
 </TableLayout>

@@ -20,8 +20,11 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 
 	// поля ввода данных о модели
 	private EditText etName;
-	private EditText etPrice;
+	private EditText etCategory;
+	private EditText etLot;
 	private EditText etCount;
+	private EditText etUnit;
+	
 
 	// действие диалога: добавление или изменение элемента
 	private int mAction = 0;
@@ -77,8 +80,7 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnSave).setOnClickListener(this);
 
-		etName = (EditText) v.findViewById(R.id.etName);
-		etPrice = (EditText) v.findViewById(R.id.etPrice);
+		etName = (EditText) v.findViewById(R.id.etName);		
 		etCount = (EditText) v.findViewById(R.id.etCount);
 
 		// восстанавливаем значение Act (тип действия: добавить/изменить) и ID

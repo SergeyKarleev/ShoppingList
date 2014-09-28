@@ -1,4 +1,3 @@
-
 package com.example.projectcommerce.classes;
 
 import android.content.ContentValues;
@@ -11,7 +10,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 public class MyDBManager implements BaseColumns {
-	
+
 	/*------------------------------------ПЕРЕМЕННЫЕ-----------------------------------------*/
 
 	// Переменная тега для логов
@@ -20,31 +19,55 @@ public class MyDBManager implements BaseColumns {
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB";
 	private static final int DB_VERSION = 1;
-	private static final String DB_TABLE = "Products";
+	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
+	private static final String DB_TABLE_CATEGORY = "CategoryTable";
 
-	// Имена столбцов таблицы Products
+	// Имена столбцов таблицы ProductsTable
 	public static final String PRODUCTS_ID = BaseColumns._ID;
 	public static final String PRODUCTS_NAME = "Name";
-	public static final String PRODUCTS_PRICE = "Price";
+	// public static final String PRODUCTS_PRICE = "Price";
 	public static final String PRODUCTS_COUNT = "Count";
+	public static final String PRODUCTS_LOT = "Lot";
+	public static final String PRODUCTS_UNIT = "Unit";
 
-	// Массивы начальных данных таблицы Products
-	String[] Names = { "Apple iPod touch 5 32Gb",
-			"Samsung Galaxy S Duos S7562", "Canon EOS 600D Kit",
-			"Samsung Galaxy Tab 2 10.1 P5100 16Gb", "PocketBook Touch",
-			"Samsung Galaxy Note II 16Gb", "Nikon D3100 Kit",
-			"Canon EOS 1100D Kit", "Sony Xperia acro S", "Lenovo G580" };
+	// Имена столбцов таблицы CategoryTable
+	public static final String CATEGORY_ID = BaseColumns._ID;
+	public static final String CATEGORY_NAME = "CategoryName";
 
-	float[] Prices = { (float) 8888, (float) 7230, (float) 15659,
-			(float) 13290, (float) 5197, (float) 17049.50, (float) 12190,
-			(float) 10985, (float) 11800.99, (float) 8922 };
-	int[] Count = { 5, 2, 4, 9, 2, 2, 4, 2, 1, 1 };
+	// Массивы начальных данных таблицы ProductsTable
+	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
+			"Рыба", "Картошка", "Морковь", "Яблоки" };
 
-	// Запрос на создание таблицы Products
-	private static final String tableCreate = "CREATE TABLE " + DB_TABLE + " ("
-			+ BaseColumns._ID + " integer primary key autoincrement, "
-			+ PRODUCTS_NAME + " text, " + PRODUCTS_PRICE + " real, "
-			+ PRODUCTS_COUNT + " integer);";
+	// float[] Prices = { (float) 8888, (float) 7230, (float) 15659,
+	// (float) 13290, (float) 5197, (float) 17049.50, (float) 12190,
+	// (float) 10985, (float) 11800.99, (float) 8922 };
+
+	int[] Category = { 1, 1, 1, 1, 2, 2, 2, 3, 3, 3 };
+	int[] Lot = { 1, 1, 1, 1, 1, 2, 2, 2, 3, 3 };
+	float[] Count = { (float) 0.25, 1, (float) 0.25, (float) 0.3, 10,
+			(float) 0.5, (float) 0.5, 1, 1, 1 };
+
+	String[] Unit = { "кг", "л", "кг", "кг", "шт", "кг", "кг", "кг", "шт", "шт" };
+
+	// Массивы данных для таблицы CategoryTable
+	String[] CatNames = { "Молочная продукция", "Мясо и рыба",
+			"Овощи и фрукты", "Хлебо-булочные изделия", "Крупы и макароны",
+			"Специи", "Сладости", "Напитки", "Гигиена", "Хозяйственный отдел",
+			"Одежда и обувь", "Канцтовары", "Прочее" };
+
+	// Запрос на создание таблицы ProductsTable
+	private static final String tableCreateProducts = "CREATE TABLE "
+			+ DB_TABLE_PRODUCTS + " (" + PRODUCTS_ID
+			+ " integer primary key autoincrement, " + PRODUCTS_NAME
+			+ " text, " + CATEGORY_ID + " integer, " + PRODUCTS_LOT
+			+ " integer, " + PRODUCTS_COUNT + " real, " + PRODUCTS_UNIT
+			+ " text);";
+
+	// Запрос на создание таблицы CategoryTable
+	private static final String tableCreateCategory = "CREATE TABLE "
+			+ DB_TABLE_CATEGORY + " (" + CATEGORY_ID
+			+ " integer primary key autoincrement, " + CATEGORY_NAME
+			+ " text);";
 
 	// Объявление служебных переменных для работы с БД
 	private Context mCtx;
@@ -52,119 +75,130 @@ public class MyDBManager implements BaseColumns {
 	private SQLiteDatabase mDB;
 
 	/*------------------------------------МЕТОДЫ-----------------------------------------*/
-	
-	/**Конструктор
-	 * Здесь реализована передача контекста экземпляру класса,
-	 *а также вызов метода открытия базы данных 
-	 * @param context - по-умолчанию передавать контекст активити
+		
+	/**
+	 * Конструктор Здесь реализована передача контекста экземпляру класса, а
+	 * также вызов метода открытия базы данных
+	 * 
+	 * @param context
+	 *            - по-умолчанию передавать контекст активити
 	 */
 	public MyDBManager(Context context) {
 		mCtx = context;
 		open();
 	}
-	
-	
-	/**Приватный метод открытия базы данных. 
-	 * Вызывается непосредственно из конструктора.
-	 *Создается экземпляр класса DBHelper с параметрами: контекст, имя и версия БД.
-	 *Затем база открывается на редактирование 
+
+	/**
+	 * Приватный метод открытия базы данных. Вызывается непосредственно из
+	 * конструктора. Создается экземпляр класса DBHelper с параметрами:
+	 * контекст, имя и версия БД. Затем база открывается на редактирование
 	 */
 	private void open() {
 		mdbHelper = new DBHelper(mCtx, DB_NAME, null, DB_VERSION);
 		mDB = mdbHelper.getWritableDatabase();
 	}
 
-	
-	/**Метод проверяет существование открытой базы данных и закрывает её 
+	/**
+	 * Метод проверяет существование открытой базы данных и закрывает её
 	 */
 	public void close() {
 		if (mDB != null)
 			mdbHelper.close();
 
 	}
-	
-	/** Метод выбирает все строки из таблицы базы данных
+
+	/**
+	 * Метод выбирает все строки из таблицы базы данных
+	 * 
 	 * @return возвращает объект типа Cursor
 	 */
 	public Cursor getData() {
-		return mDB.rawQuery("SELECT * FROM " + DB_TABLE, null);
+		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS, null);
 	}
-	
 
-	/** Метод выбирает строку из базы с заданному ID
-	 * @param id строки, данные из которой необходимо вернуть
+	/**
+	 * Метод выбирает строку из базы с заданному ID
+	 * 
+	 * @param id
+	 *            строки, данные из которой необходимо вернуть
 	 * @return метод возвращает объект типа Cursor
 	 */
-	public Cursor getData(long id){				
-		return mDB.rawQuery("SELECT * FROM "+DB_TABLE+" WHERE "+PRODUCTS_ID+"="+id, null);		
+	public Cursor getData(long id) {
+		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
+				+ PRODUCTS_ID + "=" + id, null);
 	}
 
-	/**Метод выбирает только те строки, в которых количество моделей на складе больше нуля
+	/**
+	 * Метод выбирает только те строки, в которых количество лотов больше нуля
+	 * 
 	 * @return объект типа Cursor
 	 */
-	public Cursor getDataNonEmpty(){
-		return mDB.rawQuery("SELECT * FROM "+DB_TABLE+" WHERE "+PRODUCTS_COUNT+">0", null);
-	}
-	
-	/**Метод добавляет запись в БД
-	 * @param model - строковое название модели
-	 * @param price - вещественный тип цена
-	 * @param count - целочисленный тип количество (на складе)
-	 */
-	public void addRecord(String model, float price, int count) {
-		ContentValues cv = new ContentValues();
-		cv.put(PRODUCTS_NAME, model);
-		cv.put(PRODUCTS_PRICE, price);
-		cv.put(PRODUCTS_COUNT, count);
-		mDB.insert(DB_TABLE, null, cv);
-	}
-	
-	
-	/**Метод изменяет запись в базе по ID
-	 * @param id - идентификационный номер строки
-	 * @param model - новое наименование модели
-	 * @param price - новая цена
-	 * @param count - новое количество на складе
-	 */
-	public void editRecord(long id,String model, float price, int count){
-		ContentValues cv = new ContentValues();
-		cv.put(PRODUCTS_NAME, model);
-		cv.put(PRODUCTS_PRICE, price);
-		cv.put(PRODUCTS_COUNT, count);
-		mDB.update(DB_TABLE, cv, "_id ="+id,null);		
+	public Cursor getDataNonEmpty() {
+		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
+				+ PRODUCTS_LOT + ">0", null);
 	}
 
-	
-	/**Метод удаляет запись по ID
-	 * @param ID - идентификационный номер строки
+	/**
+	 * Метод добавляет запись в БД
+	 * 
+	 * @param model
+	 *            - строковое название модели
+	 * @param price
+	 *            - вещественный тип цена
+	 * @param count
+	 *            - целочисленный тип количество (на складе)
+	 */
+	public void addRecord(ContentValues cv) {
+		mDB.insert(DB_TABLE_PRODUCTS, null, cv);
+	}
+
+	/**
+	 * Метод изменяет запись в базе по ID
+	 * 
+	 * @param id
+	 *            - идентификационный номер строки
+	 * @param model
+	 *            - новое наименование модели
+	 * @param price
+	 *            - новая цена
+	 * @param count
+	 *            - новое количество на складе
+	 */
+	public void editRecord(ContentValues cv) {		
+		mDB.update(DB_TABLE_PRODUCTS, cv, "_id =" + cv.getAsLong(PRODUCTS_ID), null);
+	}
+
+	/**
+	 * Метод удаляет запись по ID
+	 * 
+	 * @param ID
+	 *            - идентификационный номер строки
 	 */
 	public void delRecord(long ID) {
-		mDB.delete(DB_TABLE, PRODUCTS_ID + "=" + ID, null);
-	}
-	
-	/**Метод удаляет все записи из таблицы
-	 */
-	public void delRecord(){
-		mDB.delete(DB_TABLE, null, null);
+		mDB.delete(DB_TABLE_PRODUCTS, PRODUCTS_ID + "=" + ID, null);
 	}
 
-	/**Метод возвращает количество элементов в базе
+	/**
+	 * Метод удаляет все записи из таблицы
+	 */
+	public void delRecord() {
+		mDB.delete(DB_TABLE_PRODUCTS, null, null);
+	}
+
+	/**
+	 * Метод возвращает количество элементов в таблице Products
+	 * 
 	 * @return объект типа int
 	 */
-	public int getCount(){
-		Cursor c = mDB.rawQuery("SELECT * FROM "+DB_TABLE, null);
-		//c.moveToFirst();		
-		return c.getCount();		
+	public int getCount() {
+		Cursor c = mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS, null);
+		return c.getCount();
 	}
-	
-	public void importData(){
-		//TODO:Реализация импорта
-	}
-	
+
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных
 	// в частности, позволяет открыть базу на изменение данных
 	// getWritableDatabase()
-	
+
 	private class DBHelper extends SQLiteOpenHelper {
 
 		public DBHelper(Context context, String name, CursorFactory factory,
@@ -175,31 +209,77 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// Создание таблицы и внесение информации в логи
-			Log.d(LOG_TAG, "Создание таблицы " + DB_TABLE);
-			db.execSQL(tableCreate);
-			Log.d(LOG_TAG, "Выполнено успешно создание таблицы " + DB_TABLE);
-
-			// Заполнение таблицы DB_TABLE первоначальными данными
-			ContentValues cv = new ContentValues();
-			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE);
-			for (int i = 0; i < Names.length; i++) {
-				cv.clear();
-				cv.put(PRODUCTS_NAME, Names[i]);
-				cv.put(PRODUCTS_PRICE, Prices[i]);
-				cv.put(PRODUCTS_COUNT, Count[i]);
-				db.insert(DB_TABLE, null, cv);
+			// Создание таблиц и внесение информации в логи
+			Log.d(LOG_TAG, "Создание таблицы ProductsTable" + DB_TABLE_PRODUCTS);
+			try {
+				db.execSQL(tableCreateProducts);
+				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+						+ DB_TABLE_PRODUCTS);
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Неудача в создании таблицы "
+						+ DB_TABLE_PRODUCTS);
+				e.printStackTrace();
 			}
-			Log.d(LOG_TAG, "Выполнено успешно наполнение контентом таблицы "
-					+ DB_TABLE);
+
+			Log.d(LOG_TAG, "Создание таблицы CategoryTable" + DB_TABLE_CATEGORY);
+			try {
+				db.execSQL(tableCreateCategory);
+				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+						+ DB_TABLE_CATEGORY);
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Неудача в создании таблицы "
+						+ DB_TABLE_CATEGORY);
+				e.printStackTrace();
+			}
+
+			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
+			ContentValues cv = new ContentValues();
+			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_PRODUCTS);
+			try {
+				for (int i = 0; i < Names.length; i++) {
+					cv.clear();
+					cv.put(PRODUCTS_NAME, Names[i]);
+					cv.put(CATEGORY_ID, Category[i]);
+					cv.put(PRODUCTS_LOT, Lot[i]);
+					cv.put(PRODUCTS_COUNT, Count[i]);
+					cv.put(PRODUCTS_UNIT, Unit[i]);
+					db.insert(DB_TABLE_PRODUCTS, null, cv);
+				}
+				Log.d(LOG_TAG,
+						"Выполнено успешно наполнение контентом таблицы "
+								+ DB_TABLE_PRODUCTS);
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Неудачное наполнение контентом таблицы "
+						+ DB_TABLE_PRODUCTS);
+				e.printStackTrace();
+			}
+
+			// Заполнение таблицы DB_TABLE_CATEGORY данными
+			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_CATEGORY);
+			try {
+				for (int i = 0; i < Names.length; i++) {
+					cv.clear();
+					cv.put(CATEGORY_NAME, CatNames[i]);
+					db.insert(DB_TABLE_CATEGORY, null, cv);
+				}
+				Log.d(LOG_TAG,
+						"Выполнено успешно наполнение контентом таблицы "
+								+ DB_TABLE_PRODUCTS);
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Неудачное наполнение контентом таблицы "
+						+ DB_TABLE_PRODUCTS);
+				e.printStackTrace();
+			}
+
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
-			mDB.execSQL("DROP TABLE " + DB_TABLE);
-			Log.d(LOG_TAG, "Выполнено удаление таблицы " + DB_TABLE
-					+ " из базы " + DB_NAME);
+			mDB.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS);
+			mDB.execSQL("DROP TABLE " + DB_TABLE_CATEGORY);
+			Log.d(LOG_TAG, "Выполнено удаление таблиц " + DB_TABLE_PRODUCTS
+					+ ", " + DB_TABLE_CATEGORY + " из базы " + DB_NAME);
 			onCreate(mDB);
 		}
 
