@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="modelCategories">
+    <item >Молочная продукция</item>
+    <item >Мясо и рыба</item>
+    <item >Овощи и фрукты</item>
+    <item >Хлебо-булочные изделия</item>
+    <item >Крупы и макароны</item>
+    <item >Специи</item>
+    <item >Сладости</item>
+    <item >Напитки</item>
+    <item >Гигиена</item>
+    <item >Хозяйственные товары</item>
+    <item >Одежда и обувь</item>
+    <item >Канцтовары</item>
+    <item >Прочее</item>
+</string-array>
+<string-array name="modelUnits">
+    <item >шт</item>
+    <item >кг</item>
+    <item >л</item>
+    <item >м</item>    
+</string-array>    
+</resources>
+
+
+<!-- String[] Category = { "Молочная продукция", "Мясо и рыба",
+			"Овощи и фрукты", "Хлебо-булочные изделия", "Крупы и макароны",
+			"Специи", "Сладости", "Напитки", "Гигиена", "Хозяйственный отдел",
+			"Одежда и обувь", "Канцтовары", "Прочее" }; -->

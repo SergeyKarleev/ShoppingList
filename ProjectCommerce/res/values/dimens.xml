@@ -18,7 +18,7 @@
     <!-- Размеры элементов в PagerAdapter -->
     <dimen name="text_size_pageradapter_land">16dp</dimen>
     <dimen name="item_tvModel_size">20dp</dimen>
-    <dimen name="item_tvCategory_size">12dp</dimen>
+    <dimen name="item_tvCategory_size">14dp</dimen>
     <dimen name="item_tvCount_size">10dp</dimen>
     <dimen name="item_arrow_size">24dp</dimen>
     <dimen name="btnBuy_size">100dp</dimen>

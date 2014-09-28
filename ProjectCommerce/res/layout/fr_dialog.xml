@@ -27,11 +27,11 @@
             android:text="@string/btnSave" />
     </LinearLayout>
 
-    <LinearLayout        
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:padding="@dimen/label_padding">
+        android:orientation="vertical"
+        android:padding="@dimen/label_padding" >
 
         <TextView
             android:layout_width="match_parent"
@@ -49,30 +49,75 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/modelPrice"
+            android:text="@string/modelCategory"
             android:textSize="@dimen/label_font_dialog" />
 
-        <EditText
-            android:id="@+id/etPrice"
+        <Spinner
+            android:id="@+id/spCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginBottom_element_dialog"
-            android:inputType="numberDecimal"
-            android:numeric="decimal" />
+            android:entries="@array/modelCategories" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/modelCount"
-            android:textSize="@dimen/label_font_dialog" />
+            android:orientation="horizontal" >
 
-        <EditText
-            android:id="@+id/etCount"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/modelLot"
+                android:textSize="@dimen/label_font_dialog" />
+
+            <EditText
+                android:id="@+id/etLot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginBottom_element_dialog"
+                android:ems="10"
+                android:inputType="numberSigned|numberDecimal"
+                android:numeric="integer" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/marginBottom_element_dialog"
-            android:inputType="numberSigned"
-            android:numeric="integer" />
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/modelCount"
+                android:textSize="@dimen/label_font_dialog" />
+
+            <EditText
+                android:id="@+id/etCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/marginBottom_element_dialog"
+                android:ems="10"
+                android:inputType="numberSigned"
+                android:numeric="integer" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/modelUnit"
+                android:textSize="@dimen/label_font_dialog" />
+
+            <Spinner
+                android:id="@+id/spUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/modelUnits" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
