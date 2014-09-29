@@ -14,17 +14,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MyFragmentDialog extends DialogFragment implements OnClickListener {
 
 	// пол€ ввода данных о модели
 	private EditText etName;
-	private EditText etCategory;
+	private Spinner spCategory;
 	private EditText etLot;
 	private EditText etCount;
-	private EditText etUnit;
-	
+	private Spinner spUnit;
 
 	// действие диалога: добавление или изменение элемента
 	private int mAction = 0;
@@ -80,8 +80,11 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnSave).setOnClickListener(this);
 
-		etName = (EditText) v.findViewById(R.id.etName);		
+		etName = (EditText) v.findViewById(R.id.etName);
+		spCategory = (Spinner) v.findViewById(R.id.spCategory);
+		etLot = (EditText) v.findViewById(R.id.etLot);
 		etCount = (EditText) v.findViewById(R.id.etCount);
+		spUnit = (Spinner) v.findViewById(R.id.spUnit);
 
 		// восстанавливаем значение Act (тип действи€: добавить/изменить) и ID
 		// устройства
@@ -94,14 +97,19 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 					.getColumnIndex(MyDBManager.PRODUCTS_ID));
 			String name = sData.getString(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-			float price = sData.getFloat(sData
-					.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
-			int count = sData.getInt(sData
+			String category = sData.getString(sData
+					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
+			int lot = sData.getInt(sData
+					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
+			float count = sData.getFloat(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
+			String unit = sData.getString(sData.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
 
 			etName.setText(name);
-			etPrice.setText(String.valueOf(price));
+			//spCategory.setId()
+			etLot.setText(String.valueOf(lot));
 			etCount.setText(String.valueOf(count));
+			//spUnit
 		}
 		return v;
 	}
@@ -126,21 +134,31 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 			dismiss();
 			break;
 		case R.id.btnSave:
-			// обработка клика на кнопке —охранить (метод onGetRow в fr_backend)
+			//ѕреобразование значений пустых полей в значени€ по-умолчанию 
+			if (etLot.getText().length() == 0)
+				etLot.setText("1");
+			if (etCount.getText().length() == 0)
+				etCount.setText("1");			
+			
+			// обработка клика на кнопке —охранить (метод onGetRow в fr_backend)			
 			if (etName.getText().length() != 0
-					&& etPrice.getText().length() != 0
+					&& etLot.getText().length() != 0
 					&& etCount.getText().length() != 0) {
 
 				ContentValues cv = new ContentValues();
 				if (mAction == ACTION_UPDATE)
-					cv.put("_id", sData.getInt(sData
+					cv.put(MyDBManager.PRODUCTS_ID, sData.getInt(sData
 							.getColumnIndex(MyDBManager.PRODUCTS_ID)));
-				cv.put("name", etName.getText().toString());
-				cv.put("price", Float.parseFloat(etPrice.getText().toString()));
-				cv.put("count", Integer.parseInt(etCount.getText().toString()));
+				cv.put(MyDBManager.PRODUCTS_NAME, etName.getText().toString());
+				cv.put(MyDBManager.PRODUCTS_CATEGORY, spCategory.getSelectedItem().toString());				
+				cv.put(MyDBManager.PRODUCTS_LOT, Integer.parseInt(etLot.getText().toString()));
+				cv.put(MyDBManager.PRODUCTS_COUNT, Float.parseFloat(etCount.getText().toString()));
+				
 				etName.setText(null);
-				etPrice.setText(null);
+				spCategory.setId(0);
+				etLot.setText(null);
 				etCount.setText(null);
+				spUnit.setId(0);
 				sContext.onGetRow(cv, mAction);
 				dismiss();
 			} else

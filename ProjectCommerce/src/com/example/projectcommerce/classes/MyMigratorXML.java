@@ -36,18 +36,19 @@ import com.example.projectcommerce.fragments.MyFragmentBackend;
  * Класс является реализацией паттерна Адаптер, выполняющей работу по
  * импорту/экспорту данных
  */
-public class MyMigratorXML extends MyAbstractMigrator{
+public class MyMigratorXML extends MyAbstractMigrator {
 
 	final String LOG_TAG = "myLogs";
 
 	// путь и имя файла импорта/экспорта
-	private final String FILEPATH = "/ProjectCommerce/";	
+	private final String FILEPATH = "/ProjectCommerce/";
 	private final String FILENAME = "db.xml";
 
 	// TODO: Техническое задание:
 	// 1. Доступ к импорту/экспорту осуществляется через меню фрагмента Backend
 	// 2. Импорт
-	// ~ осуществить режим добавления и полной замены (с предупреждением) устройств
+	// ~ осуществить режим добавления и полной замены (с предупреждением)
+	// устройств
 	// ~ режим импорта передавать аргументом и обрабатывать в одном методе
 	// ~ должен включать реализацию XML (опц. - csv, binary, json)
 	// ~ файл импорта находится на SD карте (опц. - загрузка через Web)
@@ -104,7 +105,7 @@ public class MyMigratorXML extends MyAbstractMigrator{
 					FileInputStream fis = new FileInputStream(file);
 					xpp.setInput(new InputStreamReader(fis));
 
-					if (mode ==  MODE_ACTION_UPDATE)
+					if (mode == MODE_ACTION_UPDATE)
 						mDataBase.delRecord();
 					Log.d(LOG_TAG, "Данные в БД перед импортом очищены");
 				} catch (Exception e) {
@@ -112,16 +113,41 @@ public class MyMigratorXML extends MyAbstractMigrator{
 					Log.d(LOG_TAG, "Ошибка импорта " + e.toString());
 				}
 
+				ContentValues cv = new ContentValues();
+
 				// пока не увидим тег конца документа
 				while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
 					if ((xpp.getEventType() == XmlPullParser.START_TAG)
 							&& (xpp.getName().equals("Product"))) {
-						String _name = xpp.getAttributeValue(null, "name");
-						Float _price = Float.valueOf(xpp.getAttributeValue(
-								null, "price"));
-						int _count = Integer.valueOf(xpp.getAttributeValue(
-								null, "count"));												
-						mDataBase.addRecord(_name, _price, _count);
+//						String _name = xpp.getAttributeValue(null,
+//								MyDBManager.PRODUCTS_NAME);
+//						String _category = xpp.getAttributeValue(null,
+//								MyDBManager.PRODUCTS_CATEGORY);
+//						int _lot = Integer.valueOf(xpp.getAttributeValue(null,
+//								MyDBManager.PRODUCTS_LOT));
+//						Float _count = Float.valueOf(xpp.getAttributeValue(
+//								null, MyDBManager.PRODUCTS_COUNT));
+//						String _unit = xpp.getAttributeValue(null,
+//								MyDBManager.PRODUCTS_UNIT);
+
+						cv.clear();
+						cv.put(MyDBManager.PRODUCTS_NAME, xpp
+								.getAttributeValue(null,
+										MyDBManager.PRODUCTS_NAME));
+						cv.put(MyDBManager.PRODUCTS_CATEGORY, xpp
+								.getAttributeValue(null,
+										MyDBManager.PRODUCTS_CATEGORY));
+						cv.put(MyDBManager.PRODUCTS_LOT, Integer.valueOf(xpp
+								.getAttributeValue(null,
+										MyDBManager.PRODUCTS_LOT)));
+						cv.put(MyDBManager.PRODUCTS_COUNT, Float.valueOf(xpp
+								.getAttributeValue(null,
+										MyDBManager.PRODUCTS_COUNT)));
+						cv.put(MyDBManager.PRODUCTS_UNIT, xpp
+								.getAttributeValue(null,
+										MyDBManager.PRODUCTS_UNIT));
+
+						mDataBase.addRecord(cv);
 						Log.d(LOG_TAG, "Импорт из XML файла прошел успешно");
 					}
 					xpp.next();
@@ -145,7 +171,6 @@ public class MyMigratorXML extends MyAbstractMigrator{
 		return false;
 	}
 
-	
 	/**
 	 * Экспорт базы в виде файла XML на SD-карту
 	 * 
@@ -163,7 +188,7 @@ public class MyMigratorXML extends MyAbstractMigrator{
 			return false;
 		}
 		if (mData != null) {
-			
+
 			// создаем стрингбилдер для постепенного заполнения xml строки
 			StringBuilder xmlString = new StringBuilder();
 			// записываем начальный тег
@@ -172,15 +197,19 @@ public class MyMigratorXML extends MyAbstractMigrator{
 			// аргументами
 			mData.moveToFirst();
 			do {
-				xmlString.append("<Product name='");
+				xmlString.append("<Product "+MyDBManager.PRODUCTS_NAME+"='");
 				xmlString.append(mData.getString(mData
 						.getColumnIndex(mDataBase.PRODUCTS_NAME)));
-				xmlString.append("' price='");
-				xmlString.append(String.valueOf(mData.getFloat(mData
-						.getColumnIndex(mDataBase.PRODUCTS_PRICE))));
-				xmlString.append("' count='");
+				xmlString.append("' "+MyDBManager.PRODUCTS_CATEGORY+"='");
+				xmlString.append(mData.getString(mData.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY)));
+				xmlString.append("' "+MyDBManager.PRODUCTS_LOT+"='");
 				xmlString.append(String.valueOf(mData.getInt(mData
+						.getColumnIndex(mDataBase.PRODUCTS_LOT))));
+				xmlString.append("' "+MyDBManager.PRODUCTS_COUNT+"='");
+				xmlString.append(String.valueOf(mData.getFloat(mData
 						.getColumnIndex(mDataBase.PRODUCTS_COUNT))));
+				xmlString.append("' "+MyDBManager.PRODUCTS_UNIT+"='");
+				xmlString.append(mData.getString(mData.getColumnIndex(MyDBManager.PRODUCTS_UNIT)));				
 				xmlString.append("'/>");
 			} while (mData.moveToNext());
 			// дописываем конечный тег
@@ -198,20 +227,20 @@ public class MyMigratorXML extends MyAbstractMigrator{
 	 * @param saveString
 	 *            строка с элементами базы данных
 	 * @param type
-	 * 			  расширение файла (выбрать из констант)
+	 *            расширение файла (выбрать из констант)
 	 * @return результат записи: успешно или нет
 	 */
 	private boolean writeFile(String saveString) {
 
 		try {
-			//Создаем каталог миграции данных на карте памяти
+			// Создаем каталог миграции данных на карте памяти
 			File sdPath = Environment.getExternalStorageDirectory();
-			sdPath = new File(sdPath.getAbsolutePath()+"/"+FILEPATH);
+			sdPath = new File(sdPath.getAbsolutePath() + "/" + FILEPATH);
 			sdPath.mkdirs();
-			
+
 			File sdFile = new File(Environment.getExternalStorageDirectory()
 					+ FILEPATH, FILENAME);
-			
+
 			// отрываем поток для записи
 			BufferedWriter bw = new BufferedWriter(new FileWriter(sdFile));
 			// пишем данные

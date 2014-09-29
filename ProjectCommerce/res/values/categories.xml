@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <string-array name="modelCategories">
+    <item >Без категории</item>
     <item >Молочная продукция</item>
     <item >Мясо и рыба</item>
     <item >Овощи и фрукты</item>
@@ -12,8 +13,7 @@
     <item >Гигиена</item>
     <item >Хозяйственные товары</item>
     <item >Одежда и обувь</item>
-    <item >Канцтовары</item>
-    <item >Прочее</item>
+    <item >Канцтовары</item>    
 </string-array>
 <string-array name="modelUnits">
     <item >шт</item>

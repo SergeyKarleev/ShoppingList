@@ -8,6 +8,10 @@
 package com.example.projectcommerce;
 
 public final class R {
+    public static final class array {
+        public static final int modelCategories=0x7f040000;
+        public static final int modelUnits=0x7f040001;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -18,33 +22,33 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
         /**  item.xml 
          */
-        public static final int arrow_size=0x7f040010;
-        public static final int btnBuy_size=0x7f04000e;
-        public static final int btn_add_size=0x7f040004;
+        public static final int arrow_size=0x7f050010;
+        public static final int btnBuy_size=0x7f05000e;
+        public static final int btn_add_size=0x7f050004;
         /**  Параметры кнопок 
          */
-        public static final int btn_main_height=0x7f040002;
-        public static final int btn_margin=0x7f040003;
-        public static final int item_arrow_size=0x7f04000d;
-        public static final int item_tvCategory_size=0x7f04000b;
-        public static final int item_tvCount_size=0x7f04000c;
-        public static final int item_tvModel_size=0x7f04000a;
+        public static final int btn_main_height=0x7f050002;
+        public static final int btn_margin=0x7f050003;
+        public static final int item_arrow_size=0x7f05000d;
+        public static final int item_tvCategory_size=0x7f05000b;
+        public static final int item_tvCount_size=0x7f05000c;
+        public static final int item_tvModel_size=0x7f05000a;
         /**  Диалог создания/редактирования модели 
          */
-        public static final int label_font_dialog=0x7f040005;
-        public static final int label_font_dialog_land=0x7f040006;
-        public static final int label_padding=0x7f040008;
-        public static final int marginBottom_element_dialog=0x7f040007;
-        public static final int model_text_height=0x7f040011;
-        public static final int model_text_width=0x7f040012;
-        public static final int pager_padding=0x7f04000f;
+        public static final int label_font_dialog=0x7f050005;
+        public static final int label_font_dialog_land=0x7f050006;
+        public static final int label_padding=0x7f050008;
+        public static final int marginBottom_element_dialog=0x7f050007;
+        public static final int model_text_height=0x7f050011;
+        public static final int model_text_width=0x7f050012;
+        public static final int pager_padding=0x7f05000f;
         /**  Размеры элементов в PagerAdapter 
          */
-        public static final int text_size_pageradapter_land=0x7f040009;
+        public static final int text_size_pageradapter_land=0x7f050009;
     }
     public static final class drawable {
         public static final int arrow=0x7f020000;
@@ -60,30 +64,31 @@ public final class R {
         public static final int ic_launcher=0x7f02000a;
     }
     public static final class id {
-        public static final int btnAdd=0x7f080000;
-        public static final int btnBackEnd=0x7f080010;
-        public static final int btnBuyPager=0x7f080009;
-        public static final int btnCancel=0x7f080001;
-        public static final int btnSave=0x7f080002;
-        public static final int btnStoreFront=0x7f08000f;
-        public static final int etCount=0x7f080005;
-        public static final int etName=0x7f080003;
-        public static final int etPrice=0x7f080004;
-        public static final int exportXML=0x7f080017;
-        public static final int importWEBPut=0x7f080014;
-        public static final int importWEBReplace=0x7f080015;
-        public static final int importXMLPut=0x7f080012;
-        public static final int importXMLReplace=0x7f080013;
-        public static final int menuExport=0x7f080016;
-        public static final int menuImport=0x7f080011;
-        public static final int pager=0x7f08000a;
-        public static final int tvCategory=0x7f08000c;
-        public static final int tvCount=0x7f08000e;
-        public static final int tvCountPager=0x7f080008;
-        public static final int tvLot=0x7f08000d;
-        public static final int tvModel=0x7f08000b;
-        public static final int tvModelPager=0x7f080006;
-        public static final int tvPricePager=0x7f080007;
+        public static final int btnAdd=0x7f090000;
+        public static final int btnBackEnd=0x7f090011;
+        public static final int btnBuyPager=0x7f09000a;
+        public static final int btnCancel=0x7f090001;
+        public static final int btnSave=0x7f090002;
+        public static final int btnStoreFront=0x7f090010;
+        public static final int etCount=0x7f090006;
+        public static final int etLot=0x7f090005;
+        public static final int etName=0x7f090003;
+        public static final int exportXML=0x7f090018;
+        public static final int importWEBPut=0x7f090015;
+        public static final int importWEBReplace=0x7f090016;
+        public static final int importXMLPut=0x7f090013;
+        public static final int importXMLReplace=0x7f090014;
+        public static final int menuExport=0x7f090017;
+        public static final int menuImport=0x7f090012;
+        public static final int pager=0x7f09000b;
+        public static final int spCategory=0x7f090004;
+        public static final int spUnit=0x7f090007;
+        public static final int tvCategory=0x7f09000d;
+        public static final int tvCount=0x7f09000f;
+        public static final int tvCountPager=0x7f090009;
+        public static final int tvLot=0x7f09000e;
+        public static final int tvModel=0x7f09000c;
+        public static final int tvModelPager=0x7f090008;
     }
     public static final class layout {
         public static final int fr_backend=0x7f030000;
@@ -94,39 +99,41 @@ public final class R {
         public static final int main=0x7f030005;
     }
     public static final class menu {
-        public static final int mymenu=0x7f070000;
+        public static final int mymenu=0x7f080000;
     }
     public static final class string {
-        public static final int app_name=0x7f050001;
-        public static final int btnBackEnd=0x7f05000a;
-        public static final int btnCancel=0x7f05000b;
-        public static final int btnSave=0x7f05000c;
+        public static final int app_name=0x7f060001;
+        public static final int btnBackEnd=0x7f06000a;
+        public static final int btnCancel=0x7f06000b;
+        public static final int btnSave=0x7f06000c;
         /**  Тексты кнопок в приложении 
          */
-        public static final int btnStoreFront=0x7f050009;
-        public static final int dialogTitle=0x7f050012;
-        public static final int fragment_backend=0x7f050003;
-        public static final int fragment_dialog=0x7f050007;
-        public static final int fragment_navigation=0x7f050004;
-        public static final int fragment_pager=0x7f050008;
-        public static final int fragment_storefront=0x7f050005;
-        public static final int fragment_universal=0x7f050006;
+        public static final int btnStoreFront=0x7f060009;
+        public static final int dialogTitle=0x7f060014;
+        public static final int fragment_backend=0x7f060003;
+        public static final int fragment_dialog=0x7f060007;
+        public static final int fragment_navigation=0x7f060004;
+        public static final int fragment_pager=0x7f060008;
+        public static final int fragment_storefront=0x7f060005;
+        public static final int fragment_universal=0x7f060006;
         /**  Содержание текстовых элементов по-умолчанию 
          */
-        public static final int listViewBackEnd=0x7f05000d;
+        public static final int listViewBackEnd=0x7f06000d;
         /**  ID всех активити и фрагментов 
          */
-        public static final int mainActivity=0x7f050002;
-        public static final int modelCount=0x7f050011;
+        public static final int mainActivity=0x7f060002;
+        public static final int modelCategory=0x7f060010;
+        public static final int modelCount=0x7f060012;
+        public static final int modelLot=0x7f060011;
         /**  Метки диалог-фрагмента 
          */
-        public static final int modelName=0x7f05000f;
-        public static final int modelPrice=0x7f050010;
-        public static final int pkg_name=0x7f050000;
-        public static final int tvModelPager=0x7f05000e;
+        public static final int modelName=0x7f06000f;
+        public static final int modelUnit=0x7f060013;
+        public static final int pkg_name=0x7f060000;
+        public static final int tvModelPager=0x7f06000e;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f050013;
+        public static final int tvModel_name=0x7f060015;
     }
     public static final class style {
         /** 
@@ -150,11 +157,11 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-        public static final int pager_font_style=0x7f060002;
+        public static final int AppTheme=0x7f070001;
+        public static final int pager_font_style=0x7f070002;
     }
 }
