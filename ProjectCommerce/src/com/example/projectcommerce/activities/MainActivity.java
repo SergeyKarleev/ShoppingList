@@ -55,8 +55,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		Log.d(LOG_TAG,"onClick");
 		fTrans = getSupportFragmentManager().beginTransaction();
-
 		switch (v.getId()) {
 		case R.id.btnStoreFront:
 

@@ -73,9 +73,12 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		mData = mDataBase.getData(); // заполняем курсор таблицей из БД
 
 		// Формируем столбцы сопоставления
-		String[] from = { mDataBase.PRODUCTS_NAME,
-				mDataBase.PRODUCTS_COUNT.toString() };
-		int[] to = { R.id.tvModel, R.id.tvCount };
+		String[] from = { MyDBManager.PRODUCTS_NAME,
+				MyDBManager.PRODUCTS_CATEGORY,
+				MyDBManager.PRODUCTS_LOT.toString(),
+				MyDBManager.PRODUCTS_COUNT.toString(),
+				MyDBManager.PRODUCTS_UNIT};
+		int[] to = { R.id.tvModel,R.id.tvCategory,R.id.tvLot, R.id.tvCount,R.id.tvUnit };
 
 		// Создаем адаптер
 		// TODO: реализовать работу через CursorLoader

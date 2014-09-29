@@ -18,29 +18,22 @@ public class MyDBManager implements BaseColumns {
 
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB";
-	private static final int DB_VERSION = 1;
-	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
-	private static final String DB_TABLE_CATEGORY = "CategoryTable";
+	private static final int DB_VERSION = 2;
+	private static final String DB_TABLE_PRODUCTS = "ProductsTable";	
 
 	// Имена столбцов таблицы ProductsTable
 	public static final String PRODUCTS_ID = BaseColumns._ID;
-	public static final String PRODUCTS_NAME = "Name";
-	// public static final String PRODUCTS_PRICE = "Price";
+	public static final String PRODUCTS_NAME = "Name"; 
 	public static final String PRODUCTS_COUNT = "Count";
 	public static final String PRODUCTS_LOT = "Lot";
 	public static final String PRODUCTS_UNIT = "Unit";
 
 	// Имена столбцов таблицы CategoryTable
-	public static final String PRODUCTS_CATEGORY = BaseColumns._ID;
-	public static final String CATEGORY_NAME = "CategoryName";
+	public static final String PRODUCTS_CATEGORY = "CategoryName";	
 
 	// Массивы начальных данных таблицы ProductsTable
 	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
 			"Рыба", "Картошка", "Морковь", "Яблоки" };
-
-	// float[] Prices = { (float) 8888, (float) 7230, (float) 15659,
-	// (float) 13290, (float) 5197, (float) 17049.50, (float) 12190,
-	// (float) 10985, (float) 11800.99, (float) 8922 };
 
 	String[] Category = { "Молочная продукция", "Молочная продукция",
 			"Молочная продукция", "Молочная продукция", "Молочная продукция",
@@ -201,7 +194,8 @@ public class MyDBManager implements BaseColumns {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			// Создание таблицы продуктов и внесение информации в логи
-			Log.d(LOG_TAG, "Создание таблицы ProductsTable" + DB_TABLE_PRODUCTS);
+			Log.d(LOG_TAG, "Создание таблицы " + DB_TABLE_PRODUCTS);
+			Log.d(LOG_TAG, "запрос создания: "+tableCreateProducts);
 			try {
 				db.execSQL(tableCreateProducts);
 				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
@@ -238,9 +232,8 @@ public class MyDBManager implements BaseColumns {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
-			mDB.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS);
-			Log.d(LOG_TAG, "Выполнено удаление таблиц " + DB_TABLE_PRODUCTS
-					+ " из базы " + DB_NAME);
+			mDB.execSQL("DROP TABLE "+DB_TABLE_PRODUCTS+";");
+			Log.d(LOG_TAG, "Выполнено удаление таблиц"+ " из базы " + DB_NAME);
 			onCreate(mDB);
 		}
 

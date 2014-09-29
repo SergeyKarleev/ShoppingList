@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/tvModelCategory"
-            style="@style/pager_font_style"
+            style="@style/pager_font_style2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -35,7 +35,7 @@
         android:layout_weight="1" >
 
         <TextView
-            style="@style/pager_font_style"
+            style="@style/pager_font_style2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
