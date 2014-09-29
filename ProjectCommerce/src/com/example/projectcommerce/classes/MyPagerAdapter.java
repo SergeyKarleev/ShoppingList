@@ -30,7 +30,6 @@ public class MyPagerAdapter extends PagerAdapter {
 	private int mDataCount;
 	private Cursor mData;
 	private MyDBManager mDataBase;
-	
 
 	/**
 	 * Конструктор адаптера
@@ -63,20 +62,25 @@ public class MyPagerAdapter extends PagerAdapter {
 		mData.moveToPosition(position);
 		final String mName = mData.getString(mData
 				.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-		final float mPrice = mData.getFloat(mData
-				.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
-		final int mCount = mData.getInt(mData
+		final String mCategory = mData.getString(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
+		final int mLot = mData.getInt(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_LOT));
+		final float mCount = mData.getFloat(mData
 				.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
+		final String mUnit = mData.getString(mData
+				.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
 
 		TextView tvModelPager = (TextView) v.findViewById(R.id.tvModelPager);
-		TextView tvPricePager = (TextView) v.findViewById(R.id.tvPricePager);
+		TextView tvCategoryPager = (TextView) v.findViewById(R.id.tvModelCategory);
 		TextView tvCountPager = (TextView) v.findViewById(R.id.tvCountPager);
+
 		Button btnBuyPager = (Button) v.findViewById(R.id.btnBuyPager);
 		btnBuyPager.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				if (mCount > 0) {					
+				if (mCount > 0) {
 					MyThread myThread = new MyThread(v, position);
 					myThread.execute();
 
@@ -89,26 +93,12 @@ public class MyPagerAdapter extends PagerAdapter {
 
 		// Записываем в элементы значения из БД
 		tvModelPager.setText(mName);
-		tvPricePager.setText(mPrice + " рублей");		
-		tvCountPager.setText(mCount + setSign(mCount));
+		tvCategoryPager.setText(mCategory);
+		tvCountPager.setText(mLot + "/"+mCount+" ("+mUnit+")");
 
 		// Добавляем наш View на ViewPager
 		((ViewPager) container).addView(v);
 		return v;
-	}
-
-	/** Определяет слово "штука" в правильную форму
-	 * @param cnt количество
-	 * @return слово в правильной форме
-	 */
-	private String setSign(int cnt) {
-		int rem = cnt%10;
-		if (rem==1){
-			return " штука";
-		}else if ((rem==2)||(rem==3)||(rem==4)) {
-			return " штуки";
-		}		
-		return " штук";
 	}
 
 	// Обработчик нажатия кнопки "Купить"
@@ -151,12 +141,8 @@ public class MyPagerAdapter extends PagerAdapter {
 
 		private View bufferView;
 		private int position;
-		
-		private long mId;
-		private String mName;
-		private float mPrice;
-		private int mCount;
-				
+		private ContentValues cv;
+
 		public MyThread(View bufferView, int position) {
 			super();
 			this.bufferView = bufferView;
@@ -168,22 +154,41 @@ public class MyPagerAdapter extends PagerAdapter {
 			super.onPreExecute();
 			// деактивируем кнопку Купить
 			bufferView.setEnabled(false);
-			
-			//устанавливаем значения переменных (параметров текущего устройства)
+
+			// устанавливаем значения переменных (параметров текущего
+			// устройства)			
 			mData.moveToPosition(position);
-			mId = mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID));
-			mName = mData.getString(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-			mPrice = mData.getFloat(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_PRICE));
-			mCount = mData.getInt(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
+			
+			cv.clear();
+			cv.put(MyDBManager.PRODUCTS_ID,mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID)));
+			cv.put(MyDBManager.PRODUCTS_NAME, mData.getString(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_NAME)));
+			cv.put(MyDBManager.PRODUCTS_CATEGORY, mData.getString(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY)));
+			cv.put(MyDBManager.PRODUCTS_LOT, mData.getInt(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_LOT)));
+			cv.put(MyDBManager.PRODUCTS_COUNT, mData.getFloat(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_COUNT)-1));
+			cv.put(MyDBManager.PRODUCTS_UNIT, mData.getString(mData
+					.getColumnIndex(MyDBManager.PRODUCTS_UNIT)));
+			
+//			mId = mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID));
+//			mName = mData.getString(mData
+//					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
+//			mCategory = mData.getString(mData
+//					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
+//			mLot = mData.getInt(mData
+//					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
+//			mCount = mData.getFloat(mData
+//					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
+//			mUnit = mData.getString(mData
+//					.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
 		}
 
 		protected Void doInBackground(Void... params) {
 
-			try {				
-				mDataBase.editRecord(mId, mName, mPrice, mCount - 1);
+			try {
+				mDataBase.editRecord(cv);
 				mData = mDataBase.getDataNonEmpty();
 				mDataCount = mData.getCount();
 				return null;
@@ -196,7 +201,7 @@ public class MyPagerAdapter extends PagerAdapter {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			bufferView.setEnabled(true);
+			bufferView.setEnabled(true);			
 			notifyDataSetChanged();
 			Toast.makeText(activity, "Покупка совершена", Toast.LENGTH_SHORT)
 					.show();

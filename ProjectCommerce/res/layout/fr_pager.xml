@@ -19,12 +19,13 @@
         android:layout_weight="1" >
 
         <TextView
+            android:id="@+id/tvModelCategory"
             style="@style/pager_font_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="@string/modelCategory" />       
+            android:text="@string/tvModelCategory" />       
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:text="@string/modelCount" />
+            android:text="@string/tvModelCount" />
 
         <TextView
             android:id="@+id/tvCountPager"

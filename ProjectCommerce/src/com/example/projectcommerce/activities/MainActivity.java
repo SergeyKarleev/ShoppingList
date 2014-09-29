@@ -48,7 +48,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// если первый запуск, добавляем фрагмент StoreFront на активити
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.string.fragment_universal, fragmentF).commit();
+					.add(R.string.fragment_universal, fragmentB).commit();
 		}
 
 	}

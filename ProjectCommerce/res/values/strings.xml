@@ -25,9 +25,9 @@
     
     <!-- Метки диалог-фрагмента -->
     <string name="modelName">Название</string>
-    <string name="modelCategory">Категория</string>
+    <string name="tvModelCategory">Категория</string>
     <string name="modelLot">Лот</string>
-    <string name="modelCount">Количество</string>
+    <string name="tvModelCount">Количество</string>
     <string name="modelUnit">Мера</string>    
     <string name="dialogTitle">Продукты</string>
     

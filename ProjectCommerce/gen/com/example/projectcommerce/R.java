@@ -65,29 +65,30 @@ public final class R {
     }
     public static final class id {
         public static final int btnAdd=0x7f090000;
-        public static final int btnBackEnd=0x7f090011;
-        public static final int btnBuyPager=0x7f09000a;
+        public static final int btnBackEnd=0x7f090012;
+        public static final int btnBuyPager=0x7f09000b;
         public static final int btnCancel=0x7f090001;
         public static final int btnSave=0x7f090002;
-        public static final int btnStoreFront=0x7f090010;
+        public static final int btnStoreFront=0x7f090011;
         public static final int etCount=0x7f090006;
         public static final int etLot=0x7f090005;
         public static final int etName=0x7f090003;
-        public static final int exportXML=0x7f090018;
-        public static final int importWEBPut=0x7f090015;
-        public static final int importWEBReplace=0x7f090016;
-        public static final int importXMLPut=0x7f090013;
-        public static final int importXMLReplace=0x7f090014;
-        public static final int menuExport=0x7f090017;
-        public static final int menuImport=0x7f090012;
-        public static final int pager=0x7f09000b;
+        public static final int exportXML=0x7f090019;
+        public static final int importWEBPut=0x7f090016;
+        public static final int importWEBReplace=0x7f090017;
+        public static final int importXMLPut=0x7f090014;
+        public static final int importXMLReplace=0x7f090015;
+        public static final int menuExport=0x7f090018;
+        public static final int menuImport=0x7f090013;
+        public static final int pager=0x7f09000c;
         public static final int spCategory=0x7f090004;
         public static final int spUnit=0x7f090007;
-        public static final int tvCategory=0x7f09000d;
-        public static final int tvCount=0x7f09000f;
-        public static final int tvCountPager=0x7f090009;
-        public static final int tvLot=0x7f09000e;
-        public static final int tvModel=0x7f09000c;
+        public static final int tvCategory=0x7f09000e;
+        public static final int tvCount=0x7f090010;
+        public static final int tvCountPager=0x7f09000a;
+        public static final int tvLot=0x7f09000f;
+        public static final int tvModel=0x7f09000d;
+        public static final int tvModelCategory=0x7f090009;
         public static final int tvModelPager=0x7f090008;
     }
     public static final class layout {
@@ -122,14 +123,14 @@ public final class R {
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060002;
-        public static final int modelCategory=0x7f060010;
-        public static final int modelCount=0x7f060012;
         public static final int modelLot=0x7f060011;
         /**  Метки диалог-фрагмента 
          */
         public static final int modelName=0x7f06000f;
         public static final int modelUnit=0x7f060013;
         public static final int pkg_name=0x7f060000;
+        public static final int tvModelCategory=0x7f060010;
+        public static final int tvModelCount=0x7f060012;
         public static final int tvModelPager=0x7f06000e;
         /**  item.xml 
          */
