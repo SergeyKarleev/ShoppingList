@@ -1,5 +1,8 @@
 package com.example.projectcommerce.fragments;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.example.projectcommerce.R;
 import com.example.projectcommerce.classes.MyDBManager;
 
@@ -104,9 +107,17 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 			float count = sData.getFloat(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
 			String unit = sData.getString(sData.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
-
+			
+			int indexCategory = 0;
+			String[] cat = getResources().getStringArray(R.array.modelCategories);
+			
+			for (int i=0; i<cat.length;i++) {
+				if (cat[i].toString()==category)
+					indexCategory=i;
+			}
+			
 			etName.setText(name);
-			//spCategory.setId()
+			spCategory.setId(indexCategory);
 			etLot.setText(String.valueOf(lot));
 			etCount.setText(String.valueOf(count));
 			//spUnit
