@@ -7,7 +7,7 @@
     <!-- Параметры кнопок -->
     <dimen name="btn_main_height">36dp</dimen>   
     <dimen name="btn_margin">3dp</dimen>
-	<dimen name="btn_add_size">50dp</dimen>
+	<dimen name="btn_backend_size">50dp</dimen>
     
     <!-- Диалог создания/редактирования модели -->
     <dimen name="label_font_dialog">25dp</dimen>

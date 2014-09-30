@@ -19,17 +19,27 @@ public class MyDBManager implements BaseColumns {
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB";
 	private static final int DB_VERSION = 2;
-	private static final String DB_TABLE_PRODUCTS = "ProductsTable";	
+	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
 
 	// Имена столбцов таблицы ProductsTable
 	public static final String PRODUCTS_ID = BaseColumns._ID;
-	public static final String PRODUCTS_NAME = "Name"; 
+	public static final String PRODUCTS_NAME = "Name";
 	public static final String PRODUCTS_COUNT = "Count";
 	public static final String PRODUCTS_LOT = "Lot";
 	public static final String PRODUCTS_UNIT = "Unit";
 
+	// Порядок сортировки результата
+	public static final int ORDER_BY_NONE = 0;
+	public static final int ORDER_BY_NAME_ASC = 1;
+	public static final int ORDER_BY_NAME_DESC = 2;
+	public static final int ORDER_BY_CATEGORY_ASC = 3;
+	public static final int ORDER_BY_CATEGORY_DESC = 4;
+
 	// Имена столбцов таблицы CategoryTable
-	public static final String PRODUCTS_CATEGORY = "CategoryName";	
+	public static final String PRODUCTS_CATEGORY = "CategoryName";
+
+	// Текущее состояние сортировки
+	private static int orderState = ORDER_BY_NONE;
 
 	// Массивы начальных данных таблицы ProductsTable
 	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
@@ -91,12 +101,24 @@ public class MyDBManager implements BaseColumns {
 	}
 
 	/**
-	 * Метод выбирает все строки из таблицы базы данных
+	 * Метод выбирает только те строки, в которых количество лотов больше нуля
+	 * 
+	 * @return объект типа Cursor
+	 */
+	public Cursor getDataNonEmpty() {
+		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
+				+ PRODUCTS_LOT + ">0";
+		return getData(query, orderState);
+	}
+
+	/**
+	 * Метод выбирает все строки из таблицы базы данных без сортировки
 	 * 
 	 * @return возвращает объект типа Cursor
 	 */
 	public Cursor getData() {
-		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS, null);
+		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS;
+		return getData(query, orderState);
 	}
 
 	/**
@@ -107,18 +129,55 @@ public class MyDBManager implements BaseColumns {
 	 * @return метод возвращает объект типа Cursor
 	 */
 	public Cursor getData(long id) {
-		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
-				+ PRODUCTS_ID + "=" + id, null);
+		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
+				+ PRODUCTS_ID + "=" + id;
+		return getData(query, ORDER_BY_NONE);
 	}
 
 	/**
-	 * Метод выбирает только те строки, в которых количество лотов больше нуля
+	 * Главны метод выборки
 	 * 
-	 * @return объект типа Cursor
+	 * @param query
+	 *            строка запроса
+	 * @param order
+	 *            порядок сортировки
+	 * @return объект Cursor с выборкой данных
 	 */
-	public Cursor getDataNonEmpty() {
-		return mDB.rawQuery("SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
-				+ PRODUCTS_LOT + ">0", null);
+	private Cursor getData(String query, int order) {
+		switch (order) {
+		case ORDER_BY_NAME_ASC:
+			return mDB.rawQuery(query + " ORDER BY " + PRODUCTS_NAME, null);
+		case ORDER_BY_NAME_DESC:
+			return mDB.rawQuery(query + " ORDER BY " + PRODUCTS_NAME + " desc",
+					null);
+		case ORDER_BY_CATEGORY_ASC:
+			return mDB.rawQuery(query + " ORDER BY " + PRODUCTS_CATEGORY, null);
+		case ORDER_BY_CATEGORY_DESC:
+			return mDB.rawQuery(query + " ORDER BY " + PRODUCTS_CATEGORY
+					+ " desc", null);
+		default:
+			return mDB.rawQuery(query, null);
+		}
+
+	}
+
+	public static String getOrderState() {
+		switch (orderState) {
+		case ORDER_BY_NAME_ASC:
+			return "Сортировка по названию в порядке возрастания";
+		case ORDER_BY_NAME_DESC:
+			return "Сортировка по названию в порядке убывания";
+		case ORDER_BY_CATEGORY_ASC:
+			return "Сортировка по категории в порядке возрастания";
+		case ORDER_BY_CATEGORY_DESC:
+			return "Сортировка по категории в порядке убывания";
+		default:
+			return "Без сортировки";
+		}
+	}
+
+	public void setOrderState(int state) {
+		orderState = state;
 	}
 
 	/**
@@ -195,7 +254,7 @@ public class MyDBManager implements BaseColumns {
 		public void onCreate(SQLiteDatabase db) {
 			// Создание таблицы продуктов и внесение информации в логи
 			Log.d(LOG_TAG, "Создание таблицы " + DB_TABLE_PRODUCTS);
-			Log.d(LOG_TAG, "запрос создания: "+tableCreateProducts);
+			Log.d(LOG_TAG, "запрос создания: " + tableCreateProducts);
 			try {
 				db.execSQL(tableCreateProducts);
 				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
@@ -232,8 +291,8 @@ public class MyDBManager implements BaseColumns {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
-			mDB.execSQL("DROP TABLE "+DB_TABLE_PRODUCTS+";");
-			Log.d(LOG_TAG, "Выполнено удаление таблиц"+ " из базы " + DB_NAME);
+			mDB.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
+			Log.d(LOG_TAG, "Выполнено удаление таблиц" + " из базы " + DB_NAME);
 			onCreate(mDB);
 		}
 

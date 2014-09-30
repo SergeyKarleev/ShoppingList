@@ -94,7 +94,7 @@ public class MyPagerAdapter extends PagerAdapter {
 		// Записываем в элементы значения из БД
 		tvModelPager.setText(mName);
 		tvCategoryPager.setText(mCategory);
-		tvCountPager.setText(mLot + " X "+mCount+" ("+mUnit+")");
+		tvCountPager.setText(mLot + " x "+mCount+" ("+mUnit+")");
 
 		// Добавляем наш View на ViewPager
 		((ViewPager) container).addView(v);
@@ -163,8 +163,8 @@ public class MyPagerAdapter extends PagerAdapter {
 					.getColumnIndex(MyDBManager.PRODUCTS_COUNT)));
 			cv.put(MyDBManager.PRODUCTS_UNIT, mData.getString(mData
 					.getColumnIndex(MyDBManager.PRODUCTS_UNIT)));			
+		
 			
-//			
 		}
 
 		protected Void doInBackground(Void... params) {
