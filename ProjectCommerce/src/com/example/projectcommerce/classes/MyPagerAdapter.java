@@ -80,7 +80,7 @@ public class MyPagerAdapter extends PagerAdapter {
 
 			@Override
 			public void onClick(View v) {
-				if (mCount > 0) {
+				if (mLot > 0) {
 					MyThread myThread = new MyThread(v, position);
 					myThread.execute();
 
@@ -100,15 +100,6 @@ public class MyPagerAdapter extends PagerAdapter {
 		((ViewPager) container).addView(v);
 		return v;
 	}
-
-	// Обработчик нажатия кнопки "Купить"
-	OnClickListener onClickBuy = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-
-		}
-
-	};
 
 	// Удаляем нашу страницу из ViewPager
 	@Override
@@ -158,31 +149,22 @@ public class MyPagerAdapter extends PagerAdapter {
 			// устанавливаем значения переменных (параметров текущего
 			// устройства)			
 			mData.moveToPosition(position);
-			
+			cv = new ContentValues();
 			cv.clear();
-			cv.put(MyDBManager.PRODUCTS_ID,mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID)));
+			
+			cv.put(MyDBManager.PRODUCTS_ID,mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID)));			
 			cv.put(MyDBManager.PRODUCTS_NAME, mData.getString(mData
 					.getColumnIndex(MyDBManager.PRODUCTS_NAME)));
 			cv.put(MyDBManager.PRODUCTS_CATEGORY, mData.getString(mData
 					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY)));
 			cv.put(MyDBManager.PRODUCTS_LOT, mData.getInt(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_LOT)));
+					.getColumnIndex(MyDBManager.PRODUCTS_LOT))-1);
 			cv.put(MyDBManager.PRODUCTS_COUNT, mData.getFloat(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_COUNT)-1));
+					.getColumnIndex(MyDBManager.PRODUCTS_COUNT)));
 			cv.put(MyDBManager.PRODUCTS_UNIT, mData.getString(mData
-					.getColumnIndex(MyDBManager.PRODUCTS_UNIT)));
+					.getColumnIndex(MyDBManager.PRODUCTS_UNIT)));			
 			
-//			mId = mData.getLong(mData.getColumnIndex(MyDBManager.PRODUCTS_ID));
-//			mName = mData.getString(mData
-//					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-//			mCategory = mData.getString(mData
-//					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
-//			mLot = mData.getInt(mData
-//					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
-//			mCount = mData.getFloat(mData
-//					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
-//			mUnit = mData.getString(mData
-//					.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
+//			
 		}
 
 		protected Void doInBackground(Void... params) {
