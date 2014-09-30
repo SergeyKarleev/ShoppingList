@@ -5,9 +5,12 @@ import com.example.projectcommerce.classes.MyDBManager;
 import com.example.projectcommerce.fragments.MyFragmentBackend;
 import com.example.projectcommerce.fragments.MyFragmentStorefront;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,15 +27,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	FragmentTransaction fTrans;
 	MyFragmentBackend fragmentB;
-	MyFragmentStorefront fragmentF;
+	MyFragmentStorefront fragmentF;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// создаем базу данных с начальными значениями и сразу закрываем
-		MyDBManager mDataBase = new MyDBManager(this);
+		// создаем базу данных с начальными значениями и сразу закрываем		
+		MyDBManager mDataBase = new MyDBManager(this);	
 		mDataBase.close();
 
 		btnStoreFront = (Button) findViewById(R.id.btnStoreFront);
@@ -52,6 +55,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
+	
+	
+
+	
+
+
 
 	@Override
 	public void onClick(View v) {

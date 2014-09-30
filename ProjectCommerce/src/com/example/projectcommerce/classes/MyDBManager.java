@@ -1,5 +1,7 @@
 package com.example.projectcommerce.classes;
 
+import com.example.projectcommerce.activities.MainActivity;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -62,7 +64,7 @@ public class MyDBManager implements BaseColumns {
 			+ " integer, " + PRODUCTS_COUNT + " real, " + PRODUCTS_UNIT
 			+ " text);";
 
-	// Объявление служебных переменных для работы с БД
+	// Объявление служебных переменных для работы с БД	
 	private Context mCtx;
 	private DBHelper mdbHelper;
 	private SQLiteDatabase mDB;

@@ -40,26 +40,26 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 
 	// действия после закрытия фрагмента диалога
 	final int ACTION_ADD = 1;
-	final int ACTION_UPDATE = 2;	
+	final int ACTION_UPDATE = 2;
 
 	private Button btnAdd;
 	private Button btnOrderProductAsc;
 	private Button btnOrderProductDesc;
 	private Button btnOrderCategoryAsc;
 	private Button btnOrderCategoryDesc;
-		
+
 	private DialogFragment mDialogFragmentCreate;
 	private DialogFragment mDialogFragmentEdit;
 
 	private MyFragmentBackend mContext;
-	
+
 	MyDBManager mDataBase;
 	private Cursor mData;
 	SimpleCursorAdapter scAdapter;
-	
-	//Классы импорта/экспорта различных типов хранилища
+
+	// Классы импорта/экспорта различных типов хранилища
 	MyMigratorXML mDataMigrator;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -72,29 +72,30 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);
 		btnAdd.setOnClickListener(this);
-		
+
 		btnOrderProductAsc = (Button) v.findViewById(R.id.btnOrderProductAsc);
 		btnOrderProductDesc = (Button) v.findViewById(R.id.btnOrderProductDesc);
 		btnOrderCategoryAsc = (Button) v.findViewById(R.id.btnOrderCategoryAsc);
-		btnOrderCategoryDesc = (Button) v.findViewById(R.id.btnOrderCategoryDesc);
-		
+		btnOrderCategoryDesc = (Button) v
+				.findViewById(R.id.btnOrderCategoryDesc);
+
 		btnOrderProductAsc.setOnClickListener(this);
 		btnOrderProductDesc.setOnClickListener(this);
 		btnOrderCategoryAsc.setOnClickListener(this);
 		btnOrderCategoryDesc.setOnClickListener(this);
-		
 
-		//Подготовка к работе с базой данных
-		mDataBase = new MyDBManager(getActivity()); // подключаем БД
-		mData = mDataBase.getData(); // заполняем курсор таблицей из БД
+		// Подготовка к работе с базой данных
+		mDataBase = new MyDBManager(getActivity()); // подключаем БД		
+		mData = mDataBase.getData(); // заполняем курсор таблицей из БД		
 
 		// Формируем столбцы сопоставления
 		String[] from = { MyDBManager.PRODUCTS_NAME,
 				MyDBManager.PRODUCTS_CATEGORY,
 				MyDBManager.PRODUCTS_LOT.toString(),
 				MyDBManager.PRODUCTS_COUNT.toString(),
-				MyDBManager.PRODUCTS_UNIT};
-		int[] to = { R.id.tvModel,R.id.tvCategory,R.id.tvLot, R.id.tvCount,R.id.tvUnit };
+				MyDBManager.PRODUCTS_UNIT };
+		int[] to = { R.id.tvModel, R.id.tvCategory, R.id.tvLot, R.id.tvCount,
+				R.id.tvUnit };
 
 		// Создаем адаптер
 		// TODO: реализовать работу через CursorLoader
@@ -147,31 +148,34 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.mymenu, menu);
-	}	
-	
+	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {		
-		switch (item.getItemId()) {		
-		case R.id.importXMLPut:			
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.importXMLPut:
 			if (mDataMigrator.ImportData(mDataMigrator.MODE_ACTION_ADD))
 				updateListAdapter();
-			else 
-				Toast.makeText(getActivity(), "Ошибка импорта", Toast.LENGTH_SHORT).show();
+			else
+				Toast.makeText(getActivity(), "Ошибка импорта",
+						Toast.LENGTH_SHORT).show();
 			break;
-			
-		case R.id.importXMLReplace:			
+
+		case R.id.importXMLReplace:
 			if (mDataMigrator.ImportData(mDataMigrator.MODE_ACTION_UPDATE))
 				updateListAdapter();
 			else
-				Toast.makeText(getActivity(), "Ошибка импорта", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Ошибка импорта",
+						Toast.LENGTH_SHORT).show();
 			break;
-			
+
 		case R.id.exportXML:
-			//TODO: вызвать метод экспорта XML
+			// TODO: вызвать метод экспорта XML
 			if (mDataMigrator.ExportData())
 				updateListAdapter();
 			else
-				Toast.makeText(getActivity(), "Ошибка экспорта", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(), "Ошибка экспорта",
+						Toast.LENGTH_SHORT).show();
 		default:
 			break;
 		}
@@ -220,9 +224,9 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	 * @param act
 	 *            производимое действие: добавление или обновление значения
 	 */
-	public void onGetRow(ContentValues cv, int act) {		
-		MyThread myThread =  new MyThread(cv, act);
-		myThread.execute();		
+	public void onGetRow(ContentValues cv, int act) {
+		MyThread myThread = new MyThread(cv, act);
+		myThread.execute();
 	}
 
 	/**
@@ -233,22 +237,24 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		scAdapter.changeCursor(mData);
 	}
 
-	
-	private class MyThread extends AsyncTask<Void, Void, Void>{
-		
+	private class MyThread extends AsyncTask<Void, Void, Void> {
+
 		private ContentValues cv;
 		private int act;
-		
-		/** Конструктор создания потока для внесения изменений в базу
-		 * @param cv значения добавляемой/изменяемой строки
-		 * @param act действие: добавление или изменение
+
+		/**
+		 * Конструктор создания потока для внесения изменений в базу
+		 * 
+		 * @param cv
+		 *            значения добавляемой/изменяемой строки
+		 * @param act
+		 *            действие: добавление или изменение
 		 */
 		public MyThread(ContentValues cv, int act) {
 			super();
 			this.cv = cv;
 			this.act = act;
 		}
-		
 
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -265,21 +271,13 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 			}
 			return null;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			updateListAdapter();
 		}
 
-		
-
-		
-
-		
-		
 	}
-
-	
 
 }
