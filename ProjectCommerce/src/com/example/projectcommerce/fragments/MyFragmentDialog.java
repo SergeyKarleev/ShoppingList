@@ -106,21 +106,47 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
 			float count = sData.getFloat(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
-			String unit = sData.getString(sData.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
-			
+			String unit = sData.getString(sData
+					.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
+
 			int indexCategory = 0;
-			String[] cat = getResources().getStringArray(R.array.modelCategories);
-			
-			for (int i=0; i<cat.length;i++) {
-				if (cat[i].toString()==category)
-					indexCategory=i;
+			String[] cat = getResources().getStringArray(
+					R.array.modelCategories);
+
+			for (int i = 0; i < cat.length; i++) {
+				if (cat[i].toString() == category)
+					indexCategory = i;
 			}
-			
+
+			// находим ID выбранной категории в массиве категорий
+			int ID_cat = 0;
+			String[] categoriesArray = getResources().getStringArray(
+					R.array.modelCategories);
+			for (int i = 0; i < categoriesArray.length; i++) {
+				if (categoriesArray[i].equals(category)) {
+					ID_cat = i;
+					break;
+				}
+			}
+
+			// находим ID выбранной меры в массиве единиц измерения
+			int ID_unit = 0;
+			String[] unitsArray = getResources().getStringArray(
+					R.array.modelUnits);
+			for (int i = 0; i < unitsArray.length; i++) {
+				if (unitsArray[i].equals(unit)) {
+					ID_unit = i;
+					break;
+				}
+
+			}
+
 			etName.setText(name);
-			spCategory.setId(indexCategory);
+			spCategory.setSelection(ID_cat);
 			etLot.setText(String.valueOf(lot));
 			etCount.setText(String.valueOf(count));
-			//spUnit
+			spUnit.setSelection(ID_unit);
+
 		}
 		return v;
 	}
@@ -145,15 +171,14 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 			dismiss();
 			break;
 		case R.id.btnSave:
-			//Преобразование значений пустых полей в значения по-умолчанию 
+			// Преобразование значений пустых полей в значения по-умолчанию
 			if (etLot.getText().length() == 0)
 				etLot.setText("1");
 			if (etCount.getText().length() == 0)
-				etCount.setText("1");			
-			
-			// обработка клика на кнопке Сохранить (метод onGetRow в fr_backend)			
-			if (etName.getText().length() != 0
-					&& etLot.getText().length() != 0
+				etCount.setText("1");
+
+			// обработка клика на кнопке Сохранить (метод onGetRow в fr_backend)
+			if (etName.getText().length() != 0 && etLot.getText().length() != 0
 					&& etCount.getText().length() != 0) {
 
 				ContentValues cv = new ContentValues();
@@ -161,10 +186,13 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 					cv.put(MyDBManager.PRODUCTS_ID, sData.getInt(sData
 							.getColumnIndex(MyDBManager.PRODUCTS_ID)));
 				cv.put(MyDBManager.PRODUCTS_NAME, etName.getText().toString());
-				cv.put(MyDBManager.PRODUCTS_CATEGORY, spCategory.getSelectedItem().toString());				
-				cv.put(MyDBManager.PRODUCTS_LOT, Integer.parseInt(etLot.getText().toString()));
-				cv.put(MyDBManager.PRODUCTS_COUNT, Float.parseFloat(etCount.getText().toString()));
-				
+				cv.put(MyDBManager.PRODUCTS_CATEGORY, spCategory
+						.getSelectedItem().toString());
+				cv.put(MyDBManager.PRODUCTS_LOT,
+						Integer.parseInt(etLot.getText().toString()));
+				cv.put(MyDBManager.PRODUCTS_COUNT,
+						Float.parseFloat(etCount.getText().toString()));
+
 				etName.setText(null);
 				spCategory.setId(0);
 				etLot.setText(null);
