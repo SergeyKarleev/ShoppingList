@@ -192,12 +192,13 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 						Integer.parseInt(etLot.getText().toString()));
 				cv.put(MyDBManager.PRODUCTS_COUNT,
 						Float.parseFloat(etCount.getText().toString()));
+				cv.put(MyDBManager.PRODUCTS_UNIT, spUnit.getSelectedItem().toString());
 
 				etName.setText(null);
-				spCategory.setId(0);
+				spCategory.setSelection(0);
 				etLot.setText(null);
 				etCount.setText(null);
-				spUnit.setId(0);
+				spUnit.setSelection(0);
 				sContext.onGetRow(cv, mAction);
 				dismiss();
 			} else
