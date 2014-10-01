@@ -10,25 +10,24 @@
         android:background="#E6E6FA"
         android:gravity="right"
         android:orientation="horizontal" >
-		
+
         <Button
-            android:id="@+id/btnSort" 
+            android:id="@+id/btnSort"
             android:layout_width="@dimen/btn_backend_size"
             android:layout_height="@dimen/btn_backend_size"
-            android:text="Sort"
-            android:textSize="10dp"/>
-        
-        <TextView 
+            />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-        
+            android:layout_weight="1" />
+
         <Button
             android:id="@+id/btnAdd"
-            style="?android:attr/buttonStyleSmall"            
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="@dimen/btn_backend_size"
             android:layout_height="@dimen/btn_backend_size"
-            android:background="@drawable/btn_add"/>
+            android:background="@drawable/btn_add" />
     </LinearLayout>
 
     <ListView

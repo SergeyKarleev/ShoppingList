@@ -1,4 +1,4 @@
-package com.example.projectcommerce.classes;
+package ru.sergeykarleev.shoppinglist.classes;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +15,9 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
@@ -29,8 +32,6 @@ import android.provider.ContactsContract.Directory;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.projectcommerce.R;
-import com.example.projectcommerce.fragments.MyFragmentBackend;
 
 /**
  *  ласс €вл€етс€ реализацией паттерна јдаптер, выполн€ющей работу по

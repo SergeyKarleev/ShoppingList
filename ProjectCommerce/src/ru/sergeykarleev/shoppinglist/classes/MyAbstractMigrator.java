@@ -1,8 +1,9 @@
-package com.example.projectcommerce.classes;
+package ru.sergeykarleev.shoppinglist.classes;
 
 import java.net.URI;
 
-import com.example.projectcommerce.fragments.MyFragmentBackend;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+
 
 public abstract class MyAbstractMigrator {
 	// Список режимов для import mode

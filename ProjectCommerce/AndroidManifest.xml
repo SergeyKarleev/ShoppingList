@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projectcommerce"
+    package="ru.sergeykarleev.shoppinglist"
     android:versionCode="1"
-    android:versionName="1.2.1" >
-
+    android:versionName="1.2.2" >
+    
     <!-- Версия 1.2 сортировка категорий и план магазина-->    	
-    	<!-- Версия 1.2.1 добавить сортировку по категориям и алфавиту в Backend-->    	
+    	<!-- Версия 1.2.1 добавить сортировку по категориям и алфавиту в Backend-->
+    	<!-- Версия 1.2.2 подготовка к публикации: переименование проекта -->    	   	
     	<!-- Версия 1.2 Реализовать фрагмент плана похода по отделам магазина-->
     
     <!-- Версия 1.1 большое обновление структуры базы данных-->
@@ -62,7 +63,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.projectcommerce.activities.MainActivity"
+            android:name="ru.sergeykarleev.shoppinglist.activities.MainActivity"
             android:label="@string/app_name" 
             android:screenOrientation="portrait">
             <intent-filter>

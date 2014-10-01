@@ -1,9 +1,14 @@
-package com.example.projectcommerce.fragments;
+package ru.sergeykarleev.shoppinglist.fragments;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+
+import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.classes.MyAbstractMigrator;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.classes.MyMigratorXML;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -29,10 +34,6 @@ import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.example.projectcommerce.R;
-import com.example.projectcommerce.classes.MyAbstractMigrator;
-import com.example.projectcommerce.classes.MyDBManager;
-import com.example.projectcommerce.classes.MyMigratorXML;
 
 public class MyFragmentBackend extends ListFragment implements OnClickListener {
 

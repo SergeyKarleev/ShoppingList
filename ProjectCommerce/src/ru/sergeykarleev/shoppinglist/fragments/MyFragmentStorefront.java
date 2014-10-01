@@ -1,5 +1,8 @@
-package com.example.projectcommerce.fragments;
+package ru.sergeykarleev.shoppinglist.fragments;
 
+import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.classes.MyPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -8,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.projectcommerce.R;
-import com.example.projectcommerce.classes.MyDBManager;
-import com.example.projectcommerce.classes.MyPagerAdapter;
 
 
 public class MyFragmentStorefront extends Fragment {

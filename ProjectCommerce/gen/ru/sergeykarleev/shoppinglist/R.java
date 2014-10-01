@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.projectcommerce;
+package ru.sergeykarleev.shoppinglist;
 
 public final class R {
     public static final class array {

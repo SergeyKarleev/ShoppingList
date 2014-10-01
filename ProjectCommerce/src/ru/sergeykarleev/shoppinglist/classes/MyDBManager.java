@@ -1,6 +1,6 @@
-package com.example.projectcommerce.classes;
+package ru.sergeykarleev.shoppinglist.classes;
 
-import com.example.projectcommerce.activities.MainActivity;
+import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 
 import android.content.ContentValues;
 import android.content.Context;

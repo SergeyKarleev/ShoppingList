@@ -1,10 +1,11 @@
-package com.example.projectcommerce.fragments;
+package ru.sergeykarleev.shoppinglist.fragments;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.example.projectcommerce.R;
-import com.example.projectcommerce.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+
 
 import android.content.ContentValues;
 import android.content.DialogInterface;

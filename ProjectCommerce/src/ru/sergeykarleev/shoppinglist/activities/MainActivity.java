@@ -1,9 +1,10 @@
-package com.example.projectcommerce.activities;
+package ru.sergeykarleev.shoppinglist.activities;
 
-import com.example.projectcommerce.R;
-import com.example.projectcommerce.classes.MyDBManager;
-import com.example.projectcommerce.fragments.MyFragmentBackend;
-import com.example.projectcommerce.fragments.MyFragmentStorefront;
+import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
+
 
 import android.content.Context;
 import android.os.Bundle;

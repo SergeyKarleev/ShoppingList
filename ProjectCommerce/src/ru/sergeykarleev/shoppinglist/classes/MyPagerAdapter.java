@@ -1,8 +1,9 @@
-package com.example.projectcommerce.classes;
+package ru.sergeykarleev.shoppinglist.classes;
 
 import java.security.spec.MGF1ParameterSpec;
 
-import com.example.projectcommerce.R;
+import ru.sergeykarleev.shoppinglist.R;
+
 
 import android.content.ContentValues;
 import android.content.Context;
