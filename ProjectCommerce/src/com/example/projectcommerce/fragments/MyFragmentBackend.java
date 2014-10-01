@@ -43,10 +43,8 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 	final int ACTION_UPDATE = 2;
 
 	private Button btnAdd;
-	private Button btnOrderProductAsc;
-	private Button btnOrderProductDesc;
-	private Button btnOrderCategoryAsc;
-	private Button btnOrderCategoryDesc;
+	private Button btnSort;
+	
 
 	private DialogFragment mDialogFragmentCreate;
 	private DialogFragment mDialogFragmentEdit;
@@ -73,16 +71,9 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);
 		btnAdd.setOnClickListener(this);
 
-		btnOrderProductAsc = (Button) v.findViewById(R.id.btnOrderProductAsc);
-		btnOrderProductDesc = (Button) v.findViewById(R.id.btnOrderProductDesc);
-		btnOrderCategoryAsc = (Button) v.findViewById(R.id.btnOrderCategoryAsc);
-		btnOrderCategoryDesc = (Button) v
-				.findViewById(R.id.btnOrderCategoryDesc);
-
-		btnOrderProductAsc.setOnClickListener(this);
-		btnOrderProductDesc.setOnClickListener(this);
-		btnOrderCategoryAsc.setOnClickListener(this);
-		btnOrderCategoryDesc.setOnClickListener(this);
+		btnSort = (Button) v.findViewById(R.id.btnSort);
+		btnSort.setOnClickListener(this);
+		
 
 		// Подготовка к работе с базой данных
 		mDataBase = new MyDBManager(getActivity()); // подключаем БД		
@@ -194,22 +185,31 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		case R.id.btnAdd:
 			mDialogFragmentCreate.show(getFragmentManager(), "Устройство");
 			break;
-		case R.id.btnOrderProductAsc:
-			mDataBase.setOrderState(MyDBManager.ORDER_BY_NAME_ASC);
+		case R.id.btnSort:
+			int orderState = mDataBase.getOrderState();
+			
+			switch (orderState) {
+			case MyDBManager.ORDER_BY_NONE:
+				orderState = MyDBManager.ORDER_BY_NAME_ASC;
+				break;
+			case MyDBManager.ORDER_BY_NAME_ASC:
+				orderState = MyDBManager.ORDER_BY_NAME_DESC;
+				break;
+			case MyDBManager.ORDER_BY_NAME_DESC:
+				orderState = MyDBManager.ORDER_BY_CATEGORY_ASC;
+				break;
+			case MyDBManager.ORDER_BY_CATEGORY_ASC:
+				orderState = MyDBManager.ORDER_BY_CATEGORY_DESC;
+				break;
+			case MyDBManager.ORDER_BY_CATEGORY_DESC:
+				orderState = MyDBManager.ORDER_BY_NONE;
+				break;			
+			default:				
+				break;
+			} 
+			mDataBase.setOrderState(orderState);
 			updateListAdapter();
-			break;
-		case R.id.btnOrderProductDesc:
-			mDataBase.setOrderState(MyDBManager.ORDER_BY_NAME_DESC);
-			updateListAdapter();
-			break;
-		case R.id.btnOrderCategoryAsc:
-			mDataBase.setOrderState(MyDBManager.ORDER_BY_CATEGORY_ASC);
-			updateListAdapter();
-			break;
-		case R.id.btnOrderCategoryDesc:
-			mDataBase.setOrderState(MyDBManager.ORDER_BY_CATEGORY_DESC);
-			updateListAdapter();
-			break;
+			break;		
 		default:
 			break;
 		}

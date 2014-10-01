@@ -163,21 +163,16 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
-	public static String getOrderState() {
-		switch (orderState) {
-		case ORDER_BY_NAME_ASC:
-			return "Сортировка по названию в порядке возрастания";
-		case ORDER_BY_NAME_DESC:
-			return "Сортировка по названию в порядке убывания";
-		case ORDER_BY_CATEGORY_ASC:
-			return "Сортировка по категории в порядке возрастания";
-		case ORDER_BY_CATEGORY_DESC:
-			return "Сортировка по категории в порядке убывания";
-		default:
-			return "Без сортировки";
-		}
+	/**Возвращает текущую сортировку
+	 * @return integer значение соответствует MyDBManager.ORDER_BY переменным класса
+	 */
+	public static int getOrderState() {
+		return orderState;
 	}
 
+	/**Устанавливает порядок сортировки значений в выгрузке из БД
+	 * @param state устанавливать через MyDBManager.ORDER_BY переменную класса
+	 */
 	public void setOrderState(int state) {
 		orderState = state;
 	}
