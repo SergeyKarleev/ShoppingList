@@ -15,6 +15,7 @@
             android:id="@+id/btnSort"
             android:layout_width="@dimen/btn_backend_size"
             android:layout_height="@dimen/btn_backend_size"
+            android:background="@drawable/btn_sort"
             />
 
         <TextView
