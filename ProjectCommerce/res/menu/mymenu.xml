@@ -11,13 +11,7 @@
                 android:title="put from XML" android:numericShortcut="1"/>
             <item
                 android:id="@+id/importXMLReplace"
-                android:title="replace from XML" android:numericShortcut="2"/>
-            <item
-                android:id="@+id/importWEBPut"
-                android:title="put from WEB" android:numericShortcut="3"/>
-            <item
-                android:id="@+id/importWEBReplace"
-                android:title="replace from WEB" android:numericShortcut="4"/>  
+                android:title="replace from XML" android:numericShortcut="2"/>              
         </menu>
     </item>
     <item

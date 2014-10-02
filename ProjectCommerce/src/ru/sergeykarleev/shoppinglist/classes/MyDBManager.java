@@ -36,12 +36,20 @@ public class MyDBManager implements BaseColumns {
 	public static final int ORDER_BY_NAME_DESC = 2;
 	public static final int ORDER_BY_CATEGORY_ASC = 3;
 	public static final int ORDER_BY_CATEGORY_DESC = 4;
+	
+	//Имена сортировки
+	private static final String SORT_NONE = "без сортировки";
+	private static final String SORT_NAME_ASC = "по имени (возр)";
+	private static final String SORT_NAME_DESC = "по имени (убыв)";
+	private static final String SORT_CATEGORY_ASC = "категория (возр)";
+	private static final String SORT_CATEGORY_DESC = "категория (убыв)";
 
 	// Имена столбцов таблицы CategoryTable
 	public static final String PRODUCTS_CATEGORY = "CategoryName";
 
 	// Текущее состояние сортировки
 	private static int orderState = ORDER_BY_NONE;
+	private static String orderName = SORT_NONE;
 
 	// Массивы начальных данных таблицы ProductsTable
 	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
@@ -170,11 +178,37 @@ public class MyDBManager implements BaseColumns {
 		return orderState;
 	}
 
-	/**Устанавливает порядок сортировки значений в выгрузке из БД
+	/**Устанавливает порядок сортировки значений в выгрузке из БД и её название
 	 * @param state устанавливать через MyDBManager.ORDER_BY переменную класса
 	 */
 	public void setOrderState(int state) {
 		orderState = state;
+		switch (state) {
+		case ORDER_BY_NONE:
+			orderName = SORT_NONE;
+			break;
+		case ORDER_BY_NAME_ASC:
+			orderName = SORT_NAME_ASC;
+			break;
+		case ORDER_BY_NAME_DESC:
+			orderName = SORT_NAME_DESC;
+			break;
+		case ORDER_BY_CATEGORY_ASC:
+			orderName = SORT_CATEGORY_ASC;
+			break;
+		case ORDER_BY_CATEGORY_DESC:
+			orderName = SORT_CATEGORY_DESC;
+			break;
+		default:
+			break;
+		} 
+	}
+
+	/**Возвращает текущее имя сортировки
+	 * @return значение типа String
+	 */
+	public String getOrderName() {
+		return orderName;
 	}
 
 	/**

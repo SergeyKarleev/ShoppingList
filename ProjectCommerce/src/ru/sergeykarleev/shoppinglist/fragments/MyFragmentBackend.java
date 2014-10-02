@@ -32,6 +32,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -45,6 +46,7 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 
 	private Button btnAdd;
 	private Button btnSort;
+	private TextView tvSort;
 	
 
 	private DialogFragment mDialogFragmentCreate;
@@ -75,11 +77,15 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 		btnSort = (Button) v.findViewById(R.id.btnSort);
 		btnSort.setOnClickListener(this);
 		
+		tvSort = (TextView) v.findViewById(R.id.tvSort);		
 
 		// Подготовка к работе с базой данных
 		mDataBase = new MyDBManager(getActivity()); // подключаем БД		
 		mData = mDataBase.getData(); // заполняем курсор таблицей из БД		
 
+		// Устанавливаем отображение первоначального режима сортировки
+		tvSort.setText(mDataBase.getOrderName());
+		
 		// Формируем столбцы сопоставления
 		String[] from = { MyDBManager.PRODUCTS_NAME,
 				MyDBManager.PRODUCTS_CATEGORY,
@@ -209,6 +215,7 @@ public class MyFragmentBackend extends ListFragment implements OnClickListener {
 				break;
 			} 
 			mDataBase.setOrderState(orderState);
+			tvSort.setText(mDataBase.getOrderName());
 			updateListAdapter();
 			break;		
 		default:
