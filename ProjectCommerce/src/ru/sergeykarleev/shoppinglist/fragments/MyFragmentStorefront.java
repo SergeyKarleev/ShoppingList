@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-
 public class MyFragmentStorefront extends Fragment {
 
 	private final String LOG_TAG = "myLogs";
