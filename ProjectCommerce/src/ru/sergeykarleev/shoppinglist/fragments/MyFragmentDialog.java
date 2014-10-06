@@ -36,7 +36,7 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 	private final int ACTION_UPDATE = 2;
 
 	// необходим для вызова метода getRow фрагмента
-	private static MyFragmentBackend sContext;
+	//private static MyFragmentBackend sContext;
 
 	// содержит значение выбранного устройства из фрагмента
 	private static Cursor sData;
@@ -54,11 +54,11 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 	 * @param context
 	 *            по-умолчанию передавать контекст фрагмента Backend (this)
 	 */
-	public MyFragmentDialog(MyFragmentBackend context) {
-		super();
-		this.sContext = context;
-		mAction = ACTION_ADD;
-	}
+//	public MyFragmentDialog(MyFragmentBackend_sav context) {
+//		super();
+//		this.sContext = context;
+//		mAction = ACTION_ADD;
+//	}
 
 	/**
 	 * Данный конструктор вызывается при редактировании существующего элемента
@@ -68,12 +68,12 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 	 * @param data
 	 *            курсор с данными из выбранной строки
 	 */
-	public MyFragmentDialog(MyFragmentBackend context, Cursor data) {
-		super();
-		this.sContext = context;
-		this.sData = data;
-		mAction = ACTION_UPDATE;
-	}
+//	public MyFragmentDialog(MyFragmentBackend_sav context, Cursor data) {
+//		super();
+//		this.sContext = context;
+//		this.sData = data;
+//		mAction = ACTION_UPDATE;
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,12 +103,12 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
 			String category = sData.getString(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
-			int lot = sData.getInt(sData
-					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
-			float count = sData.getFloat(sData
-					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
-			String unit = sData.getString(sData
-					.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
+//			int lot = sData.getInt(sData
+//					.getColumnIndex(MyDBManager.PRODUCTS_LOT));
+//			float count = sData.getFloat(sData
+//					.getColumnIndex(MyDBManager.PRODUCTS_COUNT));
+//			String unit = sData.getString(sData
+//					.getColumnIndex(MyDBManager.PRODUCTS_UNIT));
 
 			int indexCategory = 0;
 			String[] cat = getResources().getStringArray(
@@ -131,22 +131,22 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 			}
 
 			// находим ID выбранной меры в массиве единиц измерения
-			int ID_unit = 0;
-			String[] unitsArray = getResources().getStringArray(
-					R.array.modelUnits);
-			for (int i = 0; i < unitsArray.length; i++) {
-				if (unitsArray[i].equals(unit)) {
-					ID_unit = i;
-					break;
-				}
-
-			}
+//			int ID_unit = 0;
+//			String[] unitsArray = getResources().getStringArray(
+//					R.array.modelUnits);
+//			for (int i = 0; i < unitsArray.length; i++) {
+//				if (unitsArray[i].equals(unit)) {
+//					ID_unit = i;
+//					break;
+//				}
+//
+//			}
 
 			etName.setText(name);
 			spCategory.setSelection(ID_cat);
-			etLot.setText(String.valueOf(lot));
-			etCount.setText(String.valueOf(count));
-			spUnit.setSelection(ID_unit);
+//			etLot.setText(String.valueOf(lot));
+//			etCount.setText(String.valueOf(count));
+//			spUnit.setSelection(ID_unit);
 
 		}
 		return v;
@@ -189,18 +189,18 @@ public class MyFragmentDialog extends DialogFragment implements OnClickListener 
 				cv.put(MyDBManager.PRODUCTS_NAME, etName.getText().toString());
 				cv.put(MyDBManager.PRODUCTS_CATEGORY, spCategory
 						.getSelectedItem().toString());
-				cv.put(MyDBManager.PRODUCTS_LOT,
-						Integer.parseInt(etLot.getText().toString()));
-				cv.put(MyDBManager.PRODUCTS_COUNT,
-						Float.parseFloat(etCount.getText().toString()));
-				cv.put(MyDBManager.PRODUCTS_UNIT, spUnit.getSelectedItem().toString());
+//				cv.put(MyDBManager.PRODUCTS_LOT,
+//						Integer.parseInt(etLot.getText().toString()));
+//				cv.put(MyDBManager.PRODUCTS_COUNT,
+//						Float.parseFloat(etCount.getText().toString()));
+//				cv.put(MyDBManager.PRODUCTS_UNIT, spUnit.getSelectedItem().toString());
 
 				etName.setText(null);
 				spCategory.setSelection(0);
 				etLot.setText(null);
 				etCount.setText(null);
 				spUnit.setSelection(0);
-				sContext.onGetRow(cv, mAction);
+//				sContext.onGetRow(cv, mAction);
 				dismiss();
 			} else
 				Toast.makeText(getActivity(), "Все поля должны быть заполнены",

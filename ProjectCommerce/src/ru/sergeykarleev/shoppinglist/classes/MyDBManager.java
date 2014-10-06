@@ -22,14 +22,17 @@ public class MyDBManager implements BaseColumns {
 	private static final String DB_NAME = "myDB";
 	private static final int DB_VERSION = 2;
 	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
+	private static final String DB_TABLE_CATEGORY = "CategoryTable";
 
-	// Имена столбцов таблицы ProductsTable
+	// Имена столбцов таблицы DB_TABLE_PRODUCTS
 	public static final String PRODUCTS_ID = BaseColumns._ID;
-	public static final String PRODUCTS_NAME = "Name";
-	public static final String PRODUCTS_COUNT = "Count";
-	public static final String PRODUCTS_LOT = "Lot";
-	public static final String PRODUCTS_UNIT = "Unit";
-
+	public static final String PRODUCTS_NAME = "Name_product";
+	public static final String PRODUCTS_CATEGORY = "ID_category";
+	
+	// Имена столбцов таблицы DB_TABLE_CATEGORY
+	public static final String CATEGORY_ID = BaseColumns._ID;
+	public static final String CATEGORY_NAME = "Name_category";
+	
 	// Порядок сортировки результата
 	public static final int ORDER_BY_NONE = 0;
 	public static final int ORDER_BY_NAME_ASC = 1;
@@ -44,34 +47,37 @@ public class MyDBManager implements BaseColumns {
 	private static final String SORT_CATEGORY_ASC = "категория (возр)";
 	private static final String SORT_CATEGORY_DESC = "категория (убыв)";
 
-	// Имена столбцов таблицы CategoryTable
-	public static final String PRODUCTS_CATEGORY = "CategoryName";
-
 	// Текущее состояние сортировки
 	private static int orderState = ORDER_BY_NONE;
 	private static String orderName = SORT_NONE;
 
-	// Массивы начальных данных таблицы ProductsTable
-	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
-			"Рыба", "Картошка", "Морковь", "Яблоки" };
+//	// Массивы начальных данных таблицы ProductsTable
+//	String[] Names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
+//			"Рыба", "Картошка", "Морковь", "Яблоки" };
+//
+//	String[] Category = { "Молочная продукция", "Молочная продукция",
+//			"Молочная продукция", "Молочная продукция", "Молочная продукция",
+//			"Мясо и рыба", "Мясо и рыба", "Овощи и фрукты", "Овощи и фрукты",
+//			"Овощи и фрукты" };
+//	int[] Lot = { 1, 1, 1, 1, 1, 2, 2, 2, 3, 3 };
+//	float[] Count = { (float) 0.25, 1, (float) 0.25, (float) 0.3, 10,
+//			(float) 0.5, (float) 0.5, 1, 1, 1 };
+//	String[] Unit = { "кг", "л", "кг", "кг", "шт", "кг", "кг", "кг", "шт", "шт" };
 
-	String[] Category = { "Молочная продукция", "Молочная продукция",
-			"Молочная продукция", "Молочная продукция", "Молочная продукция",
-			"Мясо и рыба", "Мясо и рыба", "Овощи и фрукты", "Овощи и фрукты",
-			"Овощи и фрукты" };
-	int[] Lot = { 1, 1, 1, 1, 1, 2, 2, 2, 3, 3 };
-	float[] Count = { (float) 0.25, 1, (float) 0.25, (float) 0.3, 10,
-			(float) 0.5, (float) 0.5, 1, 1, 1 };
-	String[] Unit = { "кг", "л", "кг", "кг", "шт", "кг", "кг", "кг", "шт", "шт" };
-
-	// Запрос на создание таблицы ProductsTable
+	// Запрос на создание таблицы DB_TABLE_PRODUCTS
 	private static final String tableCreateProducts = "CREATE TABLE "
 			+ DB_TABLE_PRODUCTS + " (" + PRODUCTS_ID
-			+ " integer primary key autoincrement, " + PRODUCTS_NAME
-			+ " text, " + PRODUCTS_CATEGORY + " text, " + PRODUCTS_LOT
-			+ " integer, " + PRODUCTS_COUNT + " real, " + PRODUCTS_UNIT
-			+ " text);";
+			+ " integer primary key autoincrement, " 
+			+ PRODUCTS_NAME	+ " text, " 
+			+ PRODUCTS_CATEGORY + " integer);";
 
+	// Запрос на создание таблицы DB_TABLE_CATEGORY
+	private static final String tableCreateCategory = "CREATE TABLE "
+			+ DB_TABLE_CATEGORY + " (" + CATEGORY_ID
+			+ " integer primary key autoincrement, " 
+			+ CATEGORY_NAME	+ " text);";
+	
+	
 	// Объявление служебных переменных для работы с БД	
 	private Context mCtx;
 	private DBHelper mdbHelper;
@@ -117,7 +123,7 @@ public class MyDBManager implements BaseColumns {
 	 */
 	public Cursor getDataNonEmpty() {
 		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
-				+ PRODUCTS_LOT + ">0";
+				+ PRODUCTS_ID + ">=0";
 		return getData(query, orderState);
 	}
 
@@ -283,9 +289,8 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// Создание таблицы продуктов и внесение информации в логи
-			Log.d(LOG_TAG, "Создание таблицы " + DB_TABLE_PRODUCTS);
-			Log.d(LOG_TAG, "запрос создания: " + tableCreateProducts);
+			// Создание таблицы продуктов и внесение информации в логи			
+			Log.d(LOG_TAG, "Запрос создания: " + tableCreateProducts);
 			try {
 				db.execSQL(tableCreateProducts);
 				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
@@ -295,35 +300,48 @@ public class MyDBManager implements BaseColumns {
 						+ DB_TABLE_PRODUCTS);
 				e.printStackTrace();
 			}
-
-			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
-			ContentValues cv = new ContentValues();
-			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_PRODUCTS);
+			
+			// Создание таблицы категорий			
+			Log.d(LOG_TAG, "Запрос создания: " + tableCreateCategory);
 			try {
-				for (int i = 0; i < Names.length; i++) {
-					cv.clear();
-					cv.put(PRODUCTS_NAME, Names[i]);
-					cv.put(PRODUCTS_CATEGORY, Category[i]);
-					cv.put(PRODUCTS_LOT, Lot[i]);
-					cv.put(PRODUCTS_COUNT, Count[i]);
-					cv.put(PRODUCTS_UNIT, Unit[i]);
-					db.insert(DB_TABLE_PRODUCTS, null, cv);
-				}
-				Log.d(LOG_TAG,
-						"Выполнено успешно наполнение контентом таблицы "
-								+ DB_TABLE_PRODUCTS);
+				db.execSQL(tableCreateCategory);
+				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+						+ DB_TABLE_CATEGORY);
 			} catch (Exception e) {
-				Log.d(LOG_TAG, "Неудачное наполнение контентом таблицы "
-						+ DB_TABLE_PRODUCTS);
+				Log.d(LOG_TAG, "Неудача в создании таблицы "
+						+ DB_TABLE_CATEGORY);
 				e.printStackTrace();
 			}
+
+//			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
+//			ContentValues cv = new ContentValues();
+//			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_PRODUCTS);
+//			try {
+//				for (int i = 0; i < Names.length; i++) {
+//					cv.clear();
+//					cv.put(PRODUCTS_NAME, Names[i]);
+//					cv.put(PRODUCTS_CATEGORY, Category[i]);
+//					cv.put(PRODUCTS_LOT, Lot[i]);
+//					cv.put(PRODUCTS_COUNT, Count[i]);
+//					cv.put(PRODUCTS_UNIT, Unit[i]);
+//					db.insert(DB_TABLE_PRODUCTS, null, cv);
+//				}
+//				Log.d(LOG_TAG,
+//						"Выполнено успешно наполнение контентом таблицы "
+//								+ DB_TABLE_PRODUCTS);
+//			} catch (Exception e) {
+//				Log.d(LOG_TAG, "Неудачное наполнение контентом таблицы "
+//						+ DB_TABLE_PRODUCTS);
+//				e.printStackTrace();
+//			}
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
 			mDB.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
-			Log.d(LOG_TAG, "Выполнено удаление таблиц" + " из базы " + DB_NAME);
+			mDB.execSQL("DROP TABLE " + DB_TABLE_CATEGORY + ";");
+			Log.d(LOG_TAG, "Выполнено удаление таблиц" + DB_TABLE_PRODUCTS+", "+DB_TABLE_CATEGORY+" " + "из базы " + DB_NAME);
 			onCreate(mDB);
 		}
 

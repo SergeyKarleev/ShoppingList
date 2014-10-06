@@ -2,9 +2,6 @@ package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
-
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,7 +24,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	Button btnStoreFront, btnBackEnd;
 
 	FragmentTransaction fTrans;
-	MyFragmentBackend fragmentB;
+	//MyFragmentBackend fragmentB;
 	MyFragmentStorefront fragmentF;	
 
 	@Override
@@ -46,13 +43,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		btnBackEnd.setOnClickListener(this);
 
 		// создание экземпл€ров фрагментов
+		
 		fragmentF = new MyFragmentStorefront();
-		fragmentB = new MyFragmentBackend();
+		//fragmentB = new MyFragmentBackend();
 
 		// если первый запуск, добавл€ем фрагмент StoreFront на активити
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.string.fragment_universal, fragmentB).commit();
+					.add(R.string.fragment_universal, fragmentF).commit();
 		}
 
 	}
@@ -69,24 +67,24 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			// предупреждение
 			// иначе добавл€ем фрагмент StoreFront в контейнер
 			try {
-				MyFragmentStorefront fragment_f = (MyFragmentStorefront) getSupportFragmentManager()
-						.findFragmentById(R.string.fragment_universal);
+//				MyFragmentStorefront fragment_f = (MyFragmentStorefront) getSupportFragmentManager()
+//						.findFragmentById(R.string.fragment_universal);
 				Toast.makeText(this, "Front отображен", Toast.LENGTH_SHORT)
 						.show();
 			} catch (Exception e) {
-				fTrans.replace(R.string.fragment_universal, fragmentF).commit();
+//				fTrans.replace(R.string.fragment_universal, fragmentF).commit();
 			}
 
 			break;
 
 		case R.id.btnBackEnd:
 			try {
-				MyFragmentBackend fragment_b = (MyFragmentBackend) getSupportFragmentManager()
-						.findFragmentById(R.string.fragment_universal);
+//				MyFragmentBackend_sav fragment_b = (MyFragmentBackend) getSupportFragmentManager()
+//						.findFragmentById(R.string.fragment_universal);
 				Toast.makeText(this, "Back отображен", Toast.LENGTH_SHORT)
 						.show();
 			} catch (Exception e) {
-				fTrans.replace(R.string.fragment_universal, fragmentB).commit();
+//				fTrans.replace(R.string.fragment_universal, fragmentB).commit();
 			}
 			break;
 		default:
