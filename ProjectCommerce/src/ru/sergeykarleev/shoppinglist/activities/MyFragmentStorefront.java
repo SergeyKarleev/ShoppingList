@@ -1,5 +1,7 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
+import java.util.Stack;
+
 import ru.sergeykarleev.shoppinglist.R;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -20,7 +22,7 @@ public class MyFragmentStorefront extends ListFragment implements OnClickListene
 	Button btnPlan;
 	Button btnProducts;	
 	
-	String data[] = new String[] { "one", "two", "three", "four" };
+	String data[] = new String[]{};
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

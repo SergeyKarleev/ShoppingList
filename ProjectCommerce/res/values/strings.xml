@@ -2,7 +2,10 @@
 <resources>
 
     <string name="pkg_name">com.example.backend</string>
-    <string name="app_name">Список покупок</string>    
+    <string name="app_name">Список покупок</string>
+    
+    <!-- fragment_storefront -->
+    <string name="listview_empty">Ваш список товаров пуст</string>
 
     <!-- ID всех активити и фрагментов -->
     <string name="mainActivity">MainActivity</string>
