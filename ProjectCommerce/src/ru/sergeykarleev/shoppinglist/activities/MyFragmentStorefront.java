@@ -29,7 +29,7 @@ public class MyFragmentStorefront extends ListFragment implements OnClickListene
 			Bundle savedInstanceState) {		
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
 		
-		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
 			        android.R.layout.simple_list_item_1, data);
 			    setListAdapter(adapter);
 		return v;
