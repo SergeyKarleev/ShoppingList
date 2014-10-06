@@ -24,8 +24,7 @@ public class MyFragmentStorefront extends ListFragment implements OnClickListene
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
+			Bundle savedInstanceState) {		
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
 		
 		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
