@@ -9,30 +9,6 @@
         android:id="@string/fragment_universal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/btn_margin">
-
-        <Button
-            android:id="@+id/btnStoreFront"
-            android:layout_marginRight="@dimen/btn_margin"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_main_height"
-            android:layout_weight="1"
-            android:text="@string/btnStoreFront"
-            android:background="@drawable/button_background"/>
-
-        <Button
-            android:id="@+id/btnBackEnd"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_main_height"
-            android:layout_weight="1"
-            android:text="@string/btnBackEnd" 
-            android:background="@drawable/button_background"/>
-    </LinearLayout>
+        android:layout_weight="7" />    
 
 </LinearLayout>

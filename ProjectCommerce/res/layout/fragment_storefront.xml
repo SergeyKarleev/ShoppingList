@@ -16,35 +16,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Template"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:onClick="onClickGlobal" />
 
         <Button
             android:id="@+id/btnTransfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Transfer"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:onClick="onClickGlobal" />
 
         <Button
             android:id="@+id/btnPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plan"
-            android:textSize="12dp" />
+            android:textSize="12dp" 
+            android:onClick="onClickGlobal"/>
 
         <Button
-            android:id="@+id/btnProducts"
+            android:id="@+id/btnProductBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Products"
-            android:textSize="12dp" />
+            android:text="ProductBase"
+            android:textSize="12dp" 
+            android:onClick="onClickGlobal"/>
     </LinearLayout>
 
-    <ExpandableListView
-        android:id="@+id/elProducts"
+    <ListView
+        android:id="@+id/lvMyProductList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:choiceMode="multipleChoice">
-    </ExpandableListView>
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>

@@ -1,30 +1,20 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
-import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends FragmentActivity{
 
 	final String LOG_TAG = "myLogs";
 
-	Button btnStoreFront, btnBackEnd;
 
 	FragmentTransaction fTrans;
-	//MyFragmentBackend fragmentB;
+	MyFragmentBackend fragmentB;
 	MyFragmentStorefront fragmentF;	
 
 	@Override
@@ -32,63 +22,40 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// создаем базу данных с начальными значени€ми и сразу закрываем		
-		MyDBManager mDataBase = new MyDBManager(this);	
-		mDataBase.close();
+//		// создаем базу данных с начальными значени€ми и сразу закрываем		
+//		MyDBManager mDataBase = new MyDBManager(this);	
+//		mDataBase.close();		
 
-		btnStoreFront = (Button) findViewById(R.id.btnStoreFront);
-		btnStoreFront.setOnClickListener(this);
-
-		btnBackEnd = (Button) findViewById(R.id.btnBackEnd);
-		btnBackEnd.setOnClickListener(this);
-
-		// создание экземпл€ров фрагментов
-		
+		// создание экземпл€ров фрагментов		
 		fragmentF = new MyFragmentStorefront();
-		//fragmentB = new MyFragmentBackend();
+		fragmentB = new MyFragmentBackend();
 
 		// если первый запуск, добавл€ем фрагмент StoreFront на активити
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.string.fragment_universal, fragmentF).commit();
 		}
-
-	}
+	}	
 	
-
-	@Override
-	public void onClick(View v) {
-		Log.d(LOG_TAG,"onClick");
-		fTrans = getSupportFragmentManager().beginTransaction();
-		switch (v.getId()) {
-		case R.id.btnStoreFront:
-
-			// ≈сли удаетс€ найти фрагмент в контейнере, то отображаем
-			// предупреждение
-			// иначе добавл€ем фрагмент StoreFront в контейнер
-			try {
-//				MyFragmentStorefront fragment_f = (MyFragmentStorefront) getSupportFragmentManager()
-//						.findFragmentById(R.string.fragment_universal);
-				Toast.makeText(this, "Front отображен", Toast.LENGTH_SHORT)
-						.show();
-			} catch (Exception e) {
-//				fTrans.replace(R.string.fragment_universal, fragmentF).commit();
+	
+	public void onClickGlobal(View v) {
+			switch (v.getId()) {
+			case R.id.btnTemplate:					
+				Toast.makeText(this, "btnTamplate", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.btnTransfer:
+				Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.btnPlan:
+				Toast.makeText(this, "btnPlan", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.btnProductBase:
+				Toast.makeText(this, "btnProductBase", Toast.LENGTH_SHORT).show();
+				getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentB).commit();
+				break;
+			default:
+				break;
 			}
-
-			break;
-
-		case R.id.btnBackEnd:
-			try {
-//				MyFragmentBackend_sav fragment_b = (MyFragmentBackend) getSupportFragmentManager()
-//						.findFragmentById(R.string.fragment_universal);
-				Toast.makeText(this, "Back отображен", Toast.LENGTH_SHORT)
-						.show();
-			} catch (Exception e) {
-//				fTrans.replace(R.string.fragment_universal, fragmentB).commit();
-			}
-			break;
-		default:
-			break;
-		}
+			
 	}
 }
