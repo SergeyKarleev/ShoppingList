@@ -5,6 +5,7 @@ import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -15,10 +16,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorTreeAdapter;
 
-public class MyFragmentStorefront extends ListFragment implements
-		OnClickListener {
+public class MyFragmentStorefront extends Fragment implements OnClickListener {
 
 	private final static String LOG_TAG = "myLogs";
 
@@ -27,7 +30,10 @@ public class MyFragmentStorefront extends ListFragment implements
 	Button btnPlan;
 	Button btnProducts;
 
+	ExpandableListView elProducts;
+
 	MyDBManager mDB;
+	MyTreeAdapter treeAdapter;
 	SimpleCursorAdapter scAdapter;
 
 	@Override
@@ -38,30 +44,48 @@ public class MyFragmentStorefront extends ListFragment implements
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
 
-		// Формируем столбцы сопоставления
-		String[] from = new String[] { MyDBManager.PRODUCTS_NAME,
-				MyDBManager.PRODUCTS_CATEGORY };
-		int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
+		// Курсор с группами товаров
+		Cursor cursor = mDB.getCategories();
 
-		// создаем адаптер и настраиваем списки
-		scAdapter = new SimpleCursorAdapter(getActivity(),
-				android.R.layout.two_line_list_item, null, from, to);
-		setListAdapter(scAdapter);
-		scAdapter.changeCursor(mDB.getData());
-		
+		// Формируем столбцы сопоставления для групп
+		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
+		int[] groupTo = new int[] { android.R.id.text1 };
+
+		// Формируем столбцы сопоставления для продуктов
+		String[] childFrom = new String[] { MyDBManager.PRODUCTS_NAME };
+		int[] childTo = new int[] { android.R.id.text1 };
+
+		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
+				android.R.layout.simple_expandable_list_item_1, groupFrom,
+				groupTo, android.R.layout.simple_list_item_multiple_choice,
+				childFrom, childTo);
+		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
+		elProducts.setAdapter(treeAdapter);
 		return v;
+	}
+
+	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
+
+		public MyTreeAdapter(Context context, Cursor cursor, int groupLayout,
+				String[] groupFrom, int[] groupTo, int childLayout,
+				String[] childFrom, int[] childTo) {
+			super(context, cursor, groupLayout, groupFrom, groupTo,
+					childLayout, childFrom, childTo);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		protected Cursor getChildrenCursor(Cursor groupCursor) {
+			int idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
+			return mDB.getProducsCategories(groupCursor.getInt(idColumn));
+		}
+
 	}
 
 	@Override
 	public void onDestroyView() {
 		// TODO Auto-generated method stub
 		super.onDestroyView();
-	}
-
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
 	}
 
 	@Override

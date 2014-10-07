@@ -11,6 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+/**
+ * @author skar011
+ * 
+ */
 public class MyDBManager implements BaseColumns {
 
 	/*------------------------------------ПЕРЕМЕННЫЕ-----------------------------------------*/
@@ -19,8 +23,8 @@ public class MyDBManager implements BaseColumns {
 	private final String LOG_TAG = "myLogs";
 
 	// Техническая информация создаваемой базы данных
-	private static final String DB_NAME = "myDB";
-	private static final int DB_VERSION = 3;
+	private static final String DB_NAME = "myDB.db";
+	private static final int DB_VERSION = 1;
 	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
 	private static final String DB_TABLE_CATEGORIES = "CategoryTable";
 
@@ -58,7 +62,7 @@ public class MyDBManager implements BaseColumns {
 	// Массивы начальных данных таблицы DB_TABLE_PRODUCTS
 	String[] Prod_names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца",
 			"Мясо", "Рыба", "Картошка", "Морковь", "Яблоки" };
-	int[] Prod_cat = { 1, 1, 1, 1, 1, 2, 2, 3, 3, 3 };
+	int[] Prod_cat = { 2, 2, 2, 2, 2, 3, 3, 4, 4, 4 };
 
 	// Запрос на создание таблицы DB_TABLE_PRODUCTS
 	private static final String tableCreateProducts = "CREATE TABLE "
@@ -111,23 +115,17 @@ public class MyDBManager implements BaseColumns {
 	}
 
 	/**
-	 * Метод выбирает только те строки, в которых количество лотов больше нуля
-	 * 
-	 * @return объект типа Cursor
-	 */
-	public Cursor getDataNonEmpty() {
-		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
-				+ PRODUCTS_ID + ">=0";
-		return getData(query, orderState);
-	}
-
-	/**
 	 * Метод выбирает все строки из таблицы базы данных без сортировки
 	 * 
 	 * @return возвращает объект типа Cursor
 	 */
 	public Cursor getData() {
-		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS;
+		String query = "SELECT " + DB_TABLE_PRODUCTS + "." + PRODUCTS_ID + ", "
+				+ DB_TABLE_PRODUCTS + "." + PRODUCTS_NAME + ", "
+				+ DB_TABLE_CATEGORIES + "." + CATEGORY_NAME + " FROM "
+				+ DB_TABLE_PRODUCTS + " JOIN " + DB_TABLE_CATEGORIES + " ON "
+				+ DB_TABLE_PRODUCTS + "." + PRODUCTS_CATEGORY + "="
+				+ DB_TABLE_CATEGORIES + "." + CATEGORY_ID + ";";
 		return getData(query, orderState);
 	}
 
@@ -141,6 +139,29 @@ public class MyDBManager implements BaseColumns {
 	public Cursor getData(long id) {
 		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
 				+ PRODUCTS_ID + "=" + id;
+		return getData(query, ORDER_BY_NONE);
+	}
+
+	/**
+	 * Метод возвращает курсор с таблицей категорий
+	 * 
+	 * @return Cursor
+	 */
+	public Cursor getCategories() {
+		String query = "SELECT * FROM " + DB_TABLE_CATEGORIES;
+		return getData(query, ORDER_BY_NONE);
+	}
+
+	/**
+	 * Метод возвращает все продукты определённой категории
+	 * 
+	 * @param ID_category
+	 *            категория продуктов
+	 * @return Cursor
+	 */
+	public Cursor getProducsCategories(long ID_category) {
+		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
+				+ PRODUCTS_ID + "=" + ID_category;
 		return getData(query, ORDER_BY_NONE);
 	}
 
@@ -229,6 +250,7 @@ public class MyDBManager implements BaseColumns {
 	 * @param count
 	 *            - целочисленный тип количество (на складе)
 	 */
+
 	public void addRecord(ContentValues cv) {
 		mDB.insert(DB_TABLE_PRODUCTS, null, cv);
 	}
@@ -339,7 +361,7 @@ public class MyDBManager implements BaseColumns {
 			try {
 				for (int i = 0; i < Cat_names.length; i++) {
 					cv.clear();
-					cv.put(PRODUCTS_NAME, Cat_names[i]);
+					cv.put(CATEGORY_NAME, Cat_names[i]);
 					db.insert(DB_TABLE_CATEGORIES, null, cv);
 				}
 				Log.d(LOG_TAG,
@@ -358,20 +380,22 @@ public class MyDBManager implements BaseColumns {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
 			try {
 				db.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS +" удалена успешно");
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
+						+ " удалена успешно");
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
 						+ " не удалена. Ошибка " + e);
 			}
-			
+
 			try {
 				db.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES +" удалена успешно");
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
+						+ " удалена успешно");
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
 						+ " не удалена. Ошибка " + e);
 			}
-						
+
 			onCreate(db);
 		}
 

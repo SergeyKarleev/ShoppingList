@@ -40,17 +40,11 @@
             android:textSize="12dp" />
     </LinearLayout>
 
-    <ListView
-        android:id="@android:id/list"
+    <ExpandableListView
+        android:id="@+id/elProducts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">        
-    </ListView>
-    <TextView 
-        android:id="@android:id/empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/listview_empty"
-        android:textStyle="bold|italic"        
-        android:gravity="center"/>
-    
+        android:layout_height="wrap_content" 
+        android:choiceMode="multipleChoice">
+    </ExpandableListView>
+
 </LinearLayout>
