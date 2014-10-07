@@ -67,30 +67,28 @@ public final class R {
         public static final int ic_launcher=0x7f02000d;
     }
     public static final class id {
-        public static final int btnAdd=0x7f08000a;
-        public static final int btnAddCategory=0x7f080009;
+        public static final int btnAdd=0x7f080009;
+        public static final int btnAddCategory=0x7f080008;
         public static final int btnCancel=0x7f080000;
-        public static final int btnInMarket=0x7f08000b;
-        public static final int btnPlan=0x7f080010;
-        public static final int btnProductBase=0x7f080011;
+        public static final int btnInMarket=0x7f080007;
+        public static final int btnPlan=0x7f08000e;
+        public static final int btnProductBase=0x7f08000f;
         public static final int btnSave=0x7f080001;
-        public static final int btnSort=0x7f080007;
-        public static final int btnTemplate=0x7f08000e;
-        public static final int btnTransfer=0x7f08000f;
-        public static final int elProducts=0x7f08000c;
-        public static final int etCount=0x7f080005;
-        public static final int etLot=0x7f080004;
+        public static final int btnSort=0x7f080005;
+        public static final int btnTemplate=0x7f08000c;
+        public static final int btnTransfer=0x7f08000d;
+        public static final int chkDeleteProduct=0x7f080003;
+        public static final int elProducts=0x7f08000a;
         public static final int etName=0x7f080002;
-        public static final int llStart=0x7f08000d;
-        public static final int lvMyProductList=0x7f080012;
-        public static final int spCategory=0x7f080003;
-        public static final int spUnit=0x7f080006;
-        public static final int tvCategory=0x7f080014;
-        public static final int tvModel=0x7f080013;
-        public static final int tvSort=0x7f080008;
+        public static final int llStart=0x7f08000b;
+        public static final int lvMyProductList=0x7f080010;
+        public static final int spCategory=0x7f080004;
+        public static final int tvCategory=0x7f080012;
+        public static final int tvModel=0x7f080011;
+        public static final int tvSort=0x7f080006;
     }
     public static final class layout {
-        public static final int fr_dialog=0x7f030000;
+        public static final int fragment_add_product=0x7f030000;
         public static final int fragment_backend=0x7f030001;
         public static final int fragment_storefront=0x7f030002;
         public static final int item=0x7f030003;
@@ -104,7 +102,10 @@ public final class R {
         /**  Тексты кнопок в приложении 
          */
         public static final int btnStoreFront=0x7f06000a;
-        public static final int dialogTitle=0x7f060015;
+        public static final int chkDeleteProduct=0x7f060013;
+        /**  Метки fragment_add_product 
+         */
+        public static final int dialogTitle=0x7f060010;
         public static final int fragment_backend=0x7f060004;
         public static final int fragment_dialog=0x7f060008;
         public static final int fragment_navigation=0x7f060005;
@@ -120,18 +121,13 @@ public final class R {
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060003;
-        public static final int modelLot=0x7f060012;
-        /**  Метки диалог-фрагмента 
-         */
-        public static final int modelName=0x7f060010;
-        public static final int modelUnit=0x7f060014;
+        public static final int modelName=0x7f060011;
         public static final int pkg_name=0x7f060000;
-        public static final int tvModelCategory=0x7f060011;
-        public static final int tvModelCount=0x7f060013;
+        public static final int tvModelCategory=0x7f060012;
         public static final int tvModelPager=0x7f06000f;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f060016;
+        public static final int tvModel_name=0x7f060014;
     }
     public static final class style {
         /** 

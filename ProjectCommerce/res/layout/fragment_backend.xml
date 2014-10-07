@@ -39,13 +39,14 @@
             android:id="@+id/btnAdd"
             android:layout_width="@dimen/btn_backend_size"
             android:layout_height="@dimen/btn_backend_size"
-            android:background="@drawable/btn_add" />
+            android:text="prd" />
     </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/elProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="false"
         android:choiceMode="multipleChoice" >
     </ExpandableListView>
 
