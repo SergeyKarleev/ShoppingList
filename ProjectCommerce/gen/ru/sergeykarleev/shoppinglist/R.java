@@ -68,13 +68,13 @@ public final class R {
     }
     public static final class id {
         public static final int btnAdd=0x7f080002;
-        public static final int btnBackEnd=0x7f080015;
+        public static final int btnBackEnd=0x7f080012;
         public static final int btnCancel=0x7f080003;
         public static final int btnPlan=0x7f08000d;
         public static final int btnProducts=0x7f08000e;
         public static final int btnSave=0x7f080004;
         public static final int btnSort=0x7f080000;
-        public static final int btnStoreFront=0x7f080014;
+        public static final int btnStoreFront=0x7f080011;
         public static final int btnTemplate=0x7f08000b;
         public static final int btnTransfer=0x7f08000c;
         public static final int etCount=0x7f080008;
@@ -84,11 +84,8 @@ public final class R {
         public static final int spCategory=0x7f080006;
         public static final int spUnit=0x7f080009;
         public static final int tvCategory=0x7f080010;
-        public static final int tvCount=0x7f080012;
-        public static final int tvLot=0x7f080011;
         public static final int tvModel=0x7f08000f;
         public static final int tvSort=0x7f080001;
-        public static final int tvUnit=0x7f080013;
     }
     public static final class layout {
         public static final int fr_backend=0x7f030000;

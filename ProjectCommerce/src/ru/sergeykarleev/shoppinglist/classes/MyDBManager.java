@@ -20,7 +20,7 @@ public class MyDBManager implements BaseColumns {
 
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB";
-	private static final int DB_VERSION = 2;
+	private static final int DB_VERSION = 3;
 	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
 	private static final String DB_TABLE_CATEGORIES = "CategoryTable";
 
@@ -28,19 +28,19 @@ public class MyDBManager implements BaseColumns {
 	public static final String PRODUCTS_ID = BaseColumns._ID;
 	public static final String PRODUCTS_NAME = "Name_product";
 	public static final String PRODUCTS_CATEGORY = "ID_category";
-	
+
 	// Имена столбцов таблицы DB_TABLE_CATEGORIES
 	public static final String CATEGORY_ID = BaseColumns._ID;
 	public static final String CATEGORY_NAME = "Name_category";
-	
+
 	// Порядок сортировки результата
 	public static final int ORDER_BY_NONE = 0;
 	public static final int ORDER_BY_NAME_ASC = 1;
 	public static final int ORDER_BY_NAME_DESC = 2;
 	public static final int ORDER_BY_CATEGORY_ASC = 3;
 	public static final int ORDER_BY_CATEGORY_DESC = 4;
-	
-	//Имена сортировки
+
+	// Имена сортировки
 	private static final String SORT_NONE = "без сортировки";
 	private static final String SORT_NAME_ASC = "по имени (возр)";
 	private static final String SORT_NAME_DESC = "по имени (убыв)";
@@ -50,30 +50,29 @@ public class MyDBManager implements BaseColumns {
 	// Текущее состояние сортировки
 	private static int orderState = ORDER_BY_NONE;
 	private static String orderName = SORT_NONE;
-	
-	//Массивы начальных данных таблицы DB_TABLE_CATEGORIES
-	String[] Cat_names = {"Без категории","Молочная продукция","Мясо и рыба","Овощи и фрукты","Сладости"};
-		
-	//Массивы начальных данных таблицы DB_TABLE_PRODUCTS
-	String[] Prod_names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца", "Мясо",
-			"Рыба", "Картошка", "Морковь", "Яблоки" };
-	int[] Prod_cat = {1,1,1,1,1,2,2,3,3,3};
+
+	// Массивы начальных данных таблицы DB_TABLE_CATEGORIES
+	String[] Cat_names = { "Без категории", "Молочная продукция",
+			"Мясо и рыба", "Овощи и фрукты", "Сладости" };
+
+	// Массивы начальных данных таблицы DB_TABLE_PRODUCTS
+	String[] Prod_names = { "Масло", "Молоко", "Сметана", "Творог", "Яйца",
+			"Мясо", "Рыба", "Картошка", "Морковь", "Яблоки" };
+	int[] Prod_cat = { 1, 1, 1, 1, 1, 2, 2, 3, 3, 3 };
 
 	// Запрос на создание таблицы DB_TABLE_PRODUCTS
 	private static final String tableCreateProducts = "CREATE TABLE "
 			+ DB_TABLE_PRODUCTS + " (" + PRODUCTS_ID
-			+ " integer primary key autoincrement, " 
-			+ PRODUCTS_NAME	+ " text, " 
-			+ PRODUCTS_CATEGORY + " integer);";
+			+ " integer primary key autoincrement, " + PRODUCTS_NAME
+			+ " text, " + PRODUCTS_CATEGORY + " integer);";
 
 	// Запрос на создание таблицы DB_TABLE_CATEGORIES
 	private static final String tableCreateCategory = "CREATE TABLE "
 			+ DB_TABLE_CATEGORIES + " (" + CATEGORY_ID
-			+ " integer primary key autoincrement, " 
-			+ CATEGORY_NAME	+ " text);";
-	
-	
-	// Объявление служебных переменных для работы с БД	
+			+ " integer primary key autoincrement, " + CATEGORY_NAME
+			+ " text);";
+
+	// Объявление служебных переменных для работы с БД
 	private Context mCtx;
 	private DBHelper mdbHelper;
 	private SQLiteDatabase mDB;
@@ -172,15 +171,21 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
-	/**Возвращает текущую сортировку
-	 * @return integer значение соответствует MyDBManager.ORDER_BY переменным класса
+	/**
+	 * Возвращает текущую сортировку
+	 * 
+	 * @return integer значение соответствует MyDBManager.ORDER_BY переменным
+	 *         класса
 	 */
 	public static int getOrderState() {
 		return orderState;
 	}
 
-	/**Устанавливает порядок сортировки значений в выгрузке из БД и её название
-	 * @param state устанавливать через MyDBManager.ORDER_BY переменную класса
+	/**
+	 * Устанавливает порядок сортировки значений в выгрузке из БД и её название
+	 * 
+	 * @param state
+	 *            устанавливать через MyDBManager.ORDER_BY переменную класса
 	 */
 	public void setOrderState(int state) {
 		orderState = state;
@@ -202,10 +207,12 @@ public class MyDBManager implements BaseColumns {
 			break;
 		default:
 			break;
-		} 
+		}
 	}
 
-	/**Возвращает текущее имя сортировки
+	/**
+	 * Возвращает текущее имя сортировки
+	 * 
 	 * @return значение типа String
 	 */
 	public String getOrderName() {
@@ -284,7 +291,7 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// Создание таблицы продуктов и внесение информации в логи			
+			// Создание таблицы продуктов и внесение информации в логи
 			Log.d(LOG_TAG, "Запрос создания: " + tableCreateProducts);
 			try {
 				db.execSQL(tableCreateProducts);
@@ -295,8 +302,8 @@ public class MyDBManager implements BaseColumns {
 						+ DB_TABLE_PRODUCTS);
 				e.printStackTrace();
 			}
-			
-			// Создание таблицы категорий			
+
+			// Создание таблицы категорий
 			Log.d(LOG_TAG, "Запрос создания: " + tableCreateCategory);
 			try {
 				db.execSQL(tableCreateCategory);
@@ -326,13 +333,13 @@ public class MyDBManager implements BaseColumns {
 						+ DB_TABLE_PRODUCTS);
 				e.printStackTrace();
 			}
-			
+
 			// Заполнение таблицы DB_TABLE_CATEGORIES первоначальными данными
 			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_CATEGORIES);
 			try {
 				for (int i = 0; i < Cat_names.length; i++) {
 					cv.clear();
-					cv.put(PRODUCTS_NAME, Cat_names[i]);					
+					cv.put(PRODUCTS_NAME, Cat_names[i]);
 					db.insert(DB_TABLE_CATEGORIES, null, cv);
 				}
 				Log.d(LOG_TAG,
@@ -343,16 +350,29 @@ public class MyDBManager implements BaseColumns {
 						+ DB_TABLE_CATEGORIES);
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
-			mDB.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
-			mDB.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
-			Log.d(LOG_TAG, "Выполнено удаление таблиц" + DB_TABLE_PRODUCTS+", "+DB_TABLE_CATEGORIES+" " + "из базы " + DB_NAME);
-			onCreate(mDB);
+			try {
+				db.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS +" удалена успешно");
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
+						+ " не удалена. Ошибка " + e);
+			}
+			
+			try {
+				db.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES +" удалена успешно");
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
+						+ " не удалена. Ошибка " + e);
+			}
+						
+			onCreate(db);
 		}
 
 	}

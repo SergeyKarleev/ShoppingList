@@ -39,46 +39,6 @@
                     android:textColor="#CEB7B7" />
             </TableRow>
         </TableLayout>
-
-        <TextView
-            android:id="@+id/tvLot"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="bottom"
-            android:text="Лот"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/item_tvCount_size" />
-
-        <TextView            
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="bottom"            
-            android:text=" x "
-            android:textStyle="bold"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/item_tvCount_size" />
-
-        <TextView
-            android:id="@+id/tvCount"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="bottom"
-            android:text="Количество"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/item_tvCount_size" />
-
-        <TextView
-            android:id="@+id/tvUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="bottom"
-            android:text=" unit"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/item_tvCount_size" />
         
         <ImageView
             android:layout_width="@dimen/arrow_size"
