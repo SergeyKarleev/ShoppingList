@@ -53,6 +53,11 @@ public class MainActivity extends FragmentActivity{
 				Toast.makeText(this, "btnProductBase", Toast.LENGTH_SHORT).show();
 				getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentB).commit();
 				break;
+			case R.id.btnInMarket:
+				//TODO: необходимо упаковать все отмеченные элементы в объект и передать его в Storefront, затем снять все выделения
+				//TODO: необходимо реализовать кнопку "назад", открывая Storefront
+				getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentF).commit();
+				break;
 			default:
 				break;
 			}
