@@ -87,11 +87,5 @@ public class MyFragmentBackend extends Fragment implements OnClickListener {
 			int idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt(idColumn));
 		}
-		
-		protected void UpdateListView(Cursor groupCursor) {
-			groupCursor = mDB.getCategories();
-			treeAdapter.notifyDataSetChanged();				
-		}
-
 	}
 }

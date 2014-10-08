@@ -43,6 +43,8 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	// содержит значение выбранного устройства из фрагмента
 	private static Cursor sData;
 
+	private MyDBManager mDB;
+	
 	/**
 	 * Конструктор создания диалога
 	 * 
@@ -62,6 +64,8 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnSave).setOnClickListener(this);
 
+		mDB = new MyDBManager(getActivity());
+		
 		etName = (EditText) v.findViewById(R.id.etName);
 		spCategory = (Spinner) v.findViewById(R.id.spCategory);
 		chkDeleteProduct = (CheckBox) v.findViewById(R.id.chkDeleteProduct);
@@ -90,12 +94,17 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 
 	private SimpleCursorAdapter getAdapter() {
 		String[] from = new String[] { MyDBManager.CATEGORY_NAME };
-		int[] to = new int[] { android.R.id.text1 };
-		MyDBManager mDB = new MyDBManager(getActivity());
+		int[] to = new int[] { android.R.id.text1 };		
 		Cursor cursor = mDB.getCategories();
 		SimpleCursorAdapter scAdapter = new SimpleCursorAdapter(getActivity(),
 				android.R.layout.simple_dropdown_item_1line, cursor, from, to);
 		return scAdapter;
+	}
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		mDB.close();
 	}
 
 	@Override
@@ -148,7 +157,8 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		case ACTION_ADD:
 			try {
 				mDB.addRecord(cv);
-			} catch (Exception e) {
+				Log.d(LOG_TAG, "Объект записан в базу данных");
+				} catch (Exception e) {
 				Log.d(LOG_TAG,
 						"Объект не был записан в базу данных.\n" + e.toString());
 				e.printStackTrace();
@@ -157,6 +167,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		case ACTION_UPDATE:
 			try {
 				mDB.editRecord(cv);
+				Log.d(LOG_TAG, "Запись в базе отредактирована");
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Исправления не были внесены в базу данных.\n"
 						+ e.toString());
@@ -165,9 +176,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			break;
 		default:			
 			break;
-		}
-		
-		mDB.close();
+		}		
 		//TODO: здесь вызываем обновление адаптера в Backend
 		dismiss();
 	}

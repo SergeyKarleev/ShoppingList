@@ -161,7 +161,7 @@ public class MyDBManager implements BaseColumns {
 	 */
 	public Cursor getProducsCategories(long ID_category) {
 		String query = "SELECT * FROM " + DB_TABLE_PRODUCTS + " WHERE "
-				+ PRODUCTS_ID + "=" + ID_category;
+				+ PRODUCTS_CATEGORY + "=" + ID_category;
 		return getData(query, ORDER_BY_NONE);
 	}
 
