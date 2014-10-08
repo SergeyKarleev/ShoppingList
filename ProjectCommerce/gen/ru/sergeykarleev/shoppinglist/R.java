@@ -77,12 +77,14 @@ public final class R {
         public static final int btnTemplate=0x7f08000b;
         public static final int btnTransfer=0x7f08000c;
         public static final int chkDeleteProduct=0x7f080003;
+        public static final int chkItemBackend=0x7f080013;
         public static final int elProducts=0x7f080009;
         public static final int etName=0x7f080002;
         public static final int llStart=0x7f08000a;
         public static final int lvMyProductList=0x7f08000f;
         public static final int spCategory=0x7f080004;
         public static final int tvCategory=0x7f080011;
+        public static final int tvItemBackend=0x7f080012;
         public static final int tvModel=0x7f080010;
         public static final int tvSort=0x7f080006;
     }
@@ -91,7 +93,8 @@ public final class R {
         public static final int fragment_backend=0x7f030001;
         public static final int fragment_storefront=0x7f030002;
         public static final int item=0x7f030003;
-        public static final int main=0x7f030004;
+        public static final int item_backend=0x7f030004;
+        public static final int main=0x7f030005;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
