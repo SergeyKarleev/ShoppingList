@@ -26,20 +26,15 @@
             android:id="@+id/btnInMarket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:onClick="onClickGlobal"
             android:text="Назад в магазин" />
-
-        <Button
-            android:id="@+id/btnAddCategory"
-            android:layout_width="@dimen/btn_backend_size"
-            android:layout_height="@dimen/btn_backend_size"
-            android:text="cat" />
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="@dimen/btn_backend_size"
             android:layout_height="@dimen/btn_backend_size"
-            android:text="prd" />
+            android:background="@drawable/btn_add"/>
     </LinearLayout>
 
     <ExpandableListView

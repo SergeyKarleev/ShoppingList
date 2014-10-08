@@ -3,6 +3,7 @@ package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentDialogProducts;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -18,27 +19,27 @@ import android.widget.SimpleCursorTreeAdapter;
 
 public class MyFragmentBackend extends Fragment implements OnClickListener {
 
-	Button btnAddCategory;
-	Button btnAdd;
 	
+	Button btnAdd;	
 	ExpandableListView elProducts;
+	Cursor cursor;
 
 	MyDBManager mDB;
-	MyTreeAdapter treeAdapter;
+	protected MyTreeAdapter treeAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_backend, null);
 		
-		btnAdd = (Button) v.findViewById(R.id.btnAdd);
-		btnAddCategory = (Button) v.findViewById(R.id.btnAddCategory);
+		btnAdd = (Button) v.findViewById(R.id.btnAdd);		
+		btnAdd.setOnClickListener(this);		
 		
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
 
 		// Курсор с группами товаров
-		Cursor cursor = mDB.getCategories();
+		cursor = mDB.getCategories();
 
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -60,8 +61,15 @@ public class MyFragmentBackend extends Fragment implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.btnAdd:
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(MyFragmentDialogProducts.ACTION_ADD);
+			dialog.show(getActivity().getSupportFragmentManager(), null);			
+			break;
 
+		default:
+			break;
+		}
 	}
 
 	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
@@ -78,6 +86,11 @@ public class MyFragmentBackend extends Fragment implements OnClickListener {
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
 			int idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt(idColumn));
+		}
+		
+		protected void UpdateListView(Cursor groupCursor) {
+			groupCursor = mDB.getCategories();
+			treeAdapter.notifyDataSetChanged();				
 		}
 
 	}
