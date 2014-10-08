@@ -15,13 +15,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.Toast;
 
-public class MyFragmentBackend extends Fragment implements OnClickListener, OnItemClickListener {
+public class MyFragmentBackend extends Fragment implements OnClickListener, OnItemLongClickListener {
 
 	
 	Button btnAdd;
@@ -38,7 +39,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 		View v = inflater.inflate(R.layout.fragment_backend, null);
 		
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);		
-		btnAdd.setOnClickListener(this);
+		btnAdd.setOnClickListener(this);		
 				
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
@@ -59,9 +60,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 				groupTo, android.R.layout.simple_list_item_multiple_choice,
 				childFrom, childTo);		
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);				
-		elProducts.setOnItemClickListener(this);
-		elProducts.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);
-		elProducts.setFocusable(false);
+		elProducts.setOnItemLongClickListener(this);
+		elProducts.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);		
 		elProducts.setAdapter(treeAdapter);
 		
 				
@@ -78,13 +78,13 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 		default:
 			break;
 		}
-	}
-
+	}	
 	
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Toast.makeText(getActivity(), "Позиция элемента: "+position+", ID = "+id, Toast.LENGTH_SHORT).show();
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {		
+		Toast.makeText(getActivity(), "View "+view , Toast.LENGTH_SHORT).show();
+		return false;
 	}
 	
 	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
@@ -103,6 +103,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 			return mDB.getProducsCategories(groupCursor.getInt(idColumn));
 		}
 	}
+
+	
 
 	
 }
