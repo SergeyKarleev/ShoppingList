@@ -1,6 +1,8 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;

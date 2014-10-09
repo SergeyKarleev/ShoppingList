@@ -1,9 +1,9 @@
-package ru.sergeykarleev.shoppinglist.activities;
+package ru.sergeykarleev.shoppinglist.fragments;
 
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentDialogProducts;
+import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;

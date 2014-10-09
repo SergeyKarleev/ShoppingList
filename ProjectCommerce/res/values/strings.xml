@@ -32,9 +32,8 @@
     <string name="tvModelCategory">Категория</string>
     <string name="chkDeleteProduct">К удалению</string>
         
-    
-    
     <!-- item.xml -->
-    <string name="tvModel_name">Товар</string>   
+    <string name="tvModel_name">Товар</string>
+       
     
 </resources>

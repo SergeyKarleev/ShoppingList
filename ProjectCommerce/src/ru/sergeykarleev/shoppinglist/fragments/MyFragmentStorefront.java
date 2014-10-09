@@ -1,4 +1,4 @@
-package ru.sergeykarleev.shoppinglist.activities;
+package ru.sergeykarleev.shoppinglist.fragments;
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;

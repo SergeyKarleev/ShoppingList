@@ -1,4 +1,4 @@
-package ru.sergeykarleev.shoppinglist.fragments;
+package ru.sergeykarleev.shoppinglist.dialogues;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +60,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			Bundle savedInstanceState) {
 
 		getDialog().setTitle(R.string.dialogTitle);
-		View v = inflater.inflate(R.layout.fragment_add_product, null);
+		View v = inflater.inflate(R.layout.dialog_product, null);
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnSave).setOnClickListener(this);
 
