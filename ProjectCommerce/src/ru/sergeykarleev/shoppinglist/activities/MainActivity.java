@@ -1,6 +1,8 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplate;
+import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTransfer;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 import android.os.Bundle;
@@ -43,12 +45,16 @@ public class MainActivity extends FragmentActivity{
 	public void onClickGlobal(View v) {
 			switch (v.getId()) {
 			case R.id.btnTemplate:					
-				Toast.makeText(this, "btnTamplate", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "btnTemplate", Toast.LENGTH_SHORT).show();
 				//TODO: здесь взываем диалог загрузки сохранённого шаблона
+				MyFragmentDialogTemplate dialogTemplate = new MyFragmentDialogTemplate();
+				dialogTemplate.show(getSupportFragmentManager(), null);
 				break;
 			case R.id.btnTransfer:
 				Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
-				//TODO: здесь вызываем диалог экспорта
+				//TODO: здесь вызываем диалог передачи списка
+				MyFragmentDialogTransfer dialogTransfer = new MyFragmentDialogTransfer();
+				dialogTransfer.show(getSupportFragmentManager(), null);				
 				break;
 			case R.id.btnPlan:
 				Toast.makeText(this, "btnPlan", Toast.LENGTH_SHORT).show();
