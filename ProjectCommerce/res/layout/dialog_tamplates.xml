@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"    
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/lvTemplates"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" 
+        android:choiceMode="singleChoice">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"        
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnImportCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Отмена" />
+        <Button
+            android:id="@+id/btnImportLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Загрузить" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -44,15 +44,17 @@ public class MainActivity extends FragmentActivity{
 			switch (v.getId()) {
 			case R.id.btnTemplate:					
 				Toast.makeText(this, "btnTamplate", Toast.LENGTH_SHORT).show();
+				//TODO: здесь взываем диалог загрузки сохранённого шаблона
 				break;
 			case R.id.btnTransfer:
 				Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
+				//TODO: здесь вызываем диалог экспорта
 				break;
 			case R.id.btnPlan:
 				Toast.makeText(this, "btnPlan", Toast.LENGTH_SHORT).show();
+				//TODO: здесь вызываем диалог фрагмента плана магазина
 				break;
-			case R.id.btnProductBase:
-				Toast.makeText(this, "btnProductBase", Toast.LENGTH_SHORT).show();
+			case R.id.btnProductBase:				
 				getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentB).commit();
 				break;
 			case R.id.btnInMarket:
