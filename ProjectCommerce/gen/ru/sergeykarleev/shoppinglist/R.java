@@ -11,6 +11,9 @@ public final class R {
     public static final class array {
         public static final int modelCategories=0x7f040000;
         public static final int modelUnits=0x7f040001;
+        /**  dialog_templates 
+         */
+        public static final int prototype_array_templates=0x7f040002;
     }
     public static final class attr {
     }

@@ -35,5 +35,14 @@
     <!-- item.xml -->
     <string name="tvModel_name">Товар</string>
        
+    <!-- dialog_templates -->
+    <string-array name="prototype_array_templates">
+        <item >Шаблон 1</item>
+        <item >Шаблон 2</item>
+        <item >Ежедневный список</item>
+        <item >Выходной список</item>
+        <item >Праздничный список</item>
+        <item >Список в поездку</item>
+    </string-array>
     
 </resources>

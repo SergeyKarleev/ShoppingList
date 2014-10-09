@@ -1,6 +1,7 @@
 package ru.sergeykarleev.shoppinglist.dialogues;
 
 import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.PrototypeCreating;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyFragmentDialogTransfer extends DialogFragment {
+public class MyFragmentDialogTransfer extends DialogFragment  {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,

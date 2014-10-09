@@ -1,7 +1,7 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
 import ru.sergeykarleev.shoppinglist.R;
-import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplate;
+import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTransfer;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
@@ -47,7 +47,7 @@ public class MainActivity extends FragmentActivity{
 			case R.id.btnTemplate:					
 				Toast.makeText(this, "btnTemplate", Toast.LENGTH_SHORT).show();
 				//TODO: здесь взываем диалог загрузки сохранённого шаблона
-				MyFragmentDialogTemplate dialogTemplate = new MyFragmentDialogTemplate();
+				MyFragmentDialogTemplates dialogTemplate = new MyFragmentDialogTemplates();
 				dialogTemplate.show(getSupportFragmentManager(), null);
 				break;
 			case R.id.btnTransfer:

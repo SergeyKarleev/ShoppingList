@@ -9,24 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"        
         android:drawableLeft="@drawable/test_export"        
-        android:text="Save to Template"/>
+        android:text="Сохранить в шаблоны"/>
     <Button 
         android:id="@+id/btnExportEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"        
         android:drawableLeft="@drawable/test_export"        
-        android:text="Send to Email"/>
+        android:text="Отправить по Email"/>
     <Button 
         android:id="@+id/btnExportBluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"        
         android:drawableLeft="@drawable/test_export"        
-        android:text="Send to Bluetooth"/>
+        android:text="Отправить по Bluetooth"/>
     <Button 
         android:id="@+id/btnExportSMS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"        
         android:drawableLeft="@drawable/test_export"        
-        android:text="Send to SMS"/>
+        android:text="Отправить в SMS"/>
 
 </LinearLayout>
