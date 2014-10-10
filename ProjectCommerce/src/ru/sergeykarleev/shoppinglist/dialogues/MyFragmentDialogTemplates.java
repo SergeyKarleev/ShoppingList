@@ -30,7 +30,6 @@ public class MyFragmentDialogTemplates extends DialogFragment implements OnClick
 		v.findViewById(R.id.btnImportCancel).setOnClickListener(this);
 		v.findViewById(R.id.btnImportLoad).setOnClickListener(this);			
 		lvTemplates = (ListView) v.findViewById(R.id.lvTemplates);
-		
 		prototypeCreate();				
 		return v;
 	}

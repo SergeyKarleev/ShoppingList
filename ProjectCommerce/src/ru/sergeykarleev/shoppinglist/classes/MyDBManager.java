@@ -25,9 +25,18 @@ public class MyDBManager implements BaseColumns {
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB.db";
 	private static final int DB_VERSION = 1;
+
+	// Названия таблиц в базе данных
 	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
 	private static final String DB_TABLE_CATEGORIES = "CategoryTable";
-
+	
+	// TODO: необходимо продумать таблицу для хранения шаблонов списков.
+	
+	// DB_TABLE_TEMPLATES
+	// ([pk]ID_record: long;
+	// Name_record: text;
+	// Body_XML: text)
+	
 	// Имена столбцов таблицы DB_TABLE_PRODUCTS
 	public static final String PRODUCTS_ID = BaseColumns._ID;
 	public static final String PRODUCTS_NAME = "Name_product";
@@ -192,6 +201,22 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
+	
+	public long getIDProduct(String productName){
+		String query = "SELECT DISTINCT "+PRODUCTS_ID+" FROM "+DB_TABLE_PRODUCTS+" WHERE "+PRODUCTS_NAME+"='"+productName+"';";
+		Cursor cursor = mDB.rawQuery(query, null);
+		cursor.moveToFirst();
+		try
+		{
+			long IDProduct = cursor.getLong(cursor.getColumnIndex(MyDBManager.PRODUCTS_ID));
+			return IDProduct;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return (Long) null;
+	}
+	
+	
 	/**
 	 * Возвращает текущую сортировку
 	 * 

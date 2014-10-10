@@ -29,8 +29,8 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	private static final String LOG_TAG = "myLogs";
 
 	// действие с продуктом: добавление нового или модификация/удаление текущего
-	public final static int ACTION_ADD = 1;
-	public final static int ACTION_UPDATE = 2;
+	private final static int ACTION_ADD = 1;
+	private final static int ACTION_UPDATE = 2;
 
 	// поля ввода данных о модели
 	private EditText etName;
@@ -39,10 +39,10 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 
 	// действие диалога: добавление или изменение элемента
 	private int mAction = 0;
-
+	private long mIDCurrentProduct;
+	
 	// содержит значение выбранного устройства из фрагмента
 	private static Cursor sData;
-
 	private MyDBManager mDB;
 	
 	/**
@@ -50,10 +50,23 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	 * 
 	 * @param mAction
 	 */
-	public MyFragmentDialogProducts(int mAction) {
+	public MyFragmentDialogProducts() {
 		super();
-		this.mAction = mAction;
+		this.mAction = ACTION_ADD;
 	}
+	
+	/**
+	 * @param mAction
+	 */
+	public MyFragmentDialogProducts(long id) {
+		super();
+		this.mAction = ACTION_UPDATE;
+		this.mIDCurrentProduct = id;
+	}
+
+
+
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,15 +92,17 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		if (mAction == ACTION_UPDATE) {
 
 			chkDeleteProduct.setEnabled(true);
-
-			long id = sData.getInt(sData
+			sData = mDB.getData(mIDCurrentProduct);
+			sData.moveToFirst();
+			
+			long id = sData.getLong(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_ID));
 			String name = sData.getString(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_NAME));
-			int category = sData.getInt(sData
+			long category = sData.getLong(sData
 					.getColumnIndex(MyDBManager.PRODUCTS_CATEGORY));
 			etName.setText(name);
-			spCategory.setSelection(category);
+			spCategory.setSelection((int)category-1);
 		}
 		return v;
 	}
@@ -130,12 +145,14 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 
 			// обработка клика на кнопке Сохранить (метод onGetRow в fr_backend)
 			if (etName.getText().length() != 0) {
-
+				
+				//TODO: устроить проверку на наличие подобного имени в базе данных
+				
 				String testName = etName.getText().toString();
 				
 				ContentValues cv = new ContentValues();
 				if (mAction == ACTION_UPDATE)
-					cv.put(MyDBManager.PRODUCTS_ID, sData.getInt(sData
+					cv.put(MyDBManager.PRODUCTS_ID, sData.getLong(sData
 							.getColumnIndex(MyDBManager.PRODUCTS_ID)));
 				cv.put(MyDBManager.PRODUCTS_NAME, etName.getText().toString());
 				cv.put(MyDBManager.PRODUCTS_CATEGORY,

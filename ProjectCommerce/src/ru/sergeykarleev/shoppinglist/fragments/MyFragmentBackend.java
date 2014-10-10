@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.SimpleCursorTreeAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyFragmentBackend extends Fragment implements OnClickListener, OnItemLongClickListener {
@@ -72,7 +73,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAdd:
-			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(MyFragmentDialogProducts.ACTION_ADD);
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts();
 			dialog.show(getActivity().getSupportFragmentManager(), null);			
 			break;
 		default:
@@ -82,8 +83,19 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 	
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
-			int position, long id) {		
-		Toast.makeText(getActivity(), "View "+view , Toast.LENGTH_SHORT).show();
+			int position, long id) {
+		if (ExpandableListView.getPackedPositionType(id)==ExpandableListView.PACKED_POSITION_TYPE_CHILD)
+		{
+			int groupID = ExpandableListView.getPackedPositionGroup(id);
+			int childID = ExpandableListView.getPackedPositionChild(id);
+			
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(childID);
+			dialog.show(getActivity().getSupportFragmentManager(), null);
+			
+		}
+//		String nameProduct = ((TextView)view.findViewById(android.R.id.text1)).getText().toString();
+//		long idProduct = mDB.getIDProduct(nameProduct);
+//		
 		return false;
 	}
 	
@@ -99,8 +111,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 
 		@Override
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
-			int idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
-			return mDB.getProducsCategories(groupCursor.getInt(idColumn));
+			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
+			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
 		}
 	}
 
