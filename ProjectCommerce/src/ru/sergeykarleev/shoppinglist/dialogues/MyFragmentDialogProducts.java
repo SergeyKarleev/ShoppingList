@@ -167,8 +167,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			// обработка клика на кнопке Сохранить (метод onGetRow в fr_backend)
 			if (etName.getText().length() != 0) {
 
-				// TODO: устроить проверку на наличие подобного имени в базе
-				// данных
+				// TODO: устроить проверку на наличие подобного имени в БД
 
 				String testName = etName.getText().toString();
 
@@ -183,7 +182,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 				spCategory.setSelection(0);
 				RecordData(cv);
 			} else
-				Toast.makeText(getActivity(), "Все поля должны быть заполнены",
+				Toast.makeText(getActivity(), "Название не должно быть пустым",
 						Toast.LENGTH_SHORT).show();
 		default:
 			break;
@@ -248,7 +247,6 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		default:
 			break;
 		}
-		// TODO: здесь вызываем обновление адаптера в Backend
 		mBackend.updateAdapter();
 		dismiss();
 	}
