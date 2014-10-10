@@ -20,7 +20,8 @@
     <string name="btnStoreFront">Магазин</string>
     <string name="btnBackEnd">Список покупок</string>    
     <string name="btnCancel">Отменить</string>
-    <string name="btnSave">Сохранить</string>    
+    <string name="btnSave">Сохранить</string>
+    <string name="btnDelete">Удалить</string>    
 
     <!-- Содержание текстовых элементов по-умолчанию -->
     <string name="listViewBackEnd">Список покупок пуст</string>

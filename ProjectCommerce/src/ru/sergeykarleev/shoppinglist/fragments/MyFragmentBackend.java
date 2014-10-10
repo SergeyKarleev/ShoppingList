@@ -32,7 +32,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 	Cursor cursor;
 
 	MyDBManager mDB;
-	protected MyTreeAdapter treeAdapter;
+	MyTreeAdapter treeAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -73,7 +73,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAdd:
-			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts();
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(this);
 			dialog.show(getActivity().getSupportFragmentManager(), null);			
 			break;
 		default:
@@ -85,17 +85,13 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		if (ExpandableListView.getPackedPositionType(id)==ExpandableListView.PACKED_POSITION_TYPE_CHILD)
-		{
-			int groupID = ExpandableListView.getPackedPositionGroup(id);
+		{			
 			int childID = ExpandableListView.getPackedPositionChild(id);
 			
-			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(childID);
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(this,childID);
 			dialog.show(getActivity().getSupportFragmentManager(), null);
 			
-		}
-//		String nameProduct = ((TextView)view.findViewById(android.R.id.text1)).getText().toString();
-//		long idProduct = mDB.getIDProduct(nameProduct);
-//		
+		}		
 		return false;
 	}
 	
@@ -106,7 +102,6 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 				String[] childFrom, int[] childTo) {
 			super(context, cursor, groupLayout, groupFrom, groupTo,
 					childLayout, childFrom, childTo);
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override
@@ -116,7 +111,9 @@ public class MyFragmentBackend extends Fragment implements OnClickListener, OnIt
 		}
 	}
 
-	
+	public void updateAdapter(){
+		treeAdapter.notifyDataSetChanged();
+	}
 
 	
 }
