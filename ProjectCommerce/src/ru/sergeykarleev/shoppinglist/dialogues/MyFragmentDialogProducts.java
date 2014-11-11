@@ -218,7 +218,6 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		case ACTION_ADD:
 			try {
 				mDB.addRecord(cv);
-				Log.d(LOG_TAG, "Объект записан в базу данных");
 			} catch (Exception e) {
 				Log.d(LOG_TAG,
 						"Объект не был записан в базу данных.\n" + e.toString());
@@ -227,8 +226,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			break;
 		case ACTION_UPDATE:
 			try {
-				mDB.editRecord(cv);
-				Log.d(LOG_TAG, "Запись в базе отредактирована");
+				mDB.editRecord(cv);				
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Исправления не были внесены в базу данных.\n"
 						+ e.toString());
@@ -237,8 +235,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			break;
 		case ACTION_DELETE:
 			try {
-				mDB.delRecord(mIDCurrentProduct);
-				Log.d(LOG_TAG, "Удаление записи прошло успешно");
+				mDB.delRecord(mIDCurrentProduct);				
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Удаление завершилось неудачей \n"+e.toString());
 				e.printStackTrace();
@@ -247,7 +244,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		default:
 			break;
 		}
-		mBackend.updateAdapter();
+		mBackend.updateAdapter();		
 		dismiss();
 	}
 
