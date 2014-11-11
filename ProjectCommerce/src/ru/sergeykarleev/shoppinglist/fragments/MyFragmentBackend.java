@@ -129,7 +129,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
 
-			View view = super.getChildView(groupPosition, childPosition,
+			final View view = super.getChildView(groupPosition, childPosition,
 					isLastChild, convertView, parent);
 			
 			((CheckBox) view.findViewById(R.id.chkItemBackend)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -138,9 +138,10 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
 							if (isChecked) {
-								buttonView.setTag(1);								
+								view.setTag(1);	
+								Toast.makeText(getActivity(), ""+view.getTag(), Toast.LENGTH_SHORT).show();
 							} else {
-								buttonView.setTag(0);								
+								view.setTag(0);								
 							}
 						}
 					});
