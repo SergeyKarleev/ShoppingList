@@ -7,7 +7,11 @@ import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.content.Context;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,7 +43,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 	MyDBManager mDB;
 	MyTreeAdapter treeAdapter;
-//	HashMap<String, Boolean> mItems;
+
+	// HashMap<String, Boolean> mItems;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -56,10 +61,10 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		cursor = mDB.getCategories();
 
 		// Объявляем массив элементов: имя продукта, отмечен/неотмечен
-		//mItems = new HashMap<String, Boolean>();
+		// mItems = new HashMap<String, Boolean>();
 
 		// Заполняем массив элементов: название продукта, отмечен/не отмечен
-//		updateArray(mDB.getData());
+		// updateArray(mDB.getData());
 
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -124,31 +129,22 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
 
-			View view = null;
-			if (convertView == null) {
-				LayoutInflater inflator = getActivity().getLayoutInflater();
-				view = inflator.inflate(R.layout.item_backend, null);
-				
-				TextView nameProduct = ((TextView)view.findViewById(R.id.tvItemBackend));
-				nameProduct.setText(cursor.getString(cursor.getColumnIndex(mDB.PRODUCTS_NAME)));
-				
-				CheckBox checkProduct = ((CheckBox) view.findViewById(R.id.chkItemBackend));						
-				checkProduct.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			View view = super.getChildView(groupPosition, childPosition,
+					isLastChild, convertView, parent);
+			
+			((CheckBox) view.findViewById(R.id.chkItemBackend)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
-							@Override
-							public void onCheckedChanged(
-									CompoundButton buttonView, boolean isChecked) {
-								if (isChecked) {
-									buttonView.setTag(1);
-									Toast.makeText(getActivity(),""+buttonView.getTag(), Toast.LENGTH_SHORT).show();
-								} else {
-									buttonView.setTag(0);
-								}
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							if (isChecked) {
+								buttonView.setTag(1);								
+							} else {
+								buttonView.setTag(0);								
 							}
-						});
-			}else{
-				view = convertView;
-			}
+						}
+					});
+
 			return view;
 		}
 
@@ -158,14 +154,15 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		treeAdapter.notifyDataSetChanged();
 	}
 
-//	private void updateArray(Cursor cursor) {
-//		cursor.moveToFirst();
-//		mItems.clear();
-//		do {
-//			Log.d(LOG_TAG, cursor.getString(cursor
-//					.getColumnIndex(MyDBManager.PRODUCTS_ID)));
-//			// mItems.put(cursor.getString(cursor.getColumnIndex(MyDBManager.PRODUCTS_NAME)),false);
-//		} while (cursor.moveToNext());
-//	}
+	// private void updateArray(Cursor cursor) {
+	// cursor.moveToFirst();
+	// mItems.clear();
+	// do {
+	// Log.d(LOG_TAG, cursor.getString(cursor
+	// .getColumnIndex(MyDBManager.PRODUCTS_ID)));
+	// //
+	// mItems.put(cursor.getString(cursor.getColumnIndex(MyDBManager.PRODUCTS_NAME)),false);
+	// } while (cursor.moveToNext());
+	// }
 
 }
