@@ -95,23 +95,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
 		elProducts.setOnItemClickListener(this);
 		elProducts.setOnItemLongClickListener(this);
-		elProducts.setAdapter(treeAdapter);
+		elProducts.setAdapter(treeAdapter);		
 		return v;
-	}
-
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		elProducts.setOnChildClickListener(new OnChildClickListener() {
-
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-
-				return false;
-			}
-		});
 	}
 
 	@Override
@@ -166,7 +151,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
 			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
-		}
+		}	
+		
 	}
 
 	public void updateAdapter() {
