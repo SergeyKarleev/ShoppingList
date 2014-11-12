@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +27,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,8 +38,11 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		OnItemLongClickListener {
 
 	private final static String LOG_TAG = "myLogs";
+	
+	private final static int CHECK_ON = 1;
+	private final static int CHECK_OFF = 0;
 
-	Button btnAdd;
+	Button btnAdd;	
 
 	ExpandableListView elProducts;
 	Cursor cursor;
@@ -54,6 +60,18 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);
 		btnAdd.setOnClickListener(this);
 
+		
+		((Button)v.findViewById(R.id.btnSort)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {				
+				SparseBooleanArray sba = elProducts.getCheckedItemPositions();					
+				Toast.makeText(getActivity(), "Количество отмеченных пунктов равно "+sba.size(), Toast.LENGTH_SHORT).show();
+				
+			}
+		});
+		
+		
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
 
@@ -72,14 +90,16 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 		// Формируем столбцы сопоставления для продуктов
 		String[] childFrom = new String[] { MyDBManager.PRODUCTS_NAME };
-		int[] childTo = new int[] { R.id.tvItemBackend };
+		//int[] childTo = new int[] { R.id.tvItemBackend };
+		int[] childTo = new int[] {R.id.tvItemBackend};
+		
 
 		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
 				android.R.layout.simple_expandable_list_item_1, groupFrom,
 				groupTo, R.layout.item_backend, childFrom, childTo);
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
 		elProducts.setOnItemLongClickListener(this);
-		elProducts.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);
+		elProducts.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE);		
 		elProducts.setAdapter(treeAdapter);
 		return v;
 	}
@@ -112,6 +132,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
 
+		
+
 		public MyTreeAdapter(Context context, Cursor cursor, int groupLayout,
 				String[] groupFrom, int[] groupTo, int childLayout,
 				String[] childFrom, int[] childTo) {
@@ -124,28 +146,29 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
 		}
-
+		
 		@Override
-		public View getChildView(int groupPosition, int childPosition,
+		public View getChildView(int groupPosition, final int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
 
 			final View view = super.getChildView(groupPosition, childPosition,
 					isLastChild, convertView, parent);
 			
-			((CheckBox) view.findViewById(R.id.chkItemBackend)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-						@Override
-						public void onCheckedChanged(CompoundButton buttonView,
-								boolean isChecked) {
-							if (isChecked) {
-								view.setTag(1);	
-								Toast.makeText(getActivity(), ""+view.getTag(), Toast.LENGTH_SHORT).show();
-							} else {
-								view.setTag(0);								
-							}
-						}
-					});
-
+			((CheckBox)view.findViewById(R.id.chkItemBackend)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					if (isChecked){						
+						buttonView.setTag(CHECK_ON);
+						elProducts.setItemChecked(childPosition, true);
+					}else{
+						buttonView.setTag(CHECK_OFF);
+						elProducts.setItemChecked(childPosition, false);
+					}
+				}
+			});
+			
+			
 			return view;
 		}
 
@@ -154,16 +177,6 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	public void updateAdapter() {
 		treeAdapter.notifyDataSetChanged();
 	}
-
-	// private void updateArray(Cursor cursor) {
-	// cursor.moveToFirst();
-	// mItems.clear();
-	// do {
-	// Log.d(LOG_TAG, cursor.getString(cursor
-	// .getColumnIndex(MyDBManager.PRODUCTS_ID)));
-	// //
-	// mItems.put(cursor.getString(cursor.getColumnIndex(MyDBManager.PRODUCTS_NAME)),false);
-	// } while (cursor.moveToNext());
-	// }
+	
 
 }

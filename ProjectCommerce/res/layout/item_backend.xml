@@ -2,21 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+     >
+
     <TextView
-        android:paddingLeft="@dimen/pager_padding"
-        android:id="@+id/tvItemBackend" 
-        android:layout_width="wrap_content"        
+        android:id="@+id/tvItemBackend"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingLeft="@dimen/pager_padding"
         android:text="элемент"
         />
+    
     <CheckBox 
         android:paddingRight="@dimen/pager_padding"
         android:id="@+id/chkItemBackend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"        
-        />
+        android:focusable="false" /> 
 
 </LinearLayout>
