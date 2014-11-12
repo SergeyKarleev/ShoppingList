@@ -40,10 +40,7 @@
     <ExpandableListView
         android:id="@+id/elProducts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"   
-        android:choiceMode="multipleChoice"                    
-        >
+        android:layout_height="wrap_content">
     </ExpandableListView>
 
 </LinearLayout>

@@ -87,7 +87,6 @@ public final class R {
         public static final int btnTemplate=0x7f080012;
         public static final int btnTransfer=0x7f080013;
         public static final int chkDeleteProduct=0x7f080003;
-        public static final int chkItemBackend=0x7f08001a;
         public static final int elProducts=0x7f080010;
         public static final int etName=0x7f080002;
         public static final int llStart=0x7f080011;
