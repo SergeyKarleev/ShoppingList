@@ -38,7 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyFragmentBackend extends Fragment implements OnClickListener,
-		OnItemClickListener, OnItemLongClickListener {
+		OnItemLongClickListener, OnChildClickListener {
 
 	private final static String LOG_TAG = "myLogs";
 
@@ -50,7 +50,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	ExpandableListView elProducts;
 	Cursor cursor;
 
-	ArrayList<String> productList;
+	HashMap<String, String> productList;
 
 	MyDBManager mDB;
 	MyTreeAdapter treeAdapter;
@@ -68,7 +68,11 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(), "Количество отмеченных пунктов равно " + productList.size(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(
+								getActivity(),
+								"Количество отмеченных пунктов равно "
+										+ productList.size(),
+								Toast.LENGTH_SHORT).show();
 					}
 				});
 
@@ -79,7 +83,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		cursor = mDB.getCategories();
 
 		// Объявляем массив названий продуктов
-		productList = new ArrayList<String>();
+		productList = new HashMap<String, String>();
 
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -92,10 +96,11 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
 				android.R.layout.simple_expandable_list_item_1, groupFrom,
 				groupTo, R.layout.item_backend, childFrom, childTo);
+
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
-		elProducts.setOnItemClickListener(this);
+		elProducts.setOnChildClickListener(this);
 		elProducts.setOnItemLongClickListener(this);
-		elProducts.setAdapter(treeAdapter);		
+		elProducts.setAdapter(treeAdapter);
 		return v;
 	}
 
@@ -112,15 +117,14 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Log.d(LOG_TAG, "Клик на элементе");
-		if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-			String txt = ((TextView) view.findViewById(R.id.tvItemBackend))
-					.getText().toString();
-			productList.add(txt);
-			Toast.makeText(getActivity(), txt, Toast.LENGTH_SHORT).show();
-		}	
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		String txt = ((TextView) v.findViewById(R.id.tvItemBackend)).getText()
+				.toString();
+		productList.put(txt, null);
+		Toast.makeText(getActivity(), "В список добавлен продукт: " + txt,
+				Toast.LENGTH_SHORT).show();
+		return true;
 	}
 
 	@Override
@@ -133,7 +137,6 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 					this, childID);
 			dialog.show(getActivity().getSupportFragmentManager(), null);
 			return true;
-
 		}
 		return false;
 	}
@@ -151,8 +154,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
 			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
-		}	
-		
+		}
+
 	}
 
 	public void updateAdapter() {
