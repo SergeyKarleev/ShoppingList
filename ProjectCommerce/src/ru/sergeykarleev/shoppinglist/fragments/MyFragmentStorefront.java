@@ -53,7 +53,8 @@ public class MyFragmentStorefront extends Fragment {
 		
 		Toast.makeText(getActivity(), "Список состоит из "+listProducts.size(), Toast.LENGTH_SHORT).show();
 		sAdapter = new SimpleAdapter(getActivity(), listProducts, R.layout.item_storefront, from, to);	
-		//lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
+		lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
+		lvMyProductList.setAdapter(sAdapter);
 		
 		return v;
 	}
