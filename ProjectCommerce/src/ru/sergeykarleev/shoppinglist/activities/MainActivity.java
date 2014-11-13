@@ -1,5 +1,10 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTransfer;
@@ -10,30 +15,40 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity{
 
 	final String LOG_TAG = "myLogs";
-
+	private final static String ARRAY_LIST = "listProducts";
 
 	FragmentTransaction fTrans;
 	MyFragmentBackend fragmentB;
 	MyFragmentStorefront fragmentF;	
+	
+	private ArrayList<HashMap<String, String>> listProducts;
+
+	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-//		// создаем базу данных с начальными значени€ми и сразу закрываем		
-//		MyDBManager mDataBase = new MyDBManager(this);	
-//		mDataBase.close();		
-
 		// создание экземпл€ров фрагментов		
 		fragmentF = new MyFragmentStorefront();
 		fragmentB = new MyFragmentBackend();
-
+		
+		if (savedInstanceState == null){
+			listProducts = new ArrayList<HashMap<String,String>>();
+		}else{
+			listProducts = (ArrayList<HashMap<String, String>>) savedInstanceState.getSerializable(ARRAY_LIST);
+		}
+			
+		
 		// если первый запуск, добавл€ем фрагмент StoreFront на активити
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -42,6 +57,13 @@ public class MainActivity extends FragmentActivity{
 	}	
 	
 	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putSerializable(ARRAY_LIST, listProducts);
+	}
+
+
 	public void onClickGlobal(View v) {
 			switch (v.getId()) {
 			case R.id.btnTemplate:					
@@ -66,11 +88,27 @@ public class MainActivity extends FragmentActivity{
 			case R.id.btnInMarket:
 				//TODO: необходимо упаковать все отмеченные элементы в объект и передать его в Storefront, затем сн€ть все выделени€
 				//TODO: необходимо реализовать кнопку "назад", открыва€ Storefront
-				getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentF).commit();
+				//getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentF).commit();
 				break;
 			default:
 				break;
 			}
 			
+	}
+	
+	public ArrayList<HashMap<String, String>> getListProducts() {
+		return listProducts;
+	}
+
+
+	public void setListProducts(ArrayList<HashMap<String, String>> listProducts) {
+		this.listProducts = listProducts;
+	}
+	
+	public void goToProductList(ArrayList<HashMap<String, String>> data){
+		ArrayList<HashMap<String, String>> mList = getListProducts();
+		mList.addAll(data);
+		setListProducts(mList);
+		getSupportFragmentManager().beginTransaction().replace(R.string.fragment_universal, fragmentF).commit();
 	}
 }

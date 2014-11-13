@@ -3,8 +3,10 @@ package ru.sergeykarleev.shoppinglist.fragments;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.content.Context;
@@ -44,13 +46,17 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 	private final static int CHECK_ON = 1;
 	private final static int CHECK_OFF = 0;
+	
+	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
+	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
 
 	Button btnAdd;
 
 	ExpandableListView elProducts;
 	Cursor cursor;
 
-	HashMap<String, String> productList;
+	ArrayList<HashMap<String, String>> productList;
+	//public HashMap<String, String> productList;
 
 	MyDBManager mDB;
 	MyTreeAdapter treeAdapter;
@@ -60,21 +66,9 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_backend, null);
 
-		btnAdd = (Button) v.findViewById(R.id.btnAdd);
-		btnAdd.setOnClickListener(this);
-
-		((Button) v.findViewById(R.id.btnSort))
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Toast.makeText(
-								getActivity(),
-								"Количество отмеченных пунктов равно "
-										+ productList.size(),
-								Toast.LENGTH_SHORT).show();
-					}
-				});
+		((Button) v.findViewById(R.id.btnAdd)).setOnClickListener(this);
+		((Button) v.findViewById(R.id.btnSort)).setOnClickListener(this);		
+		((Button) v.findViewById(R.id.btnInMarket)).setOnClickListener(this);		
 
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
@@ -83,7 +77,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		cursor = mDB.getCategories();
 
 		// Объявляем массив названий продуктов
-		productList = new HashMap<String, String>();
+		productList = new ArrayList<HashMap<String,String>>();
 
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -111,6 +105,12 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(this);
 			dialog.show(getActivity().getSupportFragmentManager(), null);
 			break;
+		case R.id.btnSort:
+			Toast.makeText(getActivity(),"Количество отмеченных пунктов равно " + productList.size(),Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.btnInMarket:
+			((MainActivity) getActivity()).goToProductList(productList);			
+			break;
 		default:
 			break;
 		}
@@ -121,7 +121,11 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 			int groupPosition, int childPosition, long id) {
 		String txt = ((TextView) v.findViewById(R.id.tvItemBackend)).getText()
 				.toString();
-		productList.put(txt, null);
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(ATTRIBUT_NAME_PRODUCT, txt);
+		hm.put(ATTRIBUT_COMMENT_PRODUCT, "");		
+		productList.add(hm);
+		
 		Toast.makeText(getActivity(), "В список добавлен продукт: " + txt,
 				Toast.LENGTH_SHORT).show();
 		return true;
@@ -141,6 +145,10 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		return false;
 	}
 
+	public void updateAdapter() {
+		treeAdapter.notifyDataSetChanged();
+	}
+
 	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
 
 		public MyTreeAdapter(Context context, Cursor cursor, int groupLayout,
@@ -156,10 +164,6 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
 		}
 
-	}
-
-	public void updateAdapter() {
-		treeAdapter.notifyDataSetChanged();
 	}
 
 }

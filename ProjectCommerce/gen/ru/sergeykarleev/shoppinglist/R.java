@@ -96,6 +96,8 @@ public final class R {
         public static final int tvCategory=0x7f080018;
         public static final int tvItemBackend=0x7f080019;
         public static final int tvModel=0x7f080017;
+        public static final int tvSItemComment=0x7f08001b;
+        public static final int tvSItemName=0x7f08001a;
         public static final int tvSort=0x7f08000d;
     }
     public static final class layout {
@@ -106,7 +108,8 @@ public final class R {
         public static final int fragment_storefront=0x7f030004;
         public static final int item=0x7f030005;
         public static final int item_backend=0x7f030006;
-        public static final int main=0x7f030007;
+        public static final int item_storefront=0x7f030007;
+        public static final int main=0x7f030008;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
