@@ -50,7 +50,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
 	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
 
-	Button btnAdd;
+	Button btnAdd;	
 
 	ExpandableListView elProducts;
 	Cursor cursor;
@@ -68,8 +68,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 		((Button) v.findViewById(R.id.btnAdd)).setOnClickListener(this);
 		((Button) v.findViewById(R.id.btnSort)).setOnClickListener(this);		
-		((Button) v.findViewById(R.id.btnInMarket)).setOnClickListener(this);		
-
+		((Button) v.findViewById(R.id.btnInMarket)).setOnClickListener(this);
+		
 		// Подключаемся к БД
 		mDB = new MyDBManager(getActivity());
 

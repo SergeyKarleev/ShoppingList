@@ -37,9 +37,9 @@ public final class R {
         public static final int btn_main_height=0x7f050002;
         public static final int btn_margin=0x7f050003;
         public static final int item_arrow_size=0x7f05000d;
+        public static final int item_comment_size=0x7f05000c;
+        public static final int item_product_size=0x7f05000a;
         public static final int item_tvCategory_size=0x7f05000b;
-        public static final int item_tvCount_size=0x7f05000c;
-        public static final int item_tvModel_size=0x7f05000a;
         /**  Диалог создания/редактирования модели 
          */
         public static final int label_font_dialog=0x7f050005;

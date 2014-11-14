@@ -21,7 +21,7 @@
                     android:layout_width="@dimen/model_text_width"
                     android:layout_height="@dimen/model_text_height"
                     android:text="@string/tvModel_name"
-                    android:textSize="@dimen/item_tvModel_size"
+                    android:textSize="@dimen/item_product_size"
                     android:textStyle="bold" />
             </TableRow>
 

@@ -15,40 +15,40 @@
             android:id="@+id/btnTemplate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickGlobal"
             android:text="Template"
-            android:textSize="12dp"
-            android:onClick="onClickGlobal" />
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btnTransfer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickGlobal"
             android:text="Transfer"
-            android:textSize="12dp"
-            android:onClick="onClickGlobal" />
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btnPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickGlobal"
             android:text="Plan"
-            android:textSize="12dp" 
-            android:onClick="onClickGlobal"/>
+            android:textSize="12dp" />
 
         <Button
             android:id="@+id/btnProductBase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClickGlobal"
             android:text="ProductBase"
-            android:textSize="12dp" 
-            android:onClick="onClickGlobal"/>
+            android:textSize="12dp" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lvMyProductList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:choiceMode="multipleChoice">
+        android:layout_height="wrap_content"
+        android:choiceMode="multipleChoice" >
     </ListView>
 
 </LinearLayout>
