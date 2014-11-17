@@ -33,8 +33,7 @@ public class MyFragmentStorefront extends Fragment {
 	Button btnPlan;
 	Button btnProducts;
 
-	ListView lvMyProductList;
-	//SimpleAdapter sAdapter;
+	ListView lvMyProductList;	
 	MainActivity mActivity;
 	MyListAdapter sAdapter;
 	

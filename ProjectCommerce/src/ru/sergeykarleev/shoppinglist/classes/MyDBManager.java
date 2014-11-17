@@ -24,19 +24,13 @@ public class MyDBManager implements BaseColumns {
 
 	// Техническая информация создаваемой базы данных
 	private static final String DB_NAME = "myDB.db";
-	private static final int DB_VERSION = 1;
+	private static final int DB_VERSION = 2;
 
 	// Названия таблиц в базе данных
 	private static final String DB_TABLE_PRODUCTS = "ProductsTable";
 	private static final String DB_TABLE_CATEGORIES = "CategoryTable";
-	
-	// TODO: необходимо продумать таблицу для хранения шаблонов списков.
-	
-	// DB_TABLE_TEMPLATES
-	// ([pk]ID_record: long;
-	// Name_record: text;
-	// Body_XML: text)
-	
+	private static final String DB_TABLE_TEMPLATES = "TemplateTable";
+
 	// Имена столбцов таблицы DB_TABLE_PRODUCTS
 	public static final String PRODUCTS_ID = BaseColumns._ID;
 	public static final String PRODUCTS_NAME = "Name_product";
@@ -45,6 +39,12 @@ public class MyDBManager implements BaseColumns {
 	// Имена столбцов таблицы DB_TABLE_CATEGORIES
 	public static final String CATEGORY_ID = BaseColumns._ID;
 	public static final String CATEGORY_NAME = "Name_category";
+
+	// Имена столбцов таблицы DB_TABLE_TEMPLATES
+	public static final String TEMPLATE_RECORD = BaseColumns._ID;
+	public static final String TEMPLATE_NAME = "Name_template";
+	public static final String TEMPLATE_PRODUCT = "Product_template";
+	public static final String TEMPLATE_COMMENT = "Comment_tamplate";
 
 	// Порядок сортировки результата
 	public static final int ORDER_BY_NONE = 0;
@@ -84,6 +84,13 @@ public class MyDBManager implements BaseColumns {
 			+ DB_TABLE_CATEGORIES + " (" + CATEGORY_ID
 			+ " integer primary key autoincrement, " + CATEGORY_NAME
 			+ " text);";
+
+	// Запрос на создание таблицы DB_TABLE_TEMPLATES
+	private static final String tableCreateTemplates = "CREATE TABLE "
+			+ DB_TABLE_TEMPLATES + " (" + TEMPLATE_RECORD
+			+ " integer primary key autoincrement, " + TEMPLATE_NAME
+			+ " text NOT NULL, " + TEMPLATE_PRODUCT + " text NOT NULL, "
+			+ TEMPLATE_COMMENT + " text);";
 
 	// Объявление служебных переменных для работы с БД
 	private Context mCtx;
@@ -201,22 +208,22 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
-	
-	public long getIDProduct(String productName){
-		String query = "SELECT DISTINCT "+PRODUCTS_ID+" FROM "+DB_TABLE_PRODUCTS+" WHERE "+PRODUCTS_NAME+"='"+productName+"';";
+	public long getIDProduct(String productName) {
+		String query = "SELECT DISTINCT " + PRODUCTS_ID + " FROM "
+				+ DB_TABLE_PRODUCTS + " WHERE " + PRODUCTS_NAME + "='"
+				+ productName + "';";
 		Cursor cursor = mDB.rawQuery(query, null);
 		cursor.moveToFirst();
-		try
-		{
-			long IDProduct = cursor.getLong(cursor.getColumnIndex(MyDBManager.PRODUCTS_ID));
+		try {
+			long IDProduct = cursor.getLong(cursor
+					.getColumnIndex(MyDBManager.PRODUCTS_ID));
 			return IDProduct;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return (Long) null;
 	}
-	
-	
+
 	/**
 	 * Возвращает текущую сортировку
 	 * 
@@ -338,29 +345,46 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			// Создание таблицы продуктов и внесение информации в логи
-			Log.d(LOG_TAG, "Запрос создания: " + tableCreateProducts);
-			try {
-				db.execSQL(tableCreateProducts);
-				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
-						+ DB_TABLE_PRODUCTS);
-			} catch (Exception e) {
-				Log.d(LOG_TAG, "Неудача в создании таблицы "
-						+ DB_TABLE_PRODUCTS);
-				e.printStackTrace();
-			}
-
-			// Создание таблицы категорий
-			Log.d(LOG_TAG, "Запрос создания: " + tableCreateCategory);
-			try {
-				db.execSQL(tableCreateCategory);
-				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
-						+ DB_TABLE_CATEGORIES);
-			} catch (Exception e) {
-				Log.d(LOG_TAG, "Неудача в создании таблицы "
-						+ DB_TABLE_CATEGORIES);
-				e.printStackTrace();
-			}
+			
+			// Создание таблиц базы данных
+			createTable(db, DB_TABLE_PRODUCTS, tableCreateProducts);
+			createTable(db, DB_TABLE_CATEGORIES, tableCreateCategory);
+			createTable(db, DB_TABLE_TEMPLATES, tableCreateTemplates);
+			
+//			// Создание таблицы продуктов и внесение информации в логи
+//			Log.d(LOG_TAG, "Запрос создания: " + tableCreateProducts);
+//			try {
+//				db.execSQL(tableCreateProducts);
+//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+//						+ DB_TABLE_PRODUCTS);
+//			} catch (Exception e) {
+//				Log.d(LOG_TAG, "Неудача в создании таблицы "
+//						+ DB_TABLE_PRODUCTS);
+//				e.printStackTrace();
+//			}
+//
+//			// Создание таблицы категорий
+//			Log.d(LOG_TAG, "Запрос создания: " + tableCreateCategory);
+//			try {
+//				db.execSQL(tableCreateCategory);
+//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+//						+ DB_TABLE_CATEGORIES);
+//			} catch (Exception e) {
+//				Log.d(LOG_TAG, "Неудача в создании таблицы "
+//						+ DB_TABLE_CATEGORIES);
+//				e.printStackTrace();
+//			}
+//
+//			// Создание таблицы шаблонов
+//			Log.d(LOG_TAG, "Запрос создания " + tableCreateTemplates);
+//			try {
+//				db.execSQL(tableCreateTemplates);
+//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+//						+ DB_TABLE_TEMPLATES);
+//			} catch (Exception e) {
+//				Log.d(LOG_TAG, "Неудача в создании таблицы "
+//						+ DB_TABLE_TEMPLATES);
+//			}
 
 			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
 			ContentValues cv = new ContentValues();
@@ -402,26 +426,62 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.d(LOG_TAG, "Обновление базы данных " + DB_NAME);
-			try {
-				db.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
-						+ " удалена успешно");
-			} catch (Exception e) {
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
-						+ " не удалена. Ошибка " + e);
-			}
 
-			try {
-				db.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
-						+ " удалена успешно");
-			} catch (Exception e) {
-				Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
-						+ " не удалена. Ошибка " + e);
-			}
+			dropTable(db, DB_TABLE_PRODUCTS);
+			dropTable(db, DB_TABLE_CATEGORIES);
+			dropTable(db, DB_TABLE_TEMPLATES);
+
+			//
+			// try {
+			// db.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
+			// + " удалена успешно");
+			// } catch (Exception e) {
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
+			// + " не удалена. Ошибка " + e);
+			// }
+			//
+			// try {
+			// db.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
+			// + " удалена успешно");
+			// } catch (Exception e) {
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
+			// + " не удалена. Ошибка " + e);
+			// }
+			//
+			// try {
+			// db.execSQL("DROP TABLE " + DB_TABLE_TEMPLATES + ";");
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_TEMPLATES
+			// + " удалена успешно");
+			// } catch (Exception e) {
+			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_TEMPLATES
+			// + " не удалена. Ошибка " + e);
+			// }
 
 			onCreate(db);
+		}
+
+		private void createTable(SQLiteDatabase db, String tableName, String sql) {
+			Log.d(LOG_TAG, "Запрос создания: " + tableName);
+			try {
+				db.execSQL(sql);
+				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
+						+ tableName);
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Неудача в создании таблицы " + tableName);
+				e.printStackTrace();
+			}
+		}
+
+		private void dropTable(SQLiteDatabase db, String tableName) {
+			try {
+				db.execSQL("DROP TABLE " + tableName + ";");
+				Log.d(LOG_TAG, "Таблица " + tableName + " удалена успешно");
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Таблица " + tableName + " не удалена. Ошибка "
+						+ e);
+			}
 		}
 
 	}

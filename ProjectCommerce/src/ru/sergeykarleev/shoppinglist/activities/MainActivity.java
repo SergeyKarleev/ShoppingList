@@ -30,9 +30,6 @@ public class MainActivity extends FragmentActivity{
 	
 	private ArrayList<HashMap<String, String>> listProducts;
 
-	
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
