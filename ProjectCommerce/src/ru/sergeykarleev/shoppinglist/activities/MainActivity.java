@@ -10,11 +10,14 @@ import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTransfer;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -27,6 +30,8 @@ public class MainActivity extends FragmentActivity{
 	FragmentTransaction fTrans;
 	MyFragmentBackend fragmentB;
 	MyFragmentStorefront fragmentF;	
+	
+	MyFragmentDialogTemplates dialogTemplate;
 	
 	private ArrayList<HashMap<String, String>> listProducts;
 
@@ -66,7 +71,7 @@ public class MainActivity extends FragmentActivity{
 			case R.id.btnTemplate:					
 				Toast.makeText(this, "btnTemplate", Toast.LENGTH_SHORT).show();
 				//TODO: здесь взываем диалог загрузки сохранённого шаблона
-				MyFragmentDialogTemplates dialogTemplate = new MyFragmentDialogTemplates();
+				dialogTemplate = new MyFragmentDialogTemplates();
 				dialogTemplate.show(getSupportFragmentManager(), null);
 				break;
 			case R.id.btnTransfer:

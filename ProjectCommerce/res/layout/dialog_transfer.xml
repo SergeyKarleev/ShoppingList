@@ -4,29 +4,32 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button 
+    <Button
         android:id="@+id/btnExportTemplate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:drawableLeft="@drawable/test_export"        
-        android:text="Сохранить в шаблоны"/>
-    <Button 
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/test_export"
+        android:text="Сохранить в шаблоны" />
+
+    <Button
         android:id="@+id/btnExportEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:drawableLeft="@drawable/test_export"        
-        android:text="Отправить по Email"/>
-    <Button 
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/test_export"
+        android:text="Отправить по Email" />
+
+    <Button
         android:id="@+id/btnExportBluetooth"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:drawableLeft="@drawable/test_export"        
-        android:text="Отправить по Bluetooth"/>
-    <Button 
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/test_export"
+        android:text="Отправить по Bluetooth" />
+
+    <Button
         android:id="@+id/btnExportSMS"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:drawableLeft="@drawable/test_export"        
-        android:text="Отправить в SMS"/>
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/test_export"
+        android:text="Отправить в SMS" />
 
 </LinearLayout>

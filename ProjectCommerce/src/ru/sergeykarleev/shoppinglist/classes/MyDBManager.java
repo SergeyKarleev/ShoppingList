@@ -1,6 +1,11 @@
 package ru.sergeykarleev.shoppinglist.classes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -331,6 +336,21 @@ public class MyDBManager implements BaseColumns {
 		return c.getCount();
 	}
 
+	
+	/**Метод сохраняет список в базу данных как шаблон
+	 * 
+	 */
+	public void saveToTemplate(ArrayList<HashMap<String, String>> mArray, String mTemplateName){
+		for (HashMap<String, String> hashMap : mArray) {
+			ContentValues cv = new ContentValues();
+			cv.put(TEMPLATE_NAME, mTemplateName);
+			cv.put(TEMPLATE_PRODUCT, hashMap.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT));
+			cv.put(TEMPLATE_COMMENT, hashMap.get(MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT));			
+			mDB.insert(DB_TABLE_TEMPLATES, null, cv);
+		}
+	}
+	
+	
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных
 	// в частности, позволяет открыть базу на изменение данных
 	// getWritableDatabase()
