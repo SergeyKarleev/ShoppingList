@@ -71,34 +71,33 @@ public final class R {
         public static final int test_export=0x7f02000e;
     }
     public static final class id {
-        public static final int btnAdd=0x7f08000f;
+        public static final int btnAdd=0x7f08000e;
         public static final int btnCancel=0x7f080000;
-        public static final int btnExportBluetooth=0x7f08000a;
-        public static final int btnExportEmail=0x7f080009;
-        public static final int btnExportSMS=0x7f08000b;
-        public static final int btnExportTemplate=0x7f080008;
+        public static final int btnExportBluetooth=0x7f080009;
+        public static final int btnExportEmail=0x7f080008;
+        public static final int btnExportSMS=0x7f08000a;
         public static final int btnImportCancel=0x7f080006;
         public static final int btnImportLoad=0x7f080007;
-        public static final int btnInMarket=0x7f08000e;
-        public static final int btnPlan=0x7f080014;
-        public static final int btnProductBase=0x7f080015;
+        public static final int btnInMarket=0x7f08000d;
+        public static final int btnPlan=0x7f080013;
+        public static final int btnProductBase=0x7f080014;
         public static final int btnSave=0x7f080001;
-        public static final int btnSort=0x7f08000c;
-        public static final int btnTemplate=0x7f080012;
-        public static final int btnTransfer=0x7f080013;
+        public static final int btnSort=0x7f08000b;
+        public static final int btnTemplate=0x7f080011;
+        public static final int btnTransfer=0x7f080012;
         public static final int chkDeleteProduct=0x7f080003;
-        public static final int elProducts=0x7f080010;
+        public static final int elProducts=0x7f08000f;
         public static final int etName=0x7f080002;
-        public static final int llStart=0x7f080011;
-        public static final int lvMyProductList=0x7f080016;
+        public static final int llStart=0x7f080010;
+        public static final int lvMyProductList=0x7f080015;
         public static final int lvTemplates=0x7f080005;
         public static final int spCategory=0x7f080004;
-        public static final int tvCategory=0x7f080018;
-        public static final int tvItemBackend=0x7f080019;
-        public static final int tvModel=0x7f080017;
-        public static final int tvSItemComment=0x7f08001b;
-        public static final int tvSItemName=0x7f08001a;
-        public static final int tvSort=0x7f08000d;
+        public static final int tvCategory=0x7f080017;
+        public static final int tvItemBackend=0x7f080018;
+        public static final int tvModel=0x7f080016;
+        public static final int tvSItemComment=0x7f08001a;
+        public static final int tvSItemName=0x7f080019;
+        public static final int tvSort=0x7f08000c;
     }
     public static final class layout {
         public static final int dialog_product=0x7f030000;

@@ -5,13 +5,6 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/btnExportTemplate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/test_export"
-        android:text="Сохранить в шаблоны" />
-
-    <Button
         android:id="@+id/btnExportEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -30,10 +30,7 @@ public class MyFragmentDialogTransfer extends DialogFragment implements
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		getDialog().setTitle("Ёкспорт списка");
 		View v = inflater.inflate(R.layout.dialog_transfer, container);
-		mActivity = (MainActivity) getActivity();
-
-		((Button) v.findViewById(R.id.btnExportTemplate))
-				.setOnClickListener(this);
+		mActivity = (MainActivity) getActivity();		
 
 		return v;
 	}
@@ -47,9 +44,7 @@ public class MyFragmentDialogTransfer extends DialogFragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnExportTemplate:
-			
-			break;
+		
 		default:
 			break;
 		}

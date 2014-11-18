@@ -371,41 +371,6 @@ public class MyDBManager implements BaseColumns {
 			createTable(db, DB_TABLE_CATEGORIES, tableCreateCategory);
 			createTable(db, DB_TABLE_TEMPLATES, tableCreateTemplates);
 			
-//			// Создание таблицы продуктов и внесение информации в логи
-//			Log.d(LOG_TAG, "Запрос создания: " + tableCreateProducts);
-//			try {
-//				db.execSQL(tableCreateProducts);
-//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
-//						+ DB_TABLE_PRODUCTS);
-//			} catch (Exception e) {
-//				Log.d(LOG_TAG, "Неудача в создании таблицы "
-//						+ DB_TABLE_PRODUCTS);
-//				e.printStackTrace();
-//			}
-//
-//			// Создание таблицы категорий
-//			Log.d(LOG_TAG, "Запрос создания: " + tableCreateCategory);
-//			try {
-//				db.execSQL(tableCreateCategory);
-//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
-//						+ DB_TABLE_CATEGORIES);
-//			} catch (Exception e) {
-//				Log.d(LOG_TAG, "Неудача в создании таблицы "
-//						+ DB_TABLE_CATEGORIES);
-//				e.printStackTrace();
-//			}
-//
-//			// Создание таблицы шаблонов
-//			Log.d(LOG_TAG, "Запрос создания " + tableCreateTemplates);
-//			try {
-//				db.execSQL(tableCreateTemplates);
-//				Log.d(LOG_TAG, "Выполнено успешно создание таблицы "
-//						+ DB_TABLE_TEMPLATES);
-//			} catch (Exception e) {
-//				Log.d(LOG_TAG, "Неудача в создании таблицы "
-//						+ DB_TABLE_TEMPLATES);
-//			}
-
 			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
 			ContentValues cv = new ContentValues();
 			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_PRODUCTS);
@@ -449,39 +414,12 @@ public class MyDBManager implements BaseColumns {
 
 			dropTable(db, DB_TABLE_PRODUCTS);
 			dropTable(db, DB_TABLE_CATEGORIES);
-			dropTable(db, DB_TABLE_TEMPLATES);
-
-			//
-			// try {
-			// db.execSQL("DROP TABLE " + DB_TABLE_PRODUCTS + ";");
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
-			// + " удалена успешно");
-			// } catch (Exception e) {
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_PRODUCTS
-			// + " не удалена. Ошибка " + e);
-			// }
-			//
-			// try {
-			// db.execSQL("DROP TABLE " + DB_TABLE_CATEGORIES + ";");
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
-			// + " удалена успешно");
-			// } catch (Exception e) {
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_CATEGORIES
-			// + " не удалена. Ошибка " + e);
-			// }
-			//
-			// try {
-			// db.execSQL("DROP TABLE " + DB_TABLE_TEMPLATES + ";");
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_TEMPLATES
-			// + " удалена успешно");
-			// } catch (Exception e) {
-			// Log.d(LOG_TAG, "Таблица " + DB_TABLE_TEMPLATES
-			// + " не удалена. Ошибка " + e);
-			// }
+			dropTable(db, DB_TABLE_TEMPLATES);			
 
 			onCreate(db);
 		}
 
+		
 		private void createTable(SQLiteDatabase db, String tableName, String sql) {
 			Log.d(LOG_TAG, "Запрос создания: " + tableName);
 			try {
