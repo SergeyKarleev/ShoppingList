@@ -15,6 +15,7 @@ import android.app.AlertDialog.Builder;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -56,9 +57,8 @@ public class MainActivity extends FragmentActivity{
 			getSupportFragmentManager().beginTransaction()
 					.add(R.string.fragment_universal, fragmentF).commit();
 		}
-	}	
-	
-	
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);

@@ -119,10 +119,10 @@ public final class R {
         /**  Тексты кнопок в приложении 
          */
         public static final int btnStoreFront=0x7f06000a;
-        public static final int chkDeleteProduct=0x7f060014;
+        public static final int chkDeleteProduct=0x7f06001a;
         /**  Метки fragment_add_product 
          */
-        public static final int dialogTitle=0x7f060011;
+        public static final int dialogTitle=0x7f060017;
         public static final int fragment_backend=0x7f060004;
         public static final int fragment_dialog=0x7f060008;
         public static final int fragment_navigation=0x7f060005;
@@ -135,16 +135,24 @@ public final class R {
         /**  fragment_storefront 
          */
         public static final int listview_empty=0x7f060002;
+        public static final int load_from_templates=0x7f060012;
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060003;
-        public static final int modelName=0x7f060012;
+        public static final int modelName=0x7f060018;
         public static final int pkg_name=0x7f060000;
-        public static final int tvModelCategory=0x7f060013;
+        /**  Фрагмент Storefront, меню 
+         */
+        public static final int save_into_templates=0x7f060011;
+        public static final int templates_create_dialog_message=0x7f060014;
+        public static final int templates_create_dialog_title=0x7f060013;
+        public static final int templates_negative_button_dialog=0x7f060015;
+        public static final int templates_positive_button_dialog=0x7f060016;
+        public static final int tvModelCategory=0x7f060019;
         public static final int tvModelPager=0x7f060010;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f060015;
+        public static final int tvModel_name=0x7f06001b;
     }
     public static final class style {
         /** 

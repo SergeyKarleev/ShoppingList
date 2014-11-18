@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * @author skar011
@@ -336,21 +337,72 @@ public class MyDBManager implements BaseColumns {
 		return c.getCount();
 	}
 
-	
-	/**Метод сохраняет список в базу данных как шаблон
+	/**
+	 * Метод сохраняет список в базу данных как шаблон
 	 * 
+	 * @param mArray
+	 *            массив векторов с названиями продуктов и комментариями к ним
+	 * @param mTemplateName
+	 *            имя нового шаблона
 	 */
-	public void saveToTemplate(ArrayList<HashMap<String, String>> mArray, String mTemplateName){
+	public void saveToTemplate(ArrayList<HashMap<String, String>> mArray,
+			String mTemplateName) {
+
+		// Создаем курсор уникальных шаблонов
+		Cursor cTemplates = getTemplatesList();
+
+		// процедура проверки имен шаблонов
+		cTemplates.moveToFirst();
+		do {
+			String nTemp = cTemplates.getString(cTemplates
+					.getColumnIndex(TEMPLATE_NAME));
+			if (nTemp.equals(mTemplateName)) {
+				Toast.makeText(mCtx, "Шаблон с данным именем уже существует",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+		} while (cTemplates.moveToNext());
+
+		Log.d(LOG_TAG, "Продолжаем запись");
 		for (HashMap<String, String> hashMap : mArray) {
+
 			ContentValues cv = new ContentValues();
+
 			cv.put(TEMPLATE_NAME, mTemplateName);
-			cv.put(TEMPLATE_PRODUCT, hashMap.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT));
-			cv.put(TEMPLATE_COMMENT, hashMap.get(MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT));			
-			mDB.insert(DB_TABLE_TEMPLATES, null, cv);
+			cv.put(TEMPLATE_PRODUCT,
+					hashMap.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT));
+			cv.put(TEMPLATE_COMMENT,
+					hashMap.get(MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT));
+
+			try {
+				mDB.insert(DB_TABLE_TEMPLATES, null, cv);
+				Toast.makeText(mCtx, "Шаблон " + mTemplateName + " сохранён",
+						Toast.LENGTH_SHORT).show();
+			} catch (Exception e) {
+				Toast.makeText(mCtx, "Ошибка сохранения шаблона",
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
+
+	/**
+	 * Метод возвращает список уникальных названий шаблонов из БД
+	 * 
+	 * @return Cursor из одного столбца типа String
+	 */
+	public Cursor getTemplatesList() {
+		String query = "SELECT DISTINCT " + TEMPLATE_NAME + " FROM "
+				+ DB_TABLE_TEMPLATES;
+		return mDB.rawQuery(query, null);
+	}
+
 	
-	
+		
+	public Cursor loadFromTemplates(long id) {
+		//TODO: реализовать загрузку списка из выбранного шаблона 
+		return null;
+	}
+
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных
 	// в частности, позволяет открыть базу на изменение данных
 	// getWritableDatabase()
@@ -365,12 +417,12 @@ public class MyDBManager implements BaseColumns {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			
+
 			// Создание таблиц базы данных
 			createTable(db, DB_TABLE_PRODUCTS, tableCreateProducts);
 			createTable(db, DB_TABLE_CATEGORIES, tableCreateCategory);
 			createTable(db, DB_TABLE_TEMPLATES, tableCreateTemplates);
-			
+
 			// Заполнение таблицы DB_TABLE_PRODUCTS первоначальными данными
 			ContentValues cv = new ContentValues();
 			Log.d(LOG_TAG, "Наполняем контентом таблицу " + DB_TABLE_PRODUCTS);
@@ -414,12 +466,11 @@ public class MyDBManager implements BaseColumns {
 
 			dropTable(db, DB_TABLE_PRODUCTS);
 			dropTable(db, DB_TABLE_CATEGORIES);
-			dropTable(db, DB_TABLE_TEMPLATES);			
+			dropTable(db, DB_TABLE_TEMPLATES);
 
 			onCreate(db);
 		}
 
-		
 		private void createTable(SQLiteDatabase db, String tableName, String sql) {
 			Log.d(LOG_TAG, "Запрос создания: " + tableName);
 			try {

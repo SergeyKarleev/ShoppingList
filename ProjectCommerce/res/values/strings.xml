@@ -26,7 +26,18 @@
     <!-- Содержание текстовых элементов по-умолчанию -->
     <string name="listViewBackEnd">Список покупок пуст</string>
     <string name="tvModelPager">Здесь отображается название товара</string>
+   
     
+    <!-- Фрагмент Storefront, меню -->
+    <string name="save_into_templates">Сохранить как шаблон</string>
+    <string name="load_from_templates">Загрузить из шаблонов</string>
+    
+    <string name="templates_create_dialog_title">Создание шаблона</string>
+    <string name="templates_create_dialog_message">Введите имя шаблона</string>
+    <string name="templates_negative_button_dialog">Отмена</string>
+    <string name="templates_positive_button_dialog">ОК</string>
+    
+        
     <!-- Метки fragment_add_product -->
     <string name="dialogTitle">Продукты</string>
     <string name="modelName">Название</string>
