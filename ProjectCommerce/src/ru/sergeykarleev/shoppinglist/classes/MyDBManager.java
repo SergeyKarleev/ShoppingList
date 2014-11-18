@@ -348,20 +348,16 @@ public class MyDBManager implements BaseColumns {
 	public void saveToTemplate(ArrayList<HashMap<String, String>> mArray,
 			String mTemplateName) {
 
+		Log.d(LOG_TAG, "создаем массив шаблонов");
 		// Создаем курсор уникальных шаблонов
-		Cursor cTemplates = getTemplatesList();
+		ArrayList<String> mTemplates = getTemplatesList();
 
+		Log.d(LOG_TAG, "Успешно заполнили, проверяем на дубликат");
 		// процедура проверки имен шаблонов
-		cTemplates.moveToFirst();
-		do {
-			String nTemp = cTemplates.getString(cTemplates
-					.getColumnIndex(TEMPLATE_NAME));
-			if (nTemp.equals(mTemplateName)) {
-				Toast.makeText(mCtx, "Шаблон с данным именем уже существует",
-						Toast.LENGTH_SHORT).show();
+		for (String string : mTemplates) {
+			if (string == mTemplateName)
 				return;
-			}
-		} while (cTemplates.moveToNext());
+		}
 
 		Log.d(LOG_TAG, "Продолжаем запись");
 		for (HashMap<String, String> hashMap : mArray) {
@@ -390,16 +386,26 @@ public class MyDBManager implements BaseColumns {
 	 * 
 	 * @return Cursor из одного столбца типа String
 	 */
-	public Cursor getTemplatesList() {
+	public ArrayList<String> getTemplatesList() {
+
+		ArrayList<String> mList = new ArrayList<String>();
+
 		String query = "SELECT DISTINCT " + TEMPLATE_NAME + " FROM "
 				+ DB_TABLE_TEMPLATES;
-		return mDB.rawQuery(query, null);
+
+		Cursor c = mDB.rawQuery(query, null);
+
+		c.moveToFirst();
+		do {
+			mList.add(c.getString(c.getColumnIndex(TEMPLATE_NAME)));
+
+		} while (c.moveToNext());
+
+		return mList;
 	}
 
-	
-		
 	public Cursor loadFromTemplates(long id) {
-		//TODO: реализовать загрузку списка из выбранного шаблона 
+		// TODO: реализовать загрузку списка из выбранного шаблона
 		return null;
 	}
 

@@ -27,6 +27,7 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -90,12 +91,33 @@ public class MyFragmentStorefront extends Fragment {
 		case SAVE_INTO_TEMPLATES:
 			if (!listProducts.isEmpty())
 				getNameOfTemplate();			
-			break;		
-
+			break;
+		case LOAD_FROM_TEMPLATES:
+			getTemplatesList();
+			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void getTemplatesList() {
+		final MyDBManager mDB = new MyDBManager(getActivity());
+		
+		AlertDialog.Builder adb = new Builder(getActivity());
+		adb.setTitle(R.string.templates_load_dialog_title);
+		//TODO:Создать адаптер из списка mDB.getTemplatesList
+//		adb.setSingleChoiceItems((ListAdapter)mDB.getTemplatesList(), -1, null);
+
+		adb.setNegativeButton("cancel", new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				mDB.close();
+				dialog.dismiss();
+			}
+		});
+		adb.create().show();
 	}
 
 	private void getNameOfTemplate() {
