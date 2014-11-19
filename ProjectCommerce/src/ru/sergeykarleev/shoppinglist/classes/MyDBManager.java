@@ -69,6 +69,10 @@ public class MyDBManager implements BaseColumns {
 	// “екущее состо€ние сортировки
 	private static int orderState = ORDER_BY_NONE;
 	private static String orderName = SORT_NONE;
+	
+	// »мена атрибутов
+	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
+	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
 
 	// ћассивы начальных данных таблицы DB_TABLE_CATEGORIES
 	String[] Cat_names = { "Ѕез категории", "ћолочна€ продукци€",
@@ -350,15 +354,19 @@ public class MyDBManager implements BaseColumns {
 
 		Log.d(LOG_TAG, "создаем массив шаблонов");
 		// —оздаем курсор уникальных шаблонов
-		ArrayList<String> mTemplates = getTemplatesList();
-
-		Log.d(LOG_TAG, "”спешно заполнили, провер€ем на дубликат");
-		// процедура проверки имен шаблонов
-		for (String string : mTemplates) {
-			if (string == mTemplateName)
-				return;
+		ArrayList<String> mTemplates = new ArrayList<String>(); 
+		try
+		{
+			mTemplates.addAll(getTemplatesList());
+			Log.d(LOG_TAG, "”спешно заполнили, провер€ем на дубликат");
+			for (String string : mTemplates) {
+				if (string == mTemplateName)
+					return;
+			}
+		}catch(Exception e){
+			Log.d(LOG_TAG, "Ётот шаблон будет первым");
 		}
-
+		
 		Log.d(LOG_TAG, "ѕродолжаем запись");
 		for (HashMap<String, String> hashMap : mArray) {
 
@@ -366,9 +374,9 @@ public class MyDBManager implements BaseColumns {
 
 			cv.put(TEMPLATE_NAME, mTemplateName);
 			cv.put(TEMPLATE_PRODUCT,
-					hashMap.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT));
+					hashMap.get(ATTRIBUT_NAME_PRODUCT));
 			cv.put(TEMPLATE_COMMENT,
-					hashMap.get(MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT));
+					hashMap.get(ATTRIBUT_COMMENT_PRODUCT));
 
 			try {
 				mDB.insert(DB_TABLE_TEMPLATES, null, cv);
@@ -393,22 +401,50 @@ public class MyDBManager implements BaseColumns {
 		String query = "SELECT DISTINCT " + TEMPLATE_NAME + " FROM "
 				+ DB_TABLE_TEMPLATES;
 
+		
 		Cursor c = mDB.rawQuery(query, null);
+		
+		Log.d(LOG_TAG, "провер€ем курсор на 0 count");
+		if (c.getCount()==0)return null;
 
+		Log.d(LOG_TAG, "проверку на 0 курсор прошел");
+		
 		c.moveToFirst();
 		do {
 			mList.add(c.getString(c.getColumnIndex(TEMPLATE_NAME)));
 
 		} while (c.moveToNext());
 
+		Log.d(LOG_TAG, "«аполнили массив из курсора. передаем в функцию");
 		return mList;
 	}
 
-	public Cursor loadFromTemplates(long id) {
+	public ArrayList<HashMap<String, String>> loadFromTemplates(String name) {
 		// TODO: реализовать загрузку списка из выбранного шаблона
-		return null;
+		ArrayList<HashMap<String, String>> arr = new ArrayList<HashMap<String,String>>();
+		HashMap<String, String> hm = new HashMap<String, String>();
+		
+		String query = "SELECT " + TEMPLATE_PRODUCT + ", " + TEMPLATE_COMMENT
+				+ " FROM " + DB_TABLE_TEMPLATES + " WHERE " + TEMPLATE_NAME
+				+ " LIKE " + "'"+name+"'";
+		Cursor c = mDB.rawQuery(query, null);
+				
+		c.moveToFirst();
+		do {
+			hm.clear();
+			hm.put(ATTRIBUT_NAME_PRODUCT, c.getString(c.getColumnIndex(TEMPLATE_PRODUCT)));
+			hm.put(ATTRIBUT_COMMENT_PRODUCT, c.getString(c.getColumnIndex(TEMPLATE_COMMENT)));
+			arr.add(hm);
+		} while (c.moveToNext());
+		
+		return arr;
 	}
 
+	public void clearTemplates(){
+		String query = "DELETE FROM "+DB_TABLE_TEMPLATES +" WHERE "+TEMPLATE_RECORD+">0";
+		mDB.rawQuery(query, null);
+		Toast.makeText(mCtx, "“аблица шаблонов очищена", Toast.LENGTH_SHORT).show();
+	}
 	// ¬спомогательный класс, позвол€ющий оперировать с информацией базы данных
 	// в частности, позвол€ет открыть базу на изменение данных
 	// getWritableDatabase()
