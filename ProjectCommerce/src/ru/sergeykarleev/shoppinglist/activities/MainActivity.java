@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.sergeykarleev.shoppinglist.R;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTransfer;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
@@ -68,11 +69,10 @@ public class MainActivity extends FragmentActivity{
 
 	public void onClickGlobal(View v) {
 			switch (v.getId()) {
-			case R.id.btnTemplate:					
-				Toast.makeText(this, "btnTemplate", Toast.LENGTH_SHORT).show();
-				//TODO: здесь взываем диалог загрузки сохранённого шаблона
-				dialogTemplate = new MyFragmentDialogTemplates();
-				dialogTemplate.show(getSupportFragmentManager(), null);
+			case R.id.btnTemplate:				
+				MyDBManager mDB = new MyDBManager(this);
+				mDB.clearTemplates();
+				mDB.close();
 				break;
 			case R.id.btnTransfer:
 				Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
@@ -102,9 +102,8 @@ public class MainActivity extends FragmentActivity{
 		return listProducts;
 	}
 
-
 	public void setListProducts(ArrayList<HashMap<String, String>> listProducts) {
-		this.listProducts = listProducts;
+		this.listProducts=listProducts;
 	}
 	
 	public void goToProductList(ArrayList<HashMap<String, String>> data){

@@ -46,9 +46,7 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 
 	private final static int CHECK_ON = 1;
 	private final static int CHECK_OFF = 0;
-	
-	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
-	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
+		
 
 	Button btnAdd;	
 
@@ -56,7 +54,6 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	Cursor cursor;
 
 	ArrayList<HashMap<String, String>> productList;
-	//public HashMap<String, String> productList;
 
 	MyDBManager mDB;
 	MyTreeAdapter treeAdapter;
@@ -122,8 +119,8 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 		String txt = ((TextView) v.findViewById(R.id.tvItemBackend)).getText()
 				.toString();
 		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put(ATTRIBUT_NAME_PRODUCT, txt);
-		hm.put(ATTRIBUT_COMMENT_PRODUCT, "");		
+		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txt);
+		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");		
 		productList.add(hm);
 		
 		Toast.makeText(getActivity(), "В список добавлен продукт: " + txt,

@@ -65,8 +65,8 @@ public class MyFragmentStorefront extends Fragment {
 		mActivity = (MainActivity) getActivity();
 		listProducts = mActivity.getListProducts();
 
-		String[] from = { MyFragmentBackend.ATTRIBUT_NAME_PRODUCT,
-				MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT };
+		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
+				MyDBManager.ATTRIBUT_COMMENT_PRODUCT };
 
 		int[] to = { R.id.tvSItemName, R.id.tvSItemComment };
 
@@ -90,10 +90,10 @@ public class MyFragmentStorefront extends Fragment {
 		switch (item.getItemId()) {
 		case SAVE_INTO_TEMPLATES:
 			if (!listProducts.isEmpty())
-				getNameOfTemplate();			
+				SaveToTemplate();
 			break;
 		case LOAD_FROM_TEMPLATES:
-			getTemplatesList();
+			LoadFromTemplates();
 			break;
 		default:
 			break;
@@ -101,26 +101,71 @@ public class MyFragmentStorefront extends Fragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void getTemplatesList() {
-		final MyDBManager mDB = new MyDBManager(getActivity());
+	@Override
+	public void onDestroy() {
+		mActivity.setListProducts(listProducts);
 		
+		super.onDestroy();
+	}
+
+	private void LoadFromTemplates() {
+		MyDBManager mDB = new MyDBManager(getActivity());
+		ArrayList<String> arr = new ArrayList<String>();
+
+		try {
+			arr.addAll(mDB.getTemplatesList());
+		} catch (Exception e) {
+			Toast.makeText(getActivity(), "Нет сохраненных шаблонов",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		mDB.close();
+
+		// Log.d(LOG_TAG, "Формируем из массива CharSequence");
+		CharSequence[] cs = arr.toArray(new CharSequence[arr.size()]);
+
+		for (CharSequence charSequence : cs) {
+			Log.d(LOG_TAG, charSequence.toString());
+		}
+		// Log.d(LOG_TAG, "CharSequence[] сформирован");
+		int selectedTemplate = -1;
+
 		AlertDialog.Builder adb = new Builder(getActivity());
 		adb.setTitle(R.string.templates_load_dialog_title);
-		//TODO:Создать адаптер из списка mDB.getTemplatesList
-//		adb.setSingleChoiceItems((ListAdapter)mDB.getTemplatesList(), -1, null);
-
+		adb.setSingleChoiceItems(cs, -1, null);
 		adb.setNegativeButton("cancel", new OnClickListener() {
-			
+
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		adb.setPositiveButton("OK", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				listProducts.clear();
+				ListView lv = ((AlertDialog) dialog).getListView();
+				String tName = lv
+						.getItemAtPosition(lv.getCheckedItemPosition())
+						.toString();
+				// TODO: Здесь загружаем готовый список с помощью метода базы
+				// данных loadFromTemplates(name)
+				MyDBManager mDB = new MyDBManager(getActivity());				
+				listProducts = mDB.loadFromTemplates(tName);				
+				testListProduct("Проверка после извлечения списка из базы");
+				sAdapter.notifyDataSetChanged();
 				mDB.close();
 				dialog.dismiss();
+
 			}
 		});
 		adb.create().show();
 	}
 
-	private void getNameOfTemplate() {
+	private void SaveToTemplate() {
 		templateName = null;
 		final EditText etName = new EditText(getActivity());
 
@@ -145,7 +190,8 @@ public class MyFragmentStorefront extends Fragment {
 							MyDBManager mDB = new MyDBManager(getActivity());
 							mDB.saveToTemplate(listProducts, etName.getText()
 									.toString());
-							mDB.close();
+							mDB.close();						
+							
 						}
 						dialog.dismiss();
 					}
@@ -154,6 +200,18 @@ public class MyFragmentStorefront extends Fragment {
 
 	}
 
+	/**
+	 * Тестовый метод на состояние локального листа продуктов
+	 */
+	private void testListProduct(String log){
+		Log.d(LOG_TAG,log);
+		for (HashMap<String, String> list : listProducts) {
+			Log.d(LOG_TAG, list.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) + " - "
+					+ list.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT));
+
+		}
+	}
+	
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {
 
@@ -172,17 +230,17 @@ public class MyFragmentStorefront extends Fragment {
 			final EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
 
-			listProducts = mActivity.getListProducts();
+			// listProducts = mActivity.getListProducts();
 			etComment.addTextChangedListener(new TextWatcher() {
 
 				@Override
 				public void afterTextChanged(Editable s) {
 					for (HashMap<String, String> i : listProducts) {
-						if (i.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT) == tvName
+						if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == tvName
 								.getText().toString()) {
-							i.put(MyFragmentBackend.ATTRIBUT_COMMENT_PRODUCT,
+							i.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 									s.toString());
-							mActivity.setListProducts(listProducts);
+							// mActivity.setListProducts(listProducts);
 						}
 					}
 
@@ -213,7 +271,7 @@ public class MyFragmentStorefront extends Fragment {
 			String name = tvName.getText().toString();
 
 			for (HashMap<String, String> i : listProducts) {
-				if (i.get(MyFragmentBackend.ATTRIBUT_NAME_PRODUCT) == name) {
+				if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == name) {
 					listProducts.remove(i);
 					// mActivity.setListProducts(listProducts);
 					sAdapter.notifyDataSetChanged();
