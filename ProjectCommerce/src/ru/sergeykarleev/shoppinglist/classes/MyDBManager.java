@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -50,7 +51,8 @@ public class MyDBManager implements BaseColumns {
 	public static final String TEMPLATE_RECORD = BaseColumns._ID;
 	public static final String TEMPLATE_NAME = "Name_template";
 	public static final String TEMPLATE_PRODUCT = "Product_template";
-	public static final String TEMPLATE_COMMENT = "Comment_tamplate";
+	public static final String TEMPLATE_COMMENT = "Comment_template";
+	public static final String TEMPLATE_CATEGORY = "Category_template";
 
 	// Порядок сортировки результата
 	public static final int ORDER_BY_NONE = 0;
@@ -72,6 +74,7 @@ public class MyDBManager implements BaseColumns {
 
 	// Имена атрибутов
 	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
+	public final static String ATTRIBUT_CATEGORY_PRODUCT = "CategoryProduct";
 	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
 
 	// Массивы начальных данных таблицы DB_TABLE_CATEGORIES
@@ -100,7 +103,8 @@ public class MyDBManager implements BaseColumns {
 			+ DB_TABLE_TEMPLATES + " (" + TEMPLATE_RECORD
 			+ " integer primary key autoincrement, " + TEMPLATE_NAME
 			+ " text NOT NULL, " + TEMPLATE_PRODUCT + " text NOT NULL, "
-			+ TEMPLATE_COMMENT + " text);";
+			+ TEMPLATE_COMMENT + " text, "
+			+ TEMPLATE_CATEGORY+ " text);";
 
 	// Объявление служебных переменных для работы с БД
 	private Context mCtx;
@@ -379,6 +383,7 @@ public class MyDBManager implements BaseColumns {
 				cv.put(TEMPLATE_NAME, mTemplateName);
 				cv.put(TEMPLATE_PRODUCT, hashMap.get(ATTRIBUT_NAME_PRODUCT));
 				cv.put(TEMPLATE_COMMENT, hashMap.get(ATTRIBUT_COMMENT_PRODUCT));
+				cv.put(TEMPLATE_CATEGORY, hashMap.get(ATTRIBUT_CATEGORY_PRODUCT));
 				mDB.insert(DB_TABLE_TEMPLATES, null, cv);
 			}
 
@@ -422,8 +427,8 @@ public class MyDBManager implements BaseColumns {
 		ArrayList<HashMap<String, String>> arr = new ArrayList<HashMap<String, String>>();
 
 		String query = "SELECT DISTINCT " + TEMPLATE_PRODUCT + ", "
-				+ TEMPLATE_COMMENT + " FROM " + DB_TABLE_TEMPLATES + " WHERE "
-				+ TEMPLATE_NAME + " LIKE " + "'" + name + "'";
+				+ TEMPLATE_COMMENT + ", "+TEMPLATE_CATEGORY+" FROM " + DB_TABLE_TEMPLATES + " WHERE "
+				+ TEMPLATE_NAME + " LIKE " + "'" + name + "' ORDER BY "+TEMPLATE_CATEGORY;
 		Cursor c = mDB.rawQuery(query, null);
 
 		c.moveToFirst();
@@ -433,9 +438,7 @@ public class MyDBManager implements BaseColumns {
 					c.getString(c.getColumnIndex(TEMPLATE_PRODUCT)));
 			hm.put(ATTRIBUT_COMMENT_PRODUCT,
 					c.getString(c.getColumnIndex(TEMPLATE_COMMENT)));
-			// Log.d(LOG_TAG,
-			// hm.get(ATTRIBUT_NAME_PRODUCT) + " - "
-			// + hm.get(ATTRIBUT_COMMENT_PRODUCT));
+			hm.put(ATTRIBUT_CATEGORY_PRODUCT, c.getString(c.getColumnIndex(TEMPLATE_CATEGORY)));
 			arr.add(hm);
 		} while (c.moveToNext());
 
@@ -460,6 +463,11 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
+	
+	// public void recreateTables(){
+	// mdbHelper.onUpgrade(mDB, 1, 2);
+	// }
+	
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных
 	// в частности, позволяет открыть базу на изменение данных
 	// getWritableDatabase()

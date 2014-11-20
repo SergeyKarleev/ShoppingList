@@ -67,7 +67,11 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void onClickGlobal(View v) {
-		switch (v.getId()) {		
+		switch (v.getId()) {
+//		case R.id.btnRecreateDB:
+//			MyDBManager mDB = new MyDBManager(this);
+//			mDB.recreateTables();
+//			break;
 		case R.id.btnTransfer:
 			Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
 			// TODO: здесь вызываем диалог передачи списка

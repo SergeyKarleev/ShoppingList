@@ -116,14 +116,19 @@ public class MyFragmentBackend extends Fragment implements OnClickListener,
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		String txt = ((TextView) v.findViewById(R.id.tvItemBackend)).getText()
+		String txtName = ((TextView) v.findViewById(R.id.tvItemBackend)).getText()
 				.toString();
+		
+		String gName = treeAdapter.getGroup(groupPosition).getString(treeAdapter.getCursor().getColumnIndex(MyDBManager.CATEGORY_NAME));
+		
+		//Log.d(LOG_TAG, "Добавили в список "+txtName+" группы "+parent.)
 		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txt);
+		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txtName);
+		hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT, gName);
 		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");		
 		productList.add(hm);
 		
-		Toast.makeText(getActivity(), "В список добавлен продукт: " + txt,
+		Toast.makeText(getActivity(), "В список добавлен продукт: " + txtName,
 				Toast.LENGTH_SHORT).show();
 		return true;
 	}

@@ -64,9 +64,9 @@ public class MyFragmentStorefront extends Fragment {
 		listProducts = mActivity.getListProducts();
 
 		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
-				MyDBManager.ATTRIBUT_COMMENT_PRODUCT };
+				MyDBManager.ATTRIBUT_COMMENT_PRODUCT,MyDBManager.ATTRIBUT_CATEGORY_PRODUCT};
 
-		int[] to = { R.id.tvSItemName, R.id.tvSItemComment };
+		int[] to = { R.id.tvSItemName, R.id.tvSItemComment,R.id.tvSItemCategory };
 
 		sAdapter = new MyListAdapter(getActivity(), listProducts,
 				R.layout.item_storefront, from, to);
@@ -155,7 +155,7 @@ public class MyFragmentStorefront extends Fragment {
 						// данных loadFromTemplates(name)
 						MyDBManager mDB = new MyDBManager(getActivity());
 						listProducts.addAll(mDB.loadFromTemplates(tName));
-						testListProduct("Проверка после извлечения списка из базы");
+						
 						sAdapter.notifyDataSetChanged();
 						mDB.close();
 						dialog.dismiss();
@@ -258,17 +258,7 @@ public class MyFragmentStorefront extends Fragment {
 
 	}
 
-	/**
-	 * Тестовый метод на состояние локального листа продуктов
-	 */
-	private void testListProduct(String log) {
-		Log.d(LOG_TAG, log);
-		for (HashMap<String, String> list : listProducts) {
-			Log.d(LOG_TAG, list.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) + " - "
-					+ list.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT));
-
-		}
-	}
+	
 
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {

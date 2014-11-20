@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/item_padding"
+    android:paddingRight="@dimen/item_padding" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,21 +16,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Название" 
-            android:textSize="@dimen/item_product_size"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:text="Название"
+            android:textSize="@dimen/item_product_size" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tvSItemCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Категория"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/item_category_size" />
+
     <EditText
         android:id="@+id/tvSItemComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Комментарий" 
         android:maxLines="1"
-        android:textSize="@dimen/item_comment_size"/>
+        android:text="Комментарий"
+        android:textSize="@dimen/item_comment_size" />
 
 </LinearLayout>

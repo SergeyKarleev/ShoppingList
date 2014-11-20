@@ -11,6 +11,11 @@
         android:gravity="right"
         android:orientation="horizontal" >        
 
+        <Button android:id="@+id/btnRecreateDB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickGlobal"
+            android:text="C"/>
         <Button
             android:id="@+id/btnTransfer"
             android:layout_width="wrap_content"

@@ -37,9 +37,10 @@ public final class R {
         public static final int btn_main_height=0x7f050002;
         public static final int btn_margin=0x7f050003;
         public static final int item_arrow_size=0x7f05000d;
+        public static final int item_category_size=0x7f05000b;
         public static final int item_comment_size=0x7f05000c;
+        public static final int item_padding=0x7f05000f;
         public static final int item_product_size=0x7f05000a;
-        public static final int item_tvCategory_size=0x7f05000b;
         /**  Диалог создания/редактирования модели 
          */
         public static final int label_font_dialog=0x7f050005;
@@ -48,7 +49,6 @@ public final class R {
         public static final int marginBottom_element_dialog=0x7f050007;
         public static final int model_text_height=0x7f050011;
         public static final int model_text_width=0x7f050012;
-        public static final int pager_padding=0x7f05000f;
         /**  Размеры элементов в PagerAdapter 
          */
         public static final int text_size_pageradapter_land=0x7f050009;
@@ -79,23 +79,25 @@ public final class R {
         public static final int btnImportCancel=0x7f080006;
         public static final int btnImportLoad=0x7f080007;
         public static final int btnInMarket=0x7f08000d;
-        public static final int btnPlan=0x7f080012;
-        public static final int btnProductBase=0x7f080013;
+        public static final int btnPlan=0x7f080013;
+        public static final int btnProductBase=0x7f080014;
+        public static final int btnRecreateDB=0x7f080011;
         public static final int btnSave=0x7f080001;
         public static final int btnSort=0x7f08000b;
-        public static final int btnTransfer=0x7f080011;
+        public static final int btnTransfer=0x7f080012;
         public static final int chkDeleteProduct=0x7f080003;
         public static final int elProducts=0x7f08000f;
         public static final int etName=0x7f080002;
         public static final int llStart=0x7f080010;
-        public static final int lvMyProductList=0x7f080014;
+        public static final int lvMyProductList=0x7f080015;
         public static final int lvTemplates=0x7f080005;
         public static final int spCategory=0x7f080004;
-        public static final int tvCategory=0x7f080016;
-        public static final int tvItemBackend=0x7f080017;
-        public static final int tvModel=0x7f080015;
-        public static final int tvSItemComment=0x7f080019;
-        public static final int tvSItemName=0x7f080018;
+        public static final int tvCategory=0x7f080017;
+        public static final int tvItemBackend=0x7f080018;
+        public static final int tvModel=0x7f080016;
+        public static final int tvSItemCategory=0x7f08001a;
+        public static final int tvSItemComment=0x7f08001b;
+        public static final int tvSItemName=0x7f080019;
         public static final int tvSort=0x7f08000c;
     }
     public static final class layout {
