@@ -352,12 +352,11 @@ public class MyDBManager implements BaseColumns {
 	public void saveToTemplate(ArrayList<HashMap<String, String>> mArray,
 			String mTemplateName) {
 
-	
 		// Создаем курсор уникальных шаблонов
 		ArrayList<String> mTemplates = new ArrayList<String>();
 		try {
 			mTemplates.addAll(getTemplatesList());
-	
+
 			for (String string : mTemplates) {
 				if (string == mTemplateName) {
 					Toast.makeText(mCtx,
@@ -371,7 +370,6 @@ public class MyDBManager implements BaseColumns {
 			Log.d(LOG_TAG, "Этот шаблон будет первым");
 		}
 
-		
 		try {
 
 			for (HashMap<String, String> hashMap : mArray) {
@@ -381,11 +379,6 @@ public class MyDBManager implements BaseColumns {
 				cv.put(TEMPLATE_NAME, mTemplateName);
 				cv.put(TEMPLATE_PRODUCT, hashMap.get(ATTRIBUT_NAME_PRODUCT));
 				cv.put(TEMPLATE_COMMENT, hashMap.get(ATTRIBUT_COMMENT_PRODUCT));
-
-				Log.d(LOG_TAG,
-						cv.getAsString(TEMPLATE_NAME) + ", "
-								+ cv.getAsString(TEMPLATE_PRODUCT) + ", "
-								+ cv.getAsString(TEMPLATE_COMMENT));
 				mDB.insert(DB_TABLE_TEMPLATES, null, cv);
 			}
 
@@ -426,14 +419,13 @@ public class MyDBManager implements BaseColumns {
 
 	public ArrayList<HashMap<String, String>> loadFromTemplates(String name) {
 		// TODO: реализовать загрузку списка из выбранного шаблона
-		ArrayList<HashMap<String, String>> arr = new ArrayList<HashMap<String, String>>();		
+		ArrayList<HashMap<String, String>> arr = new ArrayList<HashMap<String, String>>();
 
 		String query = "SELECT DISTINCT " + TEMPLATE_PRODUCT + ", "
 				+ TEMPLATE_COMMENT + " FROM " + DB_TABLE_TEMPLATES + " WHERE "
 				+ TEMPLATE_NAME + " LIKE " + "'" + name + "'";
 		Cursor c = mDB.rawQuery(query, null);
 
-		Log.d(LOG_TAG, "Проверка на базе. При заполнении массива arr");
 		c.moveToFirst();
 		do {
 			HashMap<String, String> hm = new HashMap<String, String>();
@@ -441,23 +433,31 @@ public class MyDBManager implements BaseColumns {
 					c.getString(c.getColumnIndex(TEMPLATE_PRODUCT)));
 			hm.put(ATTRIBUT_COMMENT_PRODUCT,
 					c.getString(c.getColumnIndex(TEMPLATE_COMMENT)));
-			Log.d(LOG_TAG, hm.get(ATTRIBUT_NAME_PRODUCT)+" - "+hm.get(ATTRIBUT_COMMENT_PRODUCT));
+			// Log.d(LOG_TAG,
+			// hm.get(ATTRIBUT_NAME_PRODUCT) + " - "
+			// + hm.get(ATTRIBUT_COMMENT_PRODUCT));
 			arr.add(hm);
 		} while (c.moveToNext());
-				
-		Log.d(LOG_TAG, "Проверка на базе. Перед передачей массива arr");
-		for (HashMap<String, String> hashMap : arr) {
-			Log.d(LOG_TAG, hashMap.get(ATTRIBUT_NAME_PRODUCT)+" - "+hashMap.get(ATTRIBUT_COMMENT_PRODUCT));
-		}
-		
+
 		return arr;
 	}
 
-	public void clearTemplates() {
-		String query = "DELETE FROM " + DB_TABLE_TEMPLATES;
-		mDB.execSQL(query);
-		Toast.makeText(mCtx, "Таблица шаблонов очищена", Toast.LENGTH_SHORT)
-				.show();
+	public void clearTemplate(String name) {
+		if (name != null) {
+
+			String query = "DELETE FROM " + DB_TABLE_TEMPLATES + " WHERE "
+					+ TEMPLATE_NAME + " LIKE '" + name + "';";
+			mDB.execSQL(query);
+
+			Toast.makeText(mCtx, "Шаблон '" + name + "' удалён",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			String query = "DELETE FROM " + DB_TABLE_TEMPLATES;
+			mDB.execSQL(query);
+			Toast.makeText(mCtx, "Все шаблоны удалены", Toast.LENGTH_SHORT)
+					.show();
+		}
+
 	}
 
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных

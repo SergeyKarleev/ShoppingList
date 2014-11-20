@@ -37,7 +37,6 @@ public class MyFragmentStorefront extends Fragment {
 
 	private final static String LOG_TAG = "myLogs";
 
-	Button btnTemplate;
 	Button btnTransfer;
 	Button btnPlan;
 	Button btnProducts;
@@ -56,8 +55,7 @@ public class MyFragmentStorefront extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_storefront, null);
-		btnTemplate = (Button) v.findViewById(R.id.btnTemplate);
+		View v = inflater.inflate(R.layout.fragment_storefront, null);		
 		btnTransfer = (Button) v.findViewById(R.id.btnTransfer);
 		btnPlan = (Button) v.findViewById(R.id.btnPlan);
 		btnProducts = (Button) v.findViewById(R.id.btnProductBase);
@@ -104,7 +102,7 @@ public class MyFragmentStorefront extends Fragment {
 	@Override
 	public void onDestroy() {
 		mActivity.setListProducts(listProducts);
-		
+
 		super.onDestroy();
 	}
 
@@ -128,40 +126,100 @@ public class MyFragmentStorefront extends Fragment {
 		for (CharSequence charSequence : cs) {
 			Log.d(LOG_TAG, charSequence.toString());
 		}
-		// Log.d(LOG_TAG, "CharSequence[] сформирован");
+
 		int selectedTemplate = -1;
 
 		AlertDialog.Builder adb = new Builder(getActivity());
 		adb.setTitle(R.string.templates_load_dialog_title);
 		adb.setSingleChoiceItems(cs, -1, null);
-		adb.setNegativeButton("cancel", new OnClickListener() {
+		adb.setNegativeButton(R.string.templates_negative_button_dialog,
+				new OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
-		adb.setPositiveButton("OK", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+		adb.setPositiveButton(R.string.templates_positive_button_dialog,
+				new OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-				listProducts.clear();
-				ListView lv = ((AlertDialog) dialog).getListView();
-				String tName = lv
-						.getItemAtPosition(lv.getCheckedItemPosition())
-						.toString();
-				// TODO: Здесь загружаем готовый список с помощью метода базы
-				// данных loadFromTemplates(name)
-				MyDBManager mDB = new MyDBManager(getActivity());				
-				listProducts = mDB.loadFromTemplates(tName);				
-				testListProduct("Проверка после извлечения списка из базы");
-				sAdapter.notifyDataSetChanged();
-				mDB.close();
-				dialog.dismiss();
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
 
-			}
-		});
+						listProducts.clear();
+						ListView lv = ((AlertDialog) dialog).getListView();
+						String tName = lv.getItemAtPosition(
+								lv.getCheckedItemPosition()).toString();
+						// TODO: Здесь загружаем готовый список с помощью метода
+						// базы
+						// данных loadFromTemplates(name)
+						MyDBManager mDB = new MyDBManager(getActivity());
+						listProducts.addAll(mDB.loadFromTemplates(tName));
+						testListProduct("Проверка после извлечения списка из базы");
+						sAdapter.notifyDataSetChanged();
+						mDB.close();
+						dialog.dismiss();
+
+					}
+				});
+
+		adb.setNeutralButton(R.string.templates_neutral_button_dialog,
+				new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ListView lv = ((AlertDialog) dialog).getListView();
+
+						AlertDialog.Builder adbDelete = new Builder(
+								getActivity());
+						adbDelete.setTitle("Удаление шаблонов");
+						adbDelete
+								.setNegativeButton(
+										R.string.templates_negative_button_dialog,
+										null);
+
+						if (lv.getCheckedItemPosition() == -1) {
+							adbDelete.setMessage("Удалить все шаблоны");
+							adbDelete.setPositiveButton(
+									R.string.templates_positive_button_dialog,
+									new OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											MyDBManager mDB = new MyDBManager(
+													getActivity());
+											mDB.clearTemplate(null);
+											mDB.close();
+											dialog.dismiss();
+										}
+									});
+
+						} else {
+							final String tName = lv.getItemAtPosition(
+									lv.getCheckedItemPosition()).toString();
+							adbDelete.setMessage("Удалить шаблон " + tName
+									+ "?");
+							adbDelete.setPositiveButton(
+									R.string.templates_positive_button_dialog,
+									new OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											MyDBManager mDB = new MyDBManager(
+													getActivity());
+											mDB.clearTemplate(tName);
+											mDB.close();
+											dialog.dismiss();
+										}
+									});
+						}
+						adbDelete.create().show();
+					}
+				});
 		adb.create().show();
 	}
 
@@ -190,8 +248,8 @@ public class MyFragmentStorefront extends Fragment {
 							MyDBManager mDB = new MyDBManager(getActivity());
 							mDB.saveToTemplate(listProducts, etName.getText()
 									.toString());
-							mDB.close();						
-							
+							mDB.close();
+
 						}
 						dialog.dismiss();
 					}
@@ -203,15 +261,15 @@ public class MyFragmentStorefront extends Fragment {
 	/**
 	 * Тестовый метод на состояние локального листа продуктов
 	 */
-	private void testListProduct(String log){
-		Log.d(LOG_TAG,log);
+	private void testListProduct(String log) {
+		Log.d(LOG_TAG, log);
 		for (HashMap<String, String> list : listProducts) {
 			Log.d(LOG_TAG, list.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) + " - "
 					+ list.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT));
 
 		}
 	}
-	
+
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {
 
