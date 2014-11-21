@@ -1,51 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llStart"
+    android:id="@+id/rlStart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"        
         android:gravity="right"
-        android:orientation="horizontal" >        
+        android:orientation="vertical" >
 
-        <Button android:id="@+id/btnRecreateDB"
-            android:layout_width="wrap_content"
+        <SlidingDrawer
+            android:id="@+id/slidingDrawer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickGlobal"
-            android:text="C"/>
-        <Button
-            android:id="@+id/btnTransfer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickGlobal"
-            android:text="Transfer"
-            android:textSize="12dp" />
+            android:content="@+id/content"
+            android:handle="@+id/handle"
+            android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/btnPlan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickGlobal"
-            android:text="Plan"
-            android:textSize="12dp" />
+            <TextView
+                android:id="@+id/handle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*>----" />
 
-        <Button
-            android:id="@+id/btnProductBase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickGlobal"
-            android:text="ProductBase"
-            android:textSize="12dp" />
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/btnRecreateDB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickGlobal"
+                    android:text="C" />
+
+                <Button
+                    android:id="@+id/btnPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickGlobal"
+                    android:text="Plan"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/btnTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickGlobal"
+                    android:text="Transfer"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/btnProductBase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickGlobal"
+                    android:text="ProductBase"
+                    android:textSize="12dp" />
+            </LinearLayout>
+        </SlidingDrawer>
     </LinearLayout>
 
     <ListView
         android:id="@+id/lvMyProductList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="multipleChoice" >
-    </ListView>
+        android:layout_height="match_parent"        
+        android:choiceMode="multipleChoice" />
 
 </LinearLayout>

@@ -55,7 +55,7 @@ public class MyFragmentStorefront extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_storefront, null);		
+		View v = inflater.inflate(R.layout.fragment_storefront, null);
 		btnTransfer = (Button) v.findViewById(R.id.btnTransfer);
 		btnPlan = (Button) v.findViewById(R.id.btnPlan);
 		btnProducts = (Button) v.findViewById(R.id.btnProductBase);
@@ -64,9 +64,11 @@ public class MyFragmentStorefront extends Fragment {
 		listProducts = mActivity.getListProducts();
 
 		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
-				MyDBManager.ATTRIBUT_COMMENT_PRODUCT,MyDBManager.ATTRIBUT_CATEGORY_PRODUCT};
+				MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
+				MyDBManager.ATTRIBUT_CATEGORY_PRODUCT };
 
-		int[] to = { R.id.tvSItemName, R.id.tvSItemComment,R.id.tvSItemCategory };
+		int[] to = { R.id.tvSItemName, R.id.tvSItemComment,
+				R.id.tvSItemCategory };
 
 		sAdapter = new MyListAdapter(getActivity(), listProducts,
 				R.layout.item_storefront, from, to);
@@ -155,7 +157,7 @@ public class MyFragmentStorefront extends Fragment {
 						// данных loadFromTemplates(name)
 						MyDBManager mDB = new MyDBManager(getActivity());
 						listProducts.addAll(mDB.loadFromTemplates(tName));
-						
+
 						sAdapter.notifyDataSetChanged();
 						mDB.close();
 						dialog.dismiss();
@@ -257,8 +259,6 @@ public class MyFragmentStorefront extends Fragment {
 		adb.create().show();
 
 	}
-
-	
 
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {
