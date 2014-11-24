@@ -79,29 +79,27 @@ public final class R {
         public static final int btnImportCancel=0x7f080006;
         public static final int btnImportLoad=0x7f080007;
         public static final int btnInMarket=0x7f08000d;
-        public static final int btnPlan=0x7f080016;
-        public static final int btnProductBase=0x7f080018;
+        public static final int btnProductBase=0x7f080016;
         public static final int btnRecreateDB=0x7f080015;
         public static final int btnSave=0x7f080001;
         public static final int btnSort=0x7f08000b;
-        public static final int btnTransfer=0x7f080017;
         public static final int chkDeleteProduct=0x7f080003;
         public static final int content=0x7f080013;
         public static final int content_frame=0x7f080011;
         public static final int elProducts=0x7f08000f;
         public static final int etName=0x7f080002;
         public static final int handle=0x7f080014;
-        public static final int lvMyProductList=0x7f080019;
+        public static final int lvMyProductList=0x7f080017;
         public static final int lvTemplates=0x7f080005;
         public static final int rlStart=0x7f080010;
         public static final int slidingDrawer=0x7f080012;
         public static final int spCategory=0x7f080004;
-        public static final int tvCategory=0x7f08001b;
-        public static final int tvItemBackend=0x7f08001c;
-        public static final int tvModel=0x7f08001a;
-        public static final int tvSItemCategory=0x7f08001e;
-        public static final int tvSItemComment=0x7f08001f;
-        public static final int tvSItemName=0x7f08001d;
+        public static final int tvCategory=0x7f080019;
+        public static final int tvItemBackend=0x7f08001a;
+        public static final int tvModel=0x7f080018;
+        public static final int tvSItemCategory=0x7f08001c;
+        public static final int tvSItemComment=0x7f08001d;
+        public static final int tvSItemName=0x7f08001b;
         public static final int tvSort=0x7f08000c;
     }
     public static final class layout {
@@ -124,10 +122,10 @@ public final class R {
         /**  Тексты кнопок в приложении 
          */
         public static final int btnStoreFront=0x7f06000a;
-        public static final int chkDeleteProduct=0x7f06001c;
+        public static final int chkDeleteProduct=0x7f06001d;
         /**  Метки fragment_add_product 
          */
-        public static final int dialogTitle=0x7f060019;
+        public static final int dialogTitle=0x7f06001a;
         public static final int fragment_backend=0x7f060004;
         public static final int fragment_dialog=0x7f060008;
         public static final int fragment_navigation=0x7f060005;
@@ -144,22 +142,23 @@ public final class R {
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060003;
-        public static final int modelName=0x7f06001a;
+        public static final int modelName=0x7f06001b;
         public static final int pkg_name=0x7f060000;
         /**  Фрагмент Storefront, меню 
          */
         public static final int save_into_templates=0x7f060011;
-        public static final int templates_create_dialog_message=0x7f060014;
-        public static final int templates_create_dialog_title=0x7f060013;
-        public static final int templates_load_dialog_title=0x7f060018;
-        public static final int templates_negative_button_dialog=0x7f060015;
-        public static final int templates_neutral_button_dialog=0x7f060017;
-        public static final int templates_positive_button_dialog=0x7f060016;
-        public static final int tvModelCategory=0x7f06001b;
+        public static final int send_data=0x7f060013;
+        public static final int templates_create_dialog_message=0x7f060015;
+        public static final int templates_create_dialog_title=0x7f060014;
+        public static final int templates_load_dialog_title=0x7f060019;
+        public static final int templates_negative_button_dialog=0x7f060016;
+        public static final int templates_neutral_button_dialog=0x7f060018;
+        public static final int templates_positive_button_dialog=0x7f060017;
+        public static final int tvModelCategory=0x7f06001c;
         public static final int tvModelPager=0x7f060010;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f06001d;
+        public static final int tvModel_name=0x7f06001e;
     }
     public static final class style {
         /** 

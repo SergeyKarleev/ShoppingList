@@ -31,6 +31,7 @@
     <!-- Фрагмент Storefront, меню -->
     <string name="save_into_templates">Сохранить как шаблон</string>
     <string name="load_from_templates">Загрузить из шаблонов</string>
+    <string name="send_data">Отправить список...</string>
     
     <string name="templates_create_dialog_title">Создание шаблона</string>
     <string name="templates_create_dialog_message">Введите имя шаблона</string>

@@ -43,6 +43,7 @@ public class MyFragmentStorefront extends Fragment {
 
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
+	private static final int SEND_DATA = 2;
 
 	ListView lvMyProductList;
 	MainActivity mActivity;
@@ -56,8 +57,8 @@ public class MyFragmentStorefront extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
-		btnTransfer = (Button) v.findViewById(R.id.btnTransfer);
-		btnPlan = (Button) v.findViewById(R.id.btnPlan);
+		//btnTransfer = (Button) v.findViewById(R.id.btnTransfer);
+		//btnPlan = (Button) v.findViewById(R.id.btnPlan);
 		btnProducts = (Button) v.findViewById(R.id.btnProductBase);
 
 		mActivity = (MainActivity) getActivity();
@@ -83,6 +84,7 @@ public class MyFragmentStorefront extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
+		menu.add(1, SEND_DATA, 2, R.string.send_data);
 	}
 
 	@Override
@@ -94,6 +96,9 @@ public class MyFragmentStorefront extends Fragment {
 			break;
 		case LOAD_FROM_TEMPLATES:
 			LoadFromTemplates();
+			break;
+		case SEND_DATA:
+			Toast.makeText(getActivity(), "Реализовано в платной версии", Toast.LENGTH_SHORT).show();
 			break;
 		default:
 			break;

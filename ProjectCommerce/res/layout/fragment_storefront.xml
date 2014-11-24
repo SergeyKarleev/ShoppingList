@@ -39,22 +39,6 @@
                     android:text="C" />
 
                 <Button
-                    android:id="@+id/btnPlan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClickGlobal"
-                    android:text="Plan"
-                    android:textSize="12dp" />
-
-                <Button
-                    android:id="@+id/btnTransfer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onClickGlobal"
-                    android:text="Transfer"
-                    android:textSize="12dp" />
-
-                <Button
                     android:id="@+id/btnProductBase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

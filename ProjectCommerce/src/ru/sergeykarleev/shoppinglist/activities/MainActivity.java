@@ -72,16 +72,6 @@ public class MainActivity extends FragmentActivity {
 //			MyDBManager mDB = new MyDBManager(this);
 //			mDB.recreateTables();
 //			break;
-		case R.id.btnTransfer:
-			Toast.makeText(this, "btnTransfer", Toast.LENGTH_SHORT).show();
-			// TODO: здесь вызываем диалог передачи списка
-			MyFragmentDialogTransfer dialogTransfer = new MyFragmentDialogTransfer();
-			dialogTransfer.show(getSupportFragmentManager(), null);
-			break;
-		case R.id.btnPlan:
-			Toast.makeText(this, "btnPlan", Toast.LENGTH_SHORT).show();
-			// TODO: здесь вызываем диалог фрагмента плана магазина
-			break;
 		case R.id.btnProductBase:
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.string.fragment_universal, fragmentB).commit();
