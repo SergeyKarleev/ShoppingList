@@ -8,11 +8,13 @@ import java.util.Map;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -25,29 +27,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.SimpleCursorTreeAdapter;
+import android.widget.SlidingDrawer;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyFragmentStorefront extends Fragment {
+public class MyFragmentStorefront extends Fragment implements
+		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener, OnDrawerCloseListener {
 
 	private final static String LOG_TAG = "myLogs";
 
-	Button btnTransfer;
-	Button btnPlan;
-	Button btnProducts;
-
+	// Константы функций контекстного меню
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
 	private static final int SEND_DATA = 2;
 
+	// Временная кнопка обращения к базе данных
+	Button btnProducts;
+
+	// Кнопка добавления разновидностей продуктов в базу
+	Button btnAdd;
+
+	SlidingDrawer sDrawer;
+
+	MyDBManager mDB;
+	Cursor cursor;
+
+	// Главный список, активити и адаптер для него
 	ListView lvMyProductList;
-	MainActivity mActivity;
 	MyListAdapter sAdapter;
+
+	// Список базы продуктов и адаптер для него
+	ExpandableListView elProducts;
+	MyTreeAdapter treeAdapter;
 
 	String templateName = null;
 
@@ -57,13 +80,29 @@ public class MyFragmentStorefront extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
-		//btnTransfer = (Button) v.findViewById(R.id.btnTransfer);
-		//btnPlan = (Button) v.findViewById(R.id.btnPlan);
-		btnProducts = (Button) v.findViewById(R.id.btnProductBase);
 
-		mActivity = (MainActivity) getActivity();
-		listProducts = mActivity.getListProducts();
+		// Включаем меню
+		setHasOptionsMenu(true);
 
+		// Объявляем кнопки базы и добавления
+		//btnProducts = (Button) v.findViewById(R.id.btnProductBase);
+		btnAdd = (Button) v.findViewById(R.id.btnAdd);
+		sDrawer = (SlidingDrawer) v.findViewById(R.id.slidingDrawer);
+		sDrawer.setOnDrawerOpenListener(this);
+		sDrawer.setOnDrawerCloseListener(this);
+
+		// Запрос списка продуктов из MAIN
+		// TODO: переделать логику. Теперь список хранится только здесь
+		// listProducts = ((MainActivity)getActivity()).getListProducts();
+
+		// открываем базу данных
+		mDB = new MyDBManager(getActivity());
+
+		// создаем пустую основу для нашего списка
+		listProducts = new ArrayList<HashMap<String, String>>();
+
+		// Формируем служебные данные для заполнения listView с нашим списком
+		// продуктов
 		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
 				MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 				MyDBManager.ATTRIBUT_CATEGORY_PRODUCT };
@@ -75,7 +114,10 @@ public class MyFragmentStorefront extends Fragment {
 				R.layout.item_storefront, from, to);
 		lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
 		lvMyProductList.setAdapter(sAdapter);
-		setHasOptionsMenu(true);
+
+		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
+		elProducts.setOnChildClickListener(this);
+		elProducts.setOnItemLongClickListener(this);
 		return v;
 	}
 
@@ -85,6 +127,17 @@ public class MyFragmentStorefront extends Fragment {
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
 		menu.add(1, SEND_DATA, 2, R.string.send_data);
+	}
+
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		try {
+			mDB.close();
+		} catch (Exception e) {
+			Log.d(LOG_TAG, "База данных уже закрыта");
+		}
+		super.onDestroy();
 	}
 
 	@Override
@@ -98,7 +151,8 @@ public class MyFragmentStorefront extends Fragment {
 			LoadFromTemplates();
 			break;
 		case SEND_DATA:
-			Toast.makeText(getActivity(), "Реализовано в платной версии", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "Реализовано в платной версии",
+					Toast.LENGTH_SHORT).show();
 			break;
 		default:
 			break;
@@ -107,12 +161,45 @@ public class MyFragmentStorefront extends Fragment {
 	}
 
 	@Override
-	public void onDestroy() {
-		mActivity.setListProducts(listProducts);
+	public boolean onChildClick(ExpandableListView parent, View v,
+			int groupPosition, int childPosition, long id) {
+		String txtName = ((TextView) v.findViewById(R.id.tvItemBackend))
+				.getText().toString();
 
-		super.onDestroy();
+		String gName = treeAdapter.getGroup(groupPosition).getString(
+				treeAdapter.getCursor().getColumnIndex(
+						MyDBManager.CATEGORY_NAME));
+
+		// Log.d(LOG_TAG, "Добавили в список "+txtName+" группы "+parent.)
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txtName);
+		hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT, gName);
+		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");
+		listProducts.add(hm);
+		updateAdapter();
+
+		Toast.makeText(getActivity(), "В список добавлен продукт: " + txtName,
+				Toast.LENGTH_SHORT).show();
+		return true;
 	}
 
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+			int childID = ExpandableListView.getPackedPositionChild(id);
+
+			MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(
+					this, childID);
+			dialog.show(getActivity().getSupportFragmentManager(), null);
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Загрузка списка из шаблона
+	 */
 	private void LoadFromTemplates() {
 		MyDBManager mDB = new MyDBManager(getActivity());
 		ArrayList<String> arr = new ArrayList<String>();
@@ -230,6 +317,9 @@ public class MyFragmentStorefront extends Fragment {
 		adb.create().show();
 	}
 
+	/**
+	 * Сохранение списка в шаблон
+	 */
 	private void SaveToTemplate() {
 		templateName = null;
 		final EditText etName = new EditText(getActivity());
@@ -265,6 +355,24 @@ public class MyFragmentStorefront extends Fragment {
 
 	}
 
+	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
+
+		public MyTreeAdapter(Context context, Cursor cursor, int groupLayout,
+				String[] groupFrom, int[] groupTo, int childLayout,
+				String[] childFrom, int[] childTo) {
+
+			super(context, cursor, groupLayout, groupFrom, groupTo,
+					childLayout, childFrom, childTo);
+		}
+
+		@Override
+		protected Cursor getChildrenCursor(Cursor groupCursor) {
+			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
+			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
+		}
+
+	}
+
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {
 
@@ -283,7 +391,6 @@ public class MyFragmentStorefront extends Fragment {
 			final EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
 
-			// listProducts = mActivity.getListProducts();
 			etComment.addTextChangedListener(new TextWatcher() {
 
 				@Override
@@ -293,7 +400,6 @@ public class MyFragmentStorefront extends Fragment {
 								.getText().toString()) {
 							i.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 									s.toString());
-							// mActivity.setListProducts(listProducts);
 						}
 					}
 
@@ -334,6 +440,43 @@ public class MyFragmentStorefront extends Fragment {
 			return false;
 		}
 
+	}
+
+	public void updateAdapter() {
+		treeAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onDrawerOpened() {
+		// Получаем курсор с группами товаров
+		cursor = mDB.getCategories();
+
+		// Заполнение списка-дерева базы товаров
+		// Формируем столбцы сопоставления для групп
+		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
+		int[] groupTo = new int[] { android.R.id.text1 };
+
+		// Формируем столбцы сопоставления для продуктов
+		String[] childFrom = new String[] { MyDBManager.PRODUCTS_NAME };
+		int[] childTo = new int[] { R.id.tvItemBackend };
+
+		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
+				android.R.layout.simple_expandable_list_item_1, groupFrom,
+				groupTo, R.layout.item_backend, childFrom, childTo);
+
+		elProducts.setAdapter(treeAdapter);		
+	}
+
+	@Override
+	public void onDrawerClosed() {
+		Log.d(LOG_TAG, "Размер: "+listProducts.size()+" Состав списка:");
+		int s = listProducts.size();
+		for (int i=0;i<s;i++){
+			Log.d(LOG_TAG, "Элемент: "+sAdapter.getItem(i));
+			
+		}
+		lvMyProductList.setAdapter(sAdapter);
+		lvMyProductList.notifyAll();
 	}
 
 }

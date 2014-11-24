@@ -35,7 +35,7 @@ public class MainActivity extends FragmentActivity {
 
 	MyFragmentDialogTemplates dialogTemplate;
 
-	private ArrayList<HashMap<String, String>> listProducts;
+//	private ArrayList<HashMap<String, String>> listProducts;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +46,12 @@ public class MainActivity extends FragmentActivity {
 		fragmentF = new MyFragmentStorefront();
 		fragmentB = new MyFragmentBackend();
 
-		if (savedInstanceState == null) {
-			listProducts = new ArrayList<HashMap<String, String>>();
-		} else {
-			listProducts = (ArrayList<HashMap<String, String>>) savedInstanceState
-					.getSerializable(ARRAY_LIST);
-		}
+//		if (savedInstanceState == null) {
+//			listProducts = new ArrayList<HashMap<String, String>>();
+//		} else {
+//			listProducts = (ArrayList<HashMap<String, String>>) savedInstanceState
+//					.getSerializable(ARRAY_LIST);
+//		}
 
 		// если первый запуск, добавляем фрагмент StoreFront на активити
 		if (savedInstanceState == null) {
@@ -60,11 +60,11 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putSerializable(ARRAY_LIST, listProducts);
-	}
+//	@Override
+//	protected void onSaveInstanceState(Bundle outState) {
+//		super.onSaveInstanceState(outState);
+//		outState.putSerializable(ARRAY_LIST, listProducts);
+//	}
 
 	public void onClickGlobal(View v) {
 		switch (v.getId()) {
@@ -72,29 +72,29 @@ public class MainActivity extends FragmentActivity {
 //			MyDBManager mDB = new MyDBManager(this);
 //			mDB.recreateTables();
 //			break;
-		case R.id.btnProductBase:
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.string.fragment_universal, fragmentB).commit();
-			break;			
+//		case R.id.btnProductBase:
+//			getSupportFragmentManager().beginTransaction()
+//					.replace(R.string.fragment_universal, fragmentB).commit();
+//			break;			
 		default:
 			break;
 		}
 
 	}
 
-	public ArrayList<HashMap<String, String>> getListProducts() {
-		return listProducts;
-	}
+//	public ArrayList<HashMap<String, String>> getListProducts() {
+//		return listProducts;
+//	}
 
-	public void setListProducts(ArrayList<HashMap<String, String>> listProducts) {
-		this.listProducts = listProducts;
-	}
+//	public void setListProducts(ArrayList<HashMap<String, String>> listProducts) {
+//		this.listProducts = listProducts;
+//	}
 
-	public void goToProductList(ArrayList<HashMap<String, String>> data) {
-		ArrayList<HashMap<String, String>> mList = getListProducts();
-		mList.addAll(data);
-		setListProducts(mList);
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.string.fragment_universal, fragmentF).commit();
-	}
+//	public void goToProductList(ArrayList<HashMap<String, String>> data) {
+//		ArrayList<HashMap<String, String>> mList = getListProducts();
+//		mList.addAll(data);
+//		setListProducts(mList);
+//		getSupportFragmentManager().beginTransaction()
+//				.replace(R.string.fragment_universal, fragmentF).commit();
+//	}
 }

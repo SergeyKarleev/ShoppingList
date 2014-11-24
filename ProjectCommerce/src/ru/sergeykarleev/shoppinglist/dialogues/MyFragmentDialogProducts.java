@@ -6,6 +6,7 @@ import java.util.Arrays;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
+import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -55,17 +56,17 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	private MyDBManager mDB;
 	
 	// ссылка на Backend фрагмент, из которого был вызван диалог
-	private static MyFragmentBackend mBackend;
+	private static MyFragmentStorefront mFragment;
 
 	/**
 	 * Конструктор вызывается при создании нового элемента
 	 * 
 	 * @param mAction
 	 */
-	public MyFragmentDialogProducts(MyFragmentBackend mBackend) {
+	public MyFragmentDialogProducts(MyFragmentStorefront mStorefront) {
 		super();
 		this.mAction = ACTION_ADD;
-		this.mBackend = mBackend;
+		this.mFragment = mStorefront;
 	}
 
 	/**
@@ -73,10 +74,10 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	 * 
 	 * @param mAction
 	 */
-	public MyFragmentDialogProducts(MyFragmentBackend mBackend,long id) {
+	public MyFragmentDialogProducts(MyFragmentStorefront myFragmentStorefront,long id) {
 		super();
 		this.mAction = ACTION_UPDATE;
-		this.mBackend = mBackend;
+		this.mFragment = myFragmentStorefront;
 		this.mIDCurrentProduct = id;
 	}
 
@@ -244,7 +245,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 		default:
 			break;
 		}
-		mBackend.updateAdapter();		
+		mFragment.updateAdapter();		
 		dismiss();
 	}
 
