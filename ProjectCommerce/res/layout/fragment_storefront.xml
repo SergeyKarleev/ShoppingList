@@ -49,7 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="true" >
+                android:clickable="true"
+                android:divider="@android:color/transparent"
+                android:listSelector="@android:color/transparent">
             </ExpandableListView>
         </LinearLayout>
     </SlidingDrawer>

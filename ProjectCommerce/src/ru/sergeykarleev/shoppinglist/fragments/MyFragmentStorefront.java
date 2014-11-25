@@ -462,8 +462,7 @@ public class MyFragmentStorefront extends Fragment implements
 				android.R.layout.simple_expandable_list_item_1, groupFrom,
 				groupTo, R.layout.item_child, childFrom, childTo);
 
-		elProducts.setAdapter(treeAdapter);
-		Log.d(LOG_TAG, "адаптер "+treeAdapter.getGroupCount());
+		elProducts.setAdapter(treeAdapter);		
 		updateAdapter();
 	}
 }
