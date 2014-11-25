@@ -72,7 +72,7 @@ public class MyDBManager implements BaseColumns {
 	private static int orderState = ORDER_BY_NONE;
 	private static String orderName = SORT_NONE;
 
-	// Имена атрибутов
+	// Имена атрибутов для загрузки в личный список
 	public final static String ATTRIBUT_NAME_PRODUCT = "NameProduct";
 	public final static String ATTRIBUT_CATEGORY_PRODUCT = "CategoryProduct";
 	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";

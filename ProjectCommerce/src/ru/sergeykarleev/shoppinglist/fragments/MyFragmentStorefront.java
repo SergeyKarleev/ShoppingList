@@ -44,7 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyFragmentStorefront extends Fragment implements
-		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener, OnDrawerCloseListener {
+		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener {
 
 	private final static String LOG_TAG = "myLogs";
 
@@ -88,8 +88,7 @@ public class MyFragmentStorefront extends Fragment implements
 		//btnProducts = (Button) v.findViewById(R.id.btnProductBase);
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);
 		sDrawer = (SlidingDrawer) v.findViewById(R.id.slidingDrawer);
-		sDrawer.setOnDrawerOpenListener(this);
-		sDrawer.setOnDrawerCloseListener(this);
+		sDrawer.setOnDrawerOpenListener(this);		
 
 		// Запрос списка продуктов из MAIN
 		// TODO: переделать логику. Теперь список хранится только здесь
@@ -151,7 +150,7 @@ public class MyFragmentStorefront extends Fragment implements
 			LoadFromTemplates();
 			break;
 		case SEND_DATA:
-			Toast.makeText(getActivity(), "Реализовано в платной версии",
+			Toast.makeText(getActivity(), "пока не реализовано",
 					Toast.LENGTH_SHORT).show();
 			break;
 		default:
@@ -176,10 +175,9 @@ public class MyFragmentStorefront extends Fragment implements
 		hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT, gName);
 		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");
 		listProducts.add(hm);
-		updateAdapter();
-
-		Toast.makeText(getActivity(), "В список добавлен продукт: " + txtName,
-				Toast.LENGTH_SHORT).show();
+		sAdapter.notifyDataSetChanged();
+//		Toast.makeText(getActivity(), "В список добавлен продукт: " + txtName,
+//				Toast.LENGTH_SHORT).show();
 		return true;
 	}
 
@@ -450,7 +448,7 @@ public class MyFragmentStorefront extends Fragment implements
 	public void onDrawerOpened() {
 		// Получаем курсор с группами товаров
 		cursor = mDB.getCategories();
-
+				
 		// Заполнение списка-дерева базы товаров
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -464,19 +462,8 @@ public class MyFragmentStorefront extends Fragment implements
 				android.R.layout.simple_expandable_list_item_1, groupFrom,
 				groupTo, R.layout.item_backend, childFrom, childTo);
 
-		elProducts.setAdapter(treeAdapter);		
+		elProducts.setAdapter(treeAdapter);
+		Log.d(LOG_TAG, "адаптер "+treeAdapter.getGroupCount());
+		updateAdapter();
 	}
-
-	@Override
-	public void onDrawerClosed() {
-		Log.d(LOG_TAG, "Размер: "+listProducts.size()+" Состав списка:");
-		int s = listProducts.size();
-		for (int i=0;i<s;i++){
-			Log.d(LOG_TAG, "Элемент: "+sAdapter.getItem(i));
-			
-		}
-		lvMyProductList.setAdapter(sAdapter);
-		lvMyProductList.notifyAll();
-	}
-
 }
