@@ -3,10 +3,6 @@ package ru.sergeykarleev.shoppinglist.classes;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ru.sergeykarleev.shoppinglist.activities.MainActivity;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,7 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.util.Log;
 import android.widget.Toast;
 

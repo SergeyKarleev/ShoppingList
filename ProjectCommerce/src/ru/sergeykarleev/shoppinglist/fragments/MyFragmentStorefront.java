@@ -162,7 +162,7 @@ public class MyFragmentStorefront extends Fragment implements
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		String txtName = ((TextView) v.findViewById(R.id.tvItemBackend))
+		String txtName = ((TextView) v.findViewById(R.id.tvItemChild))
 				.getText().toString();
 
 		String gName = treeAdapter.getGroup(groupPosition).getString(
@@ -363,12 +363,12 @@ public class MyFragmentStorefront extends Fragment implements
 					childLayout, childFrom, childTo);
 		}
 
+		
 		@Override
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
 			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
 			return mDB.getProducsCategories(groupCursor.getInt((int) idColumn));
 		}
-
 	}
 
 	private class MyListAdapter extends SimpleAdapter implements
@@ -456,11 +456,11 @@ public class MyFragmentStorefront extends Fragment implements
 
 		// Формируем столбцы сопоставления для продуктов
 		String[] childFrom = new String[] { MyDBManager.PRODUCTS_NAME };
-		int[] childTo = new int[] { R.id.tvItemBackend };
+		int[] childTo = new int[] { R.id.tvItemChild };
 
 		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
 				android.R.layout.simple_expandable_list_item_1, groupFrom,
-				groupTo, R.layout.item_backend, childFrom, childTo);
+				groupTo, R.layout.item_child, childFrom, childTo);
 
 		elProducts.setAdapter(treeAdapter);
 		Log.d(LOG_TAG, "адаптер "+treeAdapter.getGroupCount());

@@ -25,11 +25,11 @@
         android:handle="@+id/handle"
         android:orientation="horizontal" >
 
-        <TextView
+        <ImageView
             android:id="@+id/handle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="*---" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/arrow" />
 
         <LinearLayout
             android:id="@+id/content"

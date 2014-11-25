@@ -1,13 +1,8 @@
 package ru.sergeykarleev.shoppinglist.dialogues;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
-import ru.sergeykarleev.shoppinglist.fragments.MyFragmentBackend;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
-
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -19,10 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -54,7 +49,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	// содержит значение выбранного устройства из фрагмента
 	private static Cursor sData;
 	private MyDBManager mDB;
-	
+
 	// ссылка на Backend фрагмент, из которого был вызван диалог
 	private static MyFragmentStorefront mFragment;
 
@@ -74,7 +69,8 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	 * 
 	 * @param mAction
 	 */
-	public MyFragmentDialogProducts(MyFragmentStorefront myFragmentStorefront,long id) {
+	public MyFragmentDialogProducts(MyFragmentStorefront myFragmentStorefront,
+			long id) {
 		super();
 		this.mAction = ACTION_UPDATE;
 		this.mFragment = myFragmentStorefront;
@@ -227,7 +223,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			break;
 		case ACTION_UPDATE:
 			try {
-				mDB.editRecord(cv);				
+				mDB.editRecord(cv);
 			} catch (Exception e) {
 				Log.d(LOG_TAG, "Исправления не были внесены в базу данных.\n"
 						+ e.toString());
@@ -236,16 +232,17 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			break;
 		case ACTION_DELETE:
 			try {
-				mDB.delRecord(mIDCurrentProduct);				
+				mDB.delRecord(mIDCurrentProduct);
 			} catch (Exception e) {
-				Log.d(LOG_TAG, "Удаление завершилось неудачей \n"+e.toString());
+				Log.d(LOG_TAG,
+						"Удаление завершилось неудачей \n" + e.toString());
 				e.printStackTrace();
-			}			
-			
+			}
+
 		default:
 			break;
 		}
-		mFragment.updateAdapter();		
+		mFragment.updateAdapter();
 		dismiss();
 	}
 
