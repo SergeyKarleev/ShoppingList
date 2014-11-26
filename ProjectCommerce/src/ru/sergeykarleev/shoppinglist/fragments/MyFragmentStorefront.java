@@ -44,7 +44,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyFragmentStorefront extends Fragment implements
-		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener {
+		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener,
+		android.view.View.OnClickListener {
 
 	private final static String LOG_TAG = "myLogs";
 
@@ -80,15 +81,17 @@ public class MyFragmentStorefront extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
-		
+
 		// Включаем меню
 		setHasOptionsMenu(true);
 
 		// Объявляем кнопки базы и добавления
-		//btnProducts = (Button) v.findViewById(R.id.btnProductBase);
+		// btnProducts = (Button) v.findViewById(R.id.btnProductBase);
 		btnAdd = (Button) v.findViewById(R.id.btnAdd);
+		btnAdd.setOnClickListener(this);
+
 		sDrawer = (SlidingDrawer) v.findViewById(R.id.slidingDrawer);
-		sDrawer.setOnDrawerOpenListener(this);		
+		sDrawer.setOnDrawerOpenListener(this);
 
 		// Запрос списка продуктов из MAIN
 		// TODO: переделать логику. Теперь список хранится только здесь
@@ -176,8 +179,9 @@ public class MyFragmentStorefront extends Fragment implements
 		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");
 		listProducts.add(hm);
 		sAdapter.notifyDataSetChanged();
-//		Toast.makeText(getActivity(), "В список добавлен продукт: " + txtName,
-//				Toast.LENGTH_SHORT).show();
+		// Toast.makeText(getActivity(), "В список добавлен продукт: " +
+		// txtName,
+		// Toast.LENGTH_SHORT).show();
 		return true;
 	}
 
@@ -195,8 +199,6 @@ public class MyFragmentStorefront extends Fragment implements
 		return false;
 	}
 
-	
-	
 	/**
 	 * Загрузка списка из шаблона
 	 */
@@ -365,7 +367,6 @@ public class MyFragmentStorefront extends Fragment implements
 					childLayout, childFrom, childTo);
 		}
 
-		
 		@Override
 		protected Cursor getChildrenCursor(Cursor groupCursor) {
 			long idColumn = groupCursor.getColumnIndex(MyDBManager.CATEGORY_ID);
@@ -450,7 +451,7 @@ public class MyFragmentStorefront extends Fragment implements
 	public void onDrawerOpened() {
 		// Получаем курсор с группами товаров
 		cursor = mDB.getCategories();
-				
+
 		// Заполнение списка-дерева базы товаров
 		// Формируем столбцы сопоставления для групп
 		String[] groupFrom = new String[] { MyDBManager.CATEGORY_NAME };
@@ -461,10 +462,17 @@ public class MyFragmentStorefront extends Fragment implements
 		int[] childTo = new int[] { R.id.tvItemChild };
 
 		treeAdapter = new MyTreeAdapter(getActivity(), cursor,
-				R.layout.item_group, groupFrom,
-				groupTo, R.layout.item_child, childFrom, childTo);
+				R.layout.item_group, groupFrom, groupTo, R.layout.item_child,
+				childFrom, childTo);
 
-		elProducts.setAdapter(treeAdapter);		
+		elProducts.setAdapter(treeAdapter);
 		updateAdapter();
+	}
+
+	@Override
+	public void onClick(View v) {
+		MyFragmentDialogProducts dialog = new MyFragmentDialogProducts(this);
+		dialog.show(getActivity().getSupportFragmentManager(), null);
+
 	}
 }
