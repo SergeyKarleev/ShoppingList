@@ -13,7 +13,7 @@
             android:id="@+id/lvMyProductList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:choiceMode="multipleChoice" >
+            android:choiceMode="multipleChoice">
         </ListView>
     </LinearLayout>
 
@@ -35,14 +35,17 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@android:color/background_light"
             android:orientation="vertical" >
 
             <Button
                 android:id="@+id/btnAdd"
-                android:layout_width="@dimen/btn_backend_size"
-                android:layout_height="@dimen/btn_backend_size"
-                android:background="@drawable/btn_add" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/style_btnadd"
+                android:layout_margin="5dp"
+                android:textStyle="bold|italic"
+                android:text="@string/btnAdd"/>
 
             <ExpandableListView
                 android:id="@+id/elProducts"
@@ -51,7 +54,8 @@
                 android:layout_weight="1"
                 android:clickable="true"
                 android:divider="@android:color/transparent"
-                android:listSelector="@android:color/transparent">
+                android:listSelector="@android:color/transparent"
+                 >
             </ExpandableListView>
         </LinearLayout>
     </SlidingDrawer>

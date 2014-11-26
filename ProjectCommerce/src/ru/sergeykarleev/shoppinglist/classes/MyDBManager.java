@@ -173,7 +173,7 @@ public class MyDBManager implements BaseColumns {
 	 * @return Cursor
 	 */
 	public Cursor getCategories() {
-		String query = "SELECT * FROM " + DB_TABLE_CATEGORIES;
+		String query = "SELECT * FROM " + DB_TABLE_CATEGORIES+" WHERE "+CATEGORY_ID+" IN (SELECT DISTINCT "+PRODUCTS_CATEGORY+" FROM "+DB_TABLE_PRODUCTS+");";
 		return getData(query, ORDER_BY_NONE);
 	}
 

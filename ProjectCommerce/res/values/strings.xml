@@ -17,8 +17,7 @@
     <string name="fragment_pager">MyFragmentPager</string>
 
     <!-- Тексты кнопок в приложении -->
-    <string name="btnStoreFront">Магазин</string>
-    <string name="btnBackEnd">Список покупок</string>    
+    <string name="btnAdd">Новый продукт</string>        
     <string name="btnCancel">Отменить</string>
     <string name="btnSave">Сохранить</string>
     <string name="btnDelete">Удалить</string>    

@@ -55,13 +55,12 @@ public final class R {
     }
     public static final class drawable {
         public static final int arrow=0x7f020000;
-        public static final int btn_add=0x7f020001;
-        public static final int btn_add_normal=0x7f020002;
-        public static final int btn_add_pressed=0x7f020003;
-        public static final int btn_buy_normal=0x7f020004;
-        public static final int btn_buy_pressed=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int shape_item=0x7f020007;
+        public static final int btn_buy_normal=0x7f020001;
+        public static final int btn_buy_pressed=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int shape_group=0x7f020004;
+        public static final int shape_item=0x7f020005;
+        public static final int style_btnadd=0x7f020006;
     }
     public static final class id {
         public static final int btnAdd=0x7f08000d;
@@ -92,22 +91,22 @@ public final class R {
         public static final int fragment_storefront=0x7f030002;
         public static final int item=0x7f030003;
         public static final int item_child=0x7f030004;
-        public static final int item_storefront=0x7f030005;
-        public static final int main=0x7f030006;
+        public static final int item_group=0x7f030005;
+        public static final int item_storefront=0x7f030006;
+        public static final int main=0x7f030007;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
-        public static final int btnBackEnd=0x7f06000b;
-        public static final int btnCancel=0x7f06000c;
-        public static final int btnDelete=0x7f06000e;
-        public static final int btnSave=0x7f06000d;
         /**  Тексты кнопок в приложении 
          */
-        public static final int btnStoreFront=0x7f06000a;
-        public static final int chkDeleteProduct=0x7f06001d;
+        public static final int btnAdd=0x7f06000a;
+        public static final int btnCancel=0x7f06000b;
+        public static final int btnDelete=0x7f06000d;
+        public static final int btnSave=0x7f06000c;
+        public static final int chkDeleteProduct=0x7f06001c;
         /**  Метки fragment_add_product 
          */
-        public static final int dialogTitle=0x7f06001a;
+        public static final int dialogTitle=0x7f060019;
         public static final int fragment_backend=0x7f060004;
         public static final int fragment_dialog=0x7f060008;
         public static final int fragment_navigation=0x7f060005;
@@ -116,31 +115,31 @@ public final class R {
         public static final int fragment_universal=0x7f060007;
         /**  Содержание текстовых элементов по-умолчанию 
          */
-        public static final int listViewBackEnd=0x7f06000f;
+        public static final int listViewBackEnd=0x7f06000e;
         /**  fragment_storefront 
          */
         public static final int listview_empty=0x7f060002;
-        public static final int load_from_templates=0x7f060012;
+        public static final int load_from_templates=0x7f060011;
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060003;
-        public static final int modelName=0x7f06001b;
+        public static final int modelName=0x7f06001a;
         public static final int pkg_name=0x7f060000;
         /**  Фрагмент Storefront, меню 
          */
-        public static final int save_into_templates=0x7f060011;
-        public static final int send_data=0x7f060013;
-        public static final int templates_create_dialog_message=0x7f060015;
-        public static final int templates_create_dialog_title=0x7f060014;
-        public static final int templates_load_dialog_title=0x7f060019;
-        public static final int templates_negative_button_dialog=0x7f060016;
-        public static final int templates_neutral_button_dialog=0x7f060018;
-        public static final int templates_positive_button_dialog=0x7f060017;
-        public static final int tvModelCategory=0x7f06001c;
-        public static final int tvModelPager=0x7f060010;
+        public static final int save_into_templates=0x7f060010;
+        public static final int send_data=0x7f060012;
+        public static final int templates_create_dialog_message=0x7f060014;
+        public static final int templates_create_dialog_title=0x7f060013;
+        public static final int templates_load_dialog_title=0x7f060018;
+        public static final int templates_negative_button_dialog=0x7f060015;
+        public static final int templates_neutral_button_dialog=0x7f060017;
+        public static final int templates_positive_button_dialog=0x7f060016;
+        public static final int tvModelCategory=0x7f06001b;
+        public static final int tvModelPager=0x7f06000f;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f06001e;
+        public static final int tvModel_name=0x7f06001d;
     }
     public static final class style {
         /** 
