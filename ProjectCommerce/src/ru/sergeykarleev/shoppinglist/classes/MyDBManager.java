@@ -72,6 +72,10 @@ public class MyDBManager implements BaseColumns {
 	public final static String ATTRIBUT_CATEGORY_PRODUCT = "CategoryProduct";
 	public final static String ATTRIBUT_COMMENT_PRODUCT = "CommentProduct";
 
+	// Режим получения списка категорий
+	public final static int MODE_CATEGORY_NOTNULL = 0;
+	public final static int MODE_CATEGORY_FULL = 1;
+
 	// Массивы начальных данных таблицы DB_TABLE_CATEGORIES
 	String[] Cat_names = { "Без категории", "Молочная продукция",
 			"Мясо и рыба", "Овощи и фрукты", "Сладости" };
@@ -98,8 +102,7 @@ public class MyDBManager implements BaseColumns {
 			+ DB_TABLE_TEMPLATES + " (" + TEMPLATE_RECORD
 			+ " integer primary key autoincrement, " + TEMPLATE_NAME
 			+ " text NOT NULL, " + TEMPLATE_PRODUCT + " text NOT NULL, "
-			+ TEMPLATE_COMMENT + " text, "
-			+ TEMPLATE_CATEGORY+ " text);";
+			+ TEMPLATE_COMMENT + " text, " + TEMPLATE_CATEGORY + " text);";
 
 	// Объявление служебных переменных для работы с БД
 	private Context mCtx;
@@ -170,10 +173,19 @@ public class MyDBManager implements BaseColumns {
 	/**
 	 * Метод возвращает курсор с таблицей категорий
 	 * 
+	 * @param Mode
+	 *            - по-умолчанию MODE_CATEGORY_FULL
 	 * @return Cursor
 	 */
-	public Cursor getCategories() {
-		String query = "SELECT * FROM " + DB_TABLE_CATEGORIES+" WHERE "+CATEGORY_ID+" IN (SELECT DISTINCT "+PRODUCTS_CATEGORY+" FROM "+DB_TABLE_PRODUCTS+");";
+	public Cursor getCategories(int mode) {
+		String query;
+		if (mode == MODE_CATEGORY_NOTNULL) {
+			query = "SELECT * FROM " + DB_TABLE_CATEGORIES + " WHERE "
+					+ CATEGORY_ID + " IN (SELECT DISTINCT " + PRODUCTS_CATEGORY
+					+ " FROM " + DB_TABLE_PRODUCTS + ");";
+		} else {
+			query = "SELECT * FROM " + DB_TABLE_CATEGORIES;
+		}
 		return getData(query, ORDER_BY_NONE);
 	}
 
@@ -378,7 +390,8 @@ public class MyDBManager implements BaseColumns {
 				cv.put(TEMPLATE_NAME, mTemplateName);
 				cv.put(TEMPLATE_PRODUCT, hashMap.get(ATTRIBUT_NAME_PRODUCT));
 				cv.put(TEMPLATE_COMMENT, hashMap.get(ATTRIBUT_COMMENT_PRODUCT));
-				cv.put(TEMPLATE_CATEGORY, hashMap.get(ATTRIBUT_CATEGORY_PRODUCT));
+				cv.put(TEMPLATE_CATEGORY,
+						hashMap.get(ATTRIBUT_CATEGORY_PRODUCT));
 				mDB.insert(DB_TABLE_TEMPLATES, null, cv);
 			}
 
@@ -422,8 +435,9 @@ public class MyDBManager implements BaseColumns {
 		ArrayList<HashMap<String, String>> arr = new ArrayList<HashMap<String, String>>();
 
 		String query = "SELECT DISTINCT " + TEMPLATE_PRODUCT + ", "
-				+ TEMPLATE_COMMENT + ", "+TEMPLATE_CATEGORY+" FROM " + DB_TABLE_TEMPLATES + " WHERE "
-				+ TEMPLATE_NAME + " LIKE " + "'" + name + "' ORDER BY "+TEMPLATE_CATEGORY;
+				+ TEMPLATE_COMMENT + ", " + TEMPLATE_CATEGORY + " FROM "
+				+ DB_TABLE_TEMPLATES + " WHERE " + TEMPLATE_NAME + " LIKE "
+				+ "'" + name + "' ORDER BY " + TEMPLATE_CATEGORY;
 		Cursor c = mDB.rawQuery(query, null);
 
 		c.moveToFirst();
@@ -433,7 +447,8 @@ public class MyDBManager implements BaseColumns {
 					c.getString(c.getColumnIndex(TEMPLATE_PRODUCT)));
 			hm.put(ATTRIBUT_COMMENT_PRODUCT,
 					c.getString(c.getColumnIndex(TEMPLATE_COMMENT)));
-			hm.put(ATTRIBUT_CATEGORY_PRODUCT, c.getString(c.getColumnIndex(TEMPLATE_CATEGORY)));
+			hm.put(ATTRIBUT_CATEGORY_PRODUCT,
+					c.getString(c.getColumnIndex(TEMPLATE_CATEGORY)));
 			arr.add(hm);
 		} while (c.moveToNext());
 
@@ -458,11 +473,10 @@ public class MyDBManager implements BaseColumns {
 
 	}
 
-	
 	// public void recreateTables(){
 	// mdbHelper.onUpgrade(mDB, 1, 2);
 	// }
-	
+
 	// Вспомогательный класс, позволяющий оперировать с информацией базы данных
 	// в частности, позволяет открыть базу на изменение данных
 	// getWritableDatabase()

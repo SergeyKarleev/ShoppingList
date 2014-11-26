@@ -444,13 +444,14 @@ public class MyFragmentStorefront extends Fragment implements
 	}
 
 	public void updateAdapter() {
-		treeAdapter.notifyDataSetChanged();
+		cursor = mDB.getCategories(MyDBManager.MODE_CATEGORY_NOTNULL);
+		treeAdapter.changeCursor(cursor);
 	}
 
 	@Override
 	public void onDrawerOpened() {
 		// Получаем курсор с группами товаров
-		cursor = mDB.getCategories();
+		cursor = mDB.getCategories(MyDBManager.MODE_CATEGORY_NOTNULL);
 
 		// Заполнение списка-дерева базы товаров
 		// Формируем столбцы сопоставления для групп

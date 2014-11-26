@@ -124,7 +124,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	private SimpleCursorAdapter getAdapter() {
 		String[] from = new String[] { MyDBManager.CATEGORY_NAME };
 		int[] to = new int[] { android.R.id.text1 };
-		Cursor cursor = mDB.getCategories();
+		Cursor cursor = mDB.getCategories(MyDBManager.MODE_CATEGORY_FULL);
 		SimpleCursorAdapter scAdapter = new SimpleCursorAdapter(getActivity(),
 				android.R.layout.simple_dropdown_item_1line, cursor, from, to);
 		return scAdapter;
@@ -165,7 +165,6 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 			if (etName.getText().length() != 0) {
 
 				// TODO: устроить проверку на наличие подобного имени в БД
-
 				String testName = etName.getText().toString();
 
 				ContentValues cv = new ContentValues();
@@ -178,6 +177,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 				etName.setText(null);
 				spCategory.setSelection(0);
 				RecordData(cv);
+				
 			} else
 				Toast.makeText(getActivity(), "Название не должно быть пустым",
 						Toast.LENGTH_SHORT).show();
