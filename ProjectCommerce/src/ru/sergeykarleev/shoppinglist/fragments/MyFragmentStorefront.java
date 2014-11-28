@@ -391,7 +391,7 @@ public class MyFragmentStorefront extends Fragment implements
 					.findViewById(R.id.tvSItemName);
 			final EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
-
+			etComment.requestFocusFromTouch();
 			etComment.addTextChangedListener(new TextWatcher() {
 
 				@Override
