@@ -18,7 +18,7 @@
     <!-- Размеры элементов в PagerAdapter -->
     <dimen name="text_size_pageradapter_land">16dp</dimen>
     <dimen name="item_product_size">20dp</dimen>
-    <dimen name="item_category_size">16dp</dimen>
+    <dimen name="item_category_size">14dp</dimen>
     <dimen name="item_comment_size">14dp</dimen>
     <dimen name="item_arrow_size">24dp</dimen>
     <dimen name="btnBuy_size">100dp</dimen>

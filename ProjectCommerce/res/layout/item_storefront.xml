@@ -17,12 +17,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:textColor="#0000FF"
             android:text="Название"
+            android:textStyle="italic"
             android:textSize="@dimen/item_product_size" />
 
         <CheckBox
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <TextView
@@ -30,8 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
-        android:text="Категория"
-        android:textColor="@android:color/darker_gray"
+        android:text="Категория"        
         android:textSize="@dimen/item_category_size" />
 
     <EditText
@@ -40,6 +41,7 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:text="Комментарий"
-        android:textSize="@dimen/item_comment_size" />
+        android:textSize="@dimen/item_comment_size" 
+        android:textStyle="italic"/>
 
 </LinearLayout>

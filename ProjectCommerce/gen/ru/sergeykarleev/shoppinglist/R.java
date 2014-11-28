@@ -56,9 +56,10 @@ public final class R {
     public static final class drawable {
         public static final int arrow=0x7f020000;
         public static final int ic_launcher=0x7f020001;
-        public static final int shape_group=0x7f020002;
-        public static final int shape_item=0x7f020003;
-        public static final int style_btnadd=0x7f020004;
+        public static final int list_background=0x7f020002;
+        public static final int shape_group=0x7f020003;
+        public static final int shape_item=0x7f020004;
+        public static final int style_btnadd=0x7f020005;
     }
     public static final class id {
         public static final int btnAdd=0x7f08000d;
@@ -111,9 +112,6 @@ public final class R {
         public static final int fragment_pager=0x7f060009;
         public static final int fragment_storefront=0x7f060006;
         public static final int fragment_universal=0x7f060007;
-        /**  Содержание текстовых элементов по-умолчанию 
-         */
-        public static final int listViewBackEnd=0x7f06000e;
         /**  fragment_storefront 
          */
         public static final int listview_empty=0x7f060002;
@@ -138,6 +136,9 @@ public final class R {
         /**  item.xml 
          */
         public static final int tvModel_name=0x7f06001d;
+        /**  Содержание текстовых элементов по-умолчанию 
+         */
+        public static final int tvMyList=0x7f06000e;
     }
     public static final class style {
         /** 

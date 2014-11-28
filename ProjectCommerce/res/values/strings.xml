@@ -23,7 +23,7 @@
     <string name="btnDelete">Удалить</string>    
 
     <!-- Содержание текстовых элементов по-умолчанию -->
-    <string name="listViewBackEnd">Список покупок пуст</string>
+    <string name="tvMyList">Купить:</string>
     <string name="tvModelPager">Здесь отображается название товара</string>
    
     
