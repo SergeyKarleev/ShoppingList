@@ -39,10 +39,10 @@
         android:id="@+id/tvSItemComment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="1"
+        android:singleLine="true"
         android:text="Комментарий"
         android:textSize="@dimen/item_comment_size"
-        android:textStyle="italic"
+        android:textStyle="italic"        
          />
 
 </LinearLayout>

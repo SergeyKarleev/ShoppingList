@@ -53,6 +53,9 @@ public class MyFragmentStorefront extends Fragment implements
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
 	private static final int SEND_DATA = 2;
+	private static final int CLEAR_LIST = 3;
+	private static final int HELP_LIST = 4;
+	private static final int EXIT_LIST = 5;
 
 	// Временная кнопка обращения к базе данных
 	Button btnProducts;
@@ -110,13 +113,14 @@ public class MyFragmentStorefront extends Fragment implements
 				MyDBManager.ATTRIBUT_CATEGORY_PRODUCT };
 
 		int[] to = { R.id.tvSItemName, R.id.tvSItemComment,
-				R.id.tvSItemCategory };
+				R.id.tvSItemCategory };	
 
 		sAdapter = new MyListAdapter(getActivity(), listProducts,
 				R.layout.item_storefront, from, to);
 		lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
 		lvMyProductList.setAdapter(sAdapter);
-
+		lvMyProductList.setItemsCanFocus(true);
+		
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
 		elProducts.setOnChildClickListener(this);
 		elProducts.setOnItemLongClickListener(this);
@@ -125,10 +129,16 @@ public class MyFragmentStorefront extends Fragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
+		super.onCreateOptionsMenu(menu, inflater);		
+		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);			
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		menu.add(1, SEND_DATA, 2, R.string.send_data);
+		menu.add(1, SEND_DATA, 2, R.string.send_data)
+			.setEnabled(false);
+		menu.add(1,CLEAR_LIST,3,R.string.clear_list)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(1,HELP_LIST,4,R.string.help_list);
+		menu.add(1,EXIT_LIST,5,R.string.exit_list);
+		
 	}
 
 	@Override
@@ -156,6 +166,15 @@ public class MyFragmentStorefront extends Fragment implements
 			Toast.makeText(getActivity(), "пока не реализовано",
 					Toast.LENGTH_SHORT).show();
 			break;
+		case CLEAR_LIST:
+			listProducts.clear();
+			sAdapter.notifyDataSetChanged();
+			break;
+		case HELP_LIST:
+			Toast.makeText(getActivity(), "Реализовать диалог с помощью", Toast.LENGTH_SHORT).show();
+			break;
+		case EXIT_LIST:
+			getActivity().finish();
 		default:
 			break;
 		}
@@ -387,11 +406,13 @@ public class MyFragmentStorefront extends Fragment implements
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = super.getView(position, convertView, parent);
 
+			Log.d(LOG_TAG, "getView "+view.getId());
 			final TextView tvName = (TextView) view
 					.findViewById(R.id.tvSItemName);
-			final EditText etComment = (EditText) view
+			EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
-			etComment.requestFocusFromTouch();
+						
+			
 			etComment.addTextChangedListener(new TextWatcher() {
 
 				@Override

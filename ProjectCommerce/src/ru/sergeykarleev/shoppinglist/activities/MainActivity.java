@@ -24,7 +24,8 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		getActionBar().setDisplayShowTitleEnabled(false);
+		
 		// создание экземпляров фрагментов
 		fragmentF = new MyFragmentStorefront();
 
