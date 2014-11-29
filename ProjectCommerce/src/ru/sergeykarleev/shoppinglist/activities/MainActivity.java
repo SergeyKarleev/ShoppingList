@@ -3,10 +3,12 @@ package ru.sergeykarleev.shoppinglist.activities;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 
 public class MainActivity extends FragmentActivity {
 
@@ -25,7 +27,7 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		getActionBar().setDisplayShowTitleEnabled(false);
-		
+
 		// создание экземпляров фрагментов
 		fragmentF = new MyFragmentStorefront();
 
@@ -36,4 +38,29 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		openQuitDialog();		
+	}
+
+	public void openQuitDialog() {
+		AlertDialog.Builder quitDialog = new AlertDialog.Builder(this);
+		quitDialog.setTitle("Выход: Вы уверены?");
+
+		quitDialog.setPositiveButton("Да", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		quitDialog.setNegativeButton("Нет", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		quitDialog.create().show();
+	}
 }

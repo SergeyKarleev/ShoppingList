@@ -64,6 +64,7 @@ public class MyFragmentStorefront extends Fragment implements
 	Button btnAdd;
 
 	SlidingDrawer sDrawer;
+	MainActivity mActivity;
 
 	MyDBManager mDB;
 	Cursor cursor;
@@ -87,6 +88,9 @@ public class MyFragmentStorefront extends Fragment implements
 
 		// ¬ключаем меню
 		setHasOptionsMenu(true);
+
+		// ƒелаем ссылку на активити
+		mActivity = (MainActivity) getActivity();
 
 		// ќбъ€вл€ем кнопки базы и добавлени€
 		// btnProducts = (Button) v.findViewById(R.id.btnProductBase);
@@ -113,14 +117,14 @@ public class MyFragmentStorefront extends Fragment implements
 				MyDBManager.ATTRIBUT_CATEGORY_PRODUCT };
 
 		int[] to = { R.id.tvSItemName, R.id.tvSItemComment,
-				R.id.tvSItemCategory };	
+				R.id.tvSItemCategory };
 
 		sAdapter = new MyListAdapter(getActivity(), listProducts,
 				R.layout.item_storefront, from, to);
 		lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
 		lvMyProductList.setAdapter(sAdapter);
 		lvMyProductList.setItemsCanFocus(true);
-		
+
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
 		elProducts.setOnChildClickListener(this);
 		elProducts.setOnItemLongClickListener(this);
@@ -129,16 +133,15 @@ public class MyFragmentStorefront extends Fragment implements
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);		
-		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);			
+		super.onCreateOptionsMenu(menu, inflater);
+		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		menu.add(1, SEND_DATA, 2, R.string.send_data)
-			.setEnabled(false);
-		menu.add(1,CLEAR_LIST,3,R.string.clear_list)
-			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		menu.add(1,HELP_LIST,4,R.string.help_list);
-		menu.add(1,EXIT_LIST,5,R.string.exit_list);
-		
+		menu.add(1, SEND_DATA, 2, R.string.send_data).setEnabled(false);
+		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
+				MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(1, HELP_LIST, 4, R.string.help_list);
+		menu.add(1, EXIT_LIST, 5, R.string.exit_list);
+
 	}
 
 	@Override
@@ -171,10 +174,12 @@ public class MyFragmentStorefront extends Fragment implements
 			sAdapter.notifyDataSetChanged();
 			break;
 		case HELP_LIST:
-			Toast.makeText(getActivity(), "–еализовать диалог с помощью", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "–еализовать диалог с помощью",
+					Toast.LENGTH_SHORT).show();
 			break;
 		case EXIT_LIST:
-			getActivity().finish();
+			mActivity.openQuitDialog();
+			break;
 		default:
 			break;
 		}
@@ -263,8 +268,14 @@ public class MyFragmentStorefront extends Fragment implements
 
 						listProducts.clear();
 						ListView lv = ((AlertDialog) dialog).getListView();
-						String tName = lv.getItemAtPosition(
-								lv.getCheckedItemPosition()).toString();
+						int position;
+						if (lv.getCheckedItemPosition() == -1) {
+							position = 0;
+						} else {
+							position = lv.getCheckedItemPosition();
+						}
+						String tName = lv.getItemAtPosition(position)
+								.toString();
 						// TODO: «десь загружаем готовый список с помощью метода
 						// базы
 						// данных loadFromTemplates(name)
@@ -406,13 +417,12 @@ public class MyFragmentStorefront extends Fragment implements
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = super.getView(position, convertView, parent);
 
-			Log.d(LOG_TAG, "getView "+view.getId());
+			Log.d(LOG_TAG, "getView " + view.getId());
 			final TextView tvName = (TextView) view
 					.findViewById(R.id.tvSItemName);
 			EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
-						
-			
+
 			etComment.addTextChangedListener(new TextWatcher() {
 
 				@Override
