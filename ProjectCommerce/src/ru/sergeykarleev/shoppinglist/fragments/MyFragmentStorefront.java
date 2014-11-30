@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
@@ -27,18 +28,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorTreeAdapter;
 import android.widget.SlidingDrawer;
-import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +72,7 @@ public class MyFragmentStorefront extends Fragment implements
 	// Главный список, активити и адаптер для него
 	ListView lvMyProductList;
 	MyListAdapter sAdapter;
+	FrameLayout rlStart;
 
 	// Список базы продуктов и адаптер для него
 	ExpandableListView elProducts;
@@ -86,6 +87,9 @@ public class MyFragmentStorefront extends Fragment implements
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_storefront, null);
 
+		// Находим FrameLayout для последующего изменения фона при вызове
+		// подсказки
+		rlStart = (FrameLayout) v.findViewById(R.id.rlStart);
 		// Включаем меню
 		setHasOptionsMenu(true);
 
@@ -174,7 +178,7 @@ public class MyFragmentStorefront extends Fragment implements
 			sAdapter.notifyDataSetChanged();
 			break;
 		case HELP_LIST:
-			mActivity.openHelpDialog();
+			mActivity.openHelpDialog();		
 			break;
 		case EXIT_LIST:
 			mActivity.openQuitDialog();
@@ -183,6 +187,15 @@ public class MyFragmentStorefront extends Fragment implements
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void pause() {
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

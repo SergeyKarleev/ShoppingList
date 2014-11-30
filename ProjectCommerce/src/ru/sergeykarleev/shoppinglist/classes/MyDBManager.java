@@ -436,9 +436,9 @@ public class MyDBManager implements BaseColumns {
 			mTemplates.addAll(getTemplatesList());
 
 			for (String string : mTemplates) {
-				if (string == mTemplateName) {
+				if (string.equals(mTemplateName)) {
 					Toast.makeText(mCtx,
-							"Шаблон с таким именем уже существует",
+							"Ошибка сохранения\nИмя шаблона занято",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}

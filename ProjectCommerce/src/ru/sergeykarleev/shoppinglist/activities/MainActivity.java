@@ -19,6 +19,7 @@ import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 
 public class MainActivity extends FragmentActivity {
 
@@ -75,24 +76,15 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void openHelpDialog() {
-		AlertDialog.Builder helpDialog = new Builder(this);		
+		AlertDialog.Builder helpDialog = new Builder(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);		
 		helpDialog.setPositiveButton("Ok", null);
-		//View view = getLayoutInflater().inflate(R.layout.help_dialog, null);		
+		ImageView iView = new ImageView(this);
+		iView.setImageResource(R.drawable.help_screen);
+		iView.setPadding(2, 2, 2, 2);
+		iView.setScaleType(ScaleType.FIT_XY);
 		
-		WebView wView = new WebView(this);
-		wView.setBackgroundColor(Color.BLACK);
-		wView.getSettings().setSupportZoom(true);
-		wView.getSettings().setBuiltInZoomControls(true);
-		wView.setPadding(0, 0, 0, 0);
-		wView.setScrollbarFadingEnabled(true);
-		wView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);		
-		wView.loadUrl("file:///android_res/drawable/help_screen.png");
 		
-		//wView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);		
-		wView.getSettings().setUseWideViewPort(true);
-		//wView.getSettings().setLoadWithOverviewMode(true);
-		
-		helpDialog.setView(wView);		
+		helpDialog.setView(iView);		
 		helpDialog.create().show();	
 		
 	}
