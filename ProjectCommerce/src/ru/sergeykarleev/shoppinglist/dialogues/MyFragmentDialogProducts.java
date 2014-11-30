@@ -81,7 +81,7 @@ public class MyFragmentDialogProducts extends DialogFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		getDialog().setTitle(R.string.dialogTitle);
+		getDialog().setTitle(R.string.dialogProductsTitle);
 		View v = inflater.inflate(R.layout.dialog_product, null);
 		v.findViewById(R.id.btnCancel).setOnClickListener(this);
 

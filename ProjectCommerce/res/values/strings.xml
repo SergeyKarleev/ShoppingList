@@ -43,22 +43,16 @@
     <string name="templates_load_dialog_title">Выбор шаблона</string>    
         
     <!-- Метки fragment_add_product -->
-    <string name="dialogTitle">Продукты</string>
+    <string name="dialogProductsTitle">Продукты</string>
     <string name="modelName">Название</string>
     <string name="tvModelCategory">Категория</string>
     <string name="chkDeleteProduct">К удалению</string>
         
     <!-- item.xml -->
     <string name="tvModel_name">Товар</string>
-       
-    <!-- dialog_templates -->
-    <string-array name="prototype_array_templates">
-        <item >Шаблон 1</item>
-        <item >Шаблон 2</item>
-        <item >Ежедневный список</item>
-        <item >Выходной список</item>
-        <item >Праздничный список</item>
-        <item >Список в поездку</item>
-    </string-array>
+    
+    <!-- Диалоги -->
+    <string name="dialogQuitTitle">Выйти из приложения?</string>
+    
     
 </resources>

@@ -174,8 +174,7 @@ public class MyFragmentStorefront extends Fragment implements
 			sAdapter.notifyDataSetChanged();
 			break;
 		case HELP_LIST:
-			Toast.makeText(getActivity(), "Реализовать диалог с помощью",
-					Toast.LENGTH_SHORT).show();
+			mActivity.openHelpDialog();
 			break;
 		case EXIT_LIST:
 			mActivity.openQuitDialog();

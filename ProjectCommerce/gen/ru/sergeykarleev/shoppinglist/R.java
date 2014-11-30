@@ -11,9 +11,6 @@ public final class R {
     public static final class array {
         public static final int modelCategories=0x7f040000;
         public static final int modelUnits=0x7f040001;
-        /**  dialog_templates 
-         */
-        public static final int prototype_array_templates=0x7f040002;
     }
     public static final class attr {
     }
@@ -55,11 +52,12 @@ public final class R {
     }
     public static final class drawable {
         public static final int arrow=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int list_background=0x7f020002;
-        public static final int shape_group=0x7f020003;
-        public static final int shape_item=0x7f020004;
-        public static final int style_btnadd=0x7f020005;
+        public static final int help_screen=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int list_background=0x7f020003;
+        public static final int shape_group=0x7f020004;
+        public static final int shape_item=0x7f020005;
+        public static final int style_btnadd=0x7f020006;
     }
     public static final class id {
         public static final int btnAdd=0x7f08000d;
@@ -77,22 +75,24 @@ public final class R {
         public static final int rlStart=0x7f080008;
         public static final int slidingDrawer=0x7f08000a;
         public static final int spCategory=0x7f080004;
-        public static final int tvCategory=0x7f080010;
-        public static final int tvItemChild=0x7f080011;
-        public static final int tvModel=0x7f08000f;
-        public static final int tvSItemCategory=0x7f080013;
-        public static final int tvSItemComment=0x7f080014;
-        public static final int tvSItemName=0x7f080012;
+        public static final int svHelp=0x7f08000f;
+        public static final int tvCategory=0x7f080011;
+        public static final int tvItemChild=0x7f080012;
+        public static final int tvModel=0x7f080010;
+        public static final int tvSItemCategory=0x7f080014;
+        public static final int tvSItemComment=0x7f080015;
+        public static final int tvSItemName=0x7f080013;
     }
     public static final class layout {
         public static final int dialog_product=0x7f030000;
         public static final int dialog_templates=0x7f030001;
         public static final int fragment_storefront=0x7f030002;
-        public static final int item=0x7f030003;
-        public static final int item_child=0x7f030004;
-        public static final int item_group=0x7f030005;
-        public static final int item_storefront=0x7f030006;
-        public static final int main=0x7f030007;
+        public static final int help_dialog=0x7f030003;
+        public static final int item=0x7f030004;
+        public static final int item_child=0x7f030005;
+        public static final int item_group=0x7f030006;
+        public static final int item_storefront=0x7f030007;
+        public static final int main=0x7f030008;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
@@ -106,7 +106,10 @@ public final class R {
         public static final int clear_list=0x7f060013;
         /**  Метки fragment_add_product 
          */
-        public static final int dialogTitle=0x7f06001c;
+        public static final int dialogProductsTitle=0x7f06001c;
+        /**  Диалоги 
+         */
+        public static final int dialogQuitTitle=0x7f060021;
         public static final int exit_list=0x7f060015;
         public static final int fragment_backend=0x7f060004;
         public static final int fragment_dialog=0x7f060008;

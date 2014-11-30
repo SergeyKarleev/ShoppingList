@@ -50,7 +50,8 @@
             android:name="ru.sergeykarleev.shoppinglist.activities.MainActivity"
             android:label="@string/app_name" 
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+                   >
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
