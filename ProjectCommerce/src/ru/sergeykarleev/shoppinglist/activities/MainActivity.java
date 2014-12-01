@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=ru.sergeykarleev.shoppinglist&ah=P6fyGR7pIt5vRCKkDhgU1fjQsk8"));
 				startActivity(browserIntent);
 				dialog.cancel();
 			}
