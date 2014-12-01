@@ -93,7 +93,6 @@ public final class R {
         public static final int item_group=0x7f030006;
         public static final int item_storefront=0x7f030007;
         public static final int main=0x7f030008;
-        public static final int test_layout=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
