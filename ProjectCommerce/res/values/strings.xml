@@ -3,14 +3,10 @@
 
     <string name="pkg_name">com.example.backend</string>
     <string name="app_name">Список покупок</string>
-    
-    <!-- fragment_storefront -->
-    <string name="listview_empty">Ваш список товаров пуст</string>
+        
 
     <!-- ID всех активити и фрагментов -->
-    <string name="mainActivity">MainActivity</string>
-    <string name="fragment_backend">MyFragmentBackend</string>
-    <string name="fragment_navigation">MyFragmentNavigation</string>
+    <string name="mainActivity">MainActivity</string>    
     <string name="fragment_storefront">MyFragmentStorefront</string>
     <string name="fragment_universal">Fr_universal</string>
     <string name="fragment_dialog">Fr_element</string>
@@ -30,17 +26,18 @@
     <!-- Фрагмент Storefront, меню -->
     <string name="save_into_templates">Сохранить как шаблон</string>
     <string name="load_from_templates">Загрузить из шаблонов</string>
-    <string name="send_data">Отправить список...</string>
+    <string name="send_data">Отправить список</string>
     <string name="clear_list">Очистить список</string>
     <string name="help_list">Помощь</string>
     <string name="exit_list">Выход</string>
     
     <string name="templates_create_dialog_title">Создание шаблона</string>
     <string name="templates_create_dialog_message">Введите имя шаблона</string>
+    <string name="templates_load_dialog_title">Выбор шаблона</string>
     <string name="templates_negative_button_dialog">Отмена</string>
     <string name="templates_positive_button_dialog">ОК</string>
     <string name="templates_neutral_button_dialog">Удалить</string>        
-    <string name="templates_load_dialog_title">Выбор шаблона</string>    
+        
         
     <!-- Метки fragment_add_product -->
     <string name="dialogProductsTitle">Продукты</string>
