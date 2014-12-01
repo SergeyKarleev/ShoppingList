@@ -429,7 +429,6 @@ public class MyFragmentStorefront extends Fragment implements
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View view = super.getView(position, convertView, parent);
 
-			Log.d(LOG_TAG, "getView " + view.getId());
 			final TextView tvName = (TextView) view
 					.findViewById(R.id.tvSItemName);
 			EditText etComment = (EditText) view

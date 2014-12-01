@@ -1,23 +1,17 @@
 package ru.sergeykarleev.shoppinglist.activities;
 
-import java.net.URI;
-
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Color;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
@@ -78,11 +72,20 @@ public class MainActivity extends FragmentActivity {
 	public void openHelpDialog() {
 		AlertDialog.Builder helpDialog = new Builder(this,android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);		
 		helpDialog.setPositiveButton("Ok", null);
+		helpDialog.setNeutralButton("Поддержка на\nGoogle.Play", new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+				startActivity(browserIntent);
+				dialog.cancel();
+			}
+		});
+		
 		ImageView iView = new ImageView(this);
 		iView.setImageResource(R.drawable.help_screen);
 		iView.setPadding(2, 2, 2, 2);
-		iView.setScaleType(ScaleType.FIT_XY);
-		
+		iView.setScaleType(ScaleType.FIT_XY);	
 		
 		helpDialog.setView(iView);		
 		helpDialog.create().show();	
