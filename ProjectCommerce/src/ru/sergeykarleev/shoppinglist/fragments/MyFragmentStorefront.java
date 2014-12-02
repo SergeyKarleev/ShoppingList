@@ -140,7 +140,7 @@ public class MyFragmentStorefront extends Fragment implements
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		menu.add(1, SEND_DATA, 2, R.string.send_data).setEnabled(false);
+		//menu.add(1, SEND_DATA, 2, R.string.send_data).setEnabled(false);
 		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(1, HELP_LIST, 4, R.string.help_list);
