@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.classes.MySendManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -25,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
@@ -53,6 +55,9 @@ public class MyFragmentStorefront extends Fragment implements
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
 	private static final int SEND_DATA = 2;
+	private static final int SEND_TO_SMS = 21;
+	private static final int SEND_TO_BLUETOOTH = 22;
+	private static final int SEND_TO_EMAIL = 23;	
 	private static final int CLEAR_LIST = 3;
 	private static final int HELP_LIST = 4;
 	private static final int EXIT_LIST = 5;
@@ -79,6 +84,9 @@ public class MyFragmentStorefront extends Fragment implements
 	MyTreeAdapter treeAdapter;
 
 	String templateName = null;
+
+	//Класс для отправки списка на другое устройство
+	MySendManager sendManager;
 
 	ArrayList<HashMap<String, String>> listProducts;
 
@@ -140,7 +148,11 @@ public class MyFragmentStorefront extends Fragment implements
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		//menu.add(1, SEND_DATA, 2, R.string.send_data).setEnabled(false);
+		SubMenu subMenuSend = menu.addSubMenu(1, SEND_DATA, 2, R.string.send_data); 
+		subMenuSend.add(1, SEND_TO_SMS, 1, R.string.send_to_sms).setIcon(android.R.drawable.sym_action_chat);
+		subMenuSend.add(2, SEND_TO_BLUETOOTH, 1, R.string.send_to_bluetooth).setIcon(android.R.drawable.stat_sys_data_bluetooth);
+		subMenuSend.add(3, SEND_TO_EMAIL, 1, R.string.send_to_email).setIcon(android.R.drawable.sym_action_email);
+				
 		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(1, HELP_LIST, 4, R.string.help_list);
@@ -169,9 +181,8 @@ public class MyFragmentStorefront extends Fragment implements
 		case LOAD_FROM_TEMPLATES:
 			LoadFromTemplates();
 			break;
-		case SEND_DATA:
-			Toast.makeText(getActivity(), "пока не реализовано",
-					Toast.LENGTH_SHORT).show();
+		case SEND_TO_SMS:			
+			sendManager = new MySendManager(mActivity, MySendManager.SEND_TO_SMS, listProducts);
 			break;
 		case CLEAR_LIST:
 			listProducts.clear();
