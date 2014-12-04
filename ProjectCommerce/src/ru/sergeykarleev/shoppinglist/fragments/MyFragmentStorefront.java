@@ -184,6 +184,9 @@ public class MyFragmentStorefront extends Fragment implements
 		case SEND_TO_SMS:			
 			sendManager = new MySendManager(mActivity, MySendManager.SEND_TO_SMS, listProducts);
 			break;
+		case SEND_TO_EMAIL:
+			sendManager = new MySendManager(mActivity, MySendManager.SEND_TO_EMAIL, listProducts);
+			break;
 		case CLEAR_LIST:
 			listProducts.clear();
 			sAdapter.notifyDataSetChanged();

@@ -21,8 +21,7 @@
     <!-- Содержание текстовых элементов по-умолчанию -->
     <string name="tvMyList">Купить:</string>
     <string name="tvModelPager">Здесь отображается название товара</string>
-   
-    
+           
     <!-- Фрагмент Storefront, меню -->
     <string name="save_into_templates">Сохранить как шаблон</string>
     <string name="load_from_templates">Загрузить из шаблонов</string>
@@ -36,6 +35,7 @@
     <string name="send_to_bluetooth">Bluetooth</string>
     <string name="send_to_email">Email</string>
     
+   	<string name="mail_subject">Нужно купить</string>
     
     <string name="templates_create_dialog_title">Создание шаблона</string>
     <string name="templates_create_dialog_message">Введите имя шаблона</string>

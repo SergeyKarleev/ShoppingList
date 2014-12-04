@@ -102,14 +102,14 @@ public final class R {
         public static final int btnCancel=0x7f060008;
         public static final int btnDelete=0x7f06000a;
         public static final int btnSave=0x7f060009;
-        public static final int chkDeleteProduct=0x7f06001f;
+        public static final int chkDeleteProduct=0x7f060020;
         public static final int clear_list=0x7f060010;
         /**  Метки fragment_add_product 
          */
-        public static final int dialogProductsTitle=0x7f06001c;
+        public static final int dialogProductsTitle=0x7f06001d;
         /**  Диалоги 
          */
-        public static final int dialogQuitTitle=0x7f060021;
+        public static final int dialogQuitTitle=0x7f060022;
         public static final int exit_list=0x7f060012;
         public static final int fragment_dialog=0x7f060005;
         public static final int fragment_pager=0x7f060006;
@@ -117,10 +117,11 @@ public final class R {
         public static final int fragment_universal=0x7f060004;
         public static final int help_list=0x7f060011;
         public static final int load_from_templates=0x7f06000e;
+        public static final int mail_subject=0x7f060016;
         /**  ID всех активити и фрагментов 
          */
         public static final int mainActivity=0x7f060002;
-        public static final int modelName=0x7f06001d;
+        public static final int modelName=0x7f06001e;
         public static final int pkg_name=0x7f060000;
         /**  Фрагмент Storefront, меню 
          */
@@ -131,17 +132,17 @@ public final class R {
         /**  Подменю SEND 
          */
         public static final int send_to_sms=0x7f060013;
-        public static final int templates_create_dialog_message=0x7f060017;
-        public static final int templates_create_dialog_title=0x7f060016;
-        public static final int templates_load_dialog_title=0x7f060018;
-        public static final int templates_negative_button_dialog=0x7f060019;
-        public static final int templates_neutral_button_dialog=0x7f06001b;
-        public static final int templates_positive_button_dialog=0x7f06001a;
-        public static final int tvModelCategory=0x7f06001e;
+        public static final int templates_create_dialog_message=0x7f060018;
+        public static final int templates_create_dialog_title=0x7f060017;
+        public static final int templates_load_dialog_title=0x7f060019;
+        public static final int templates_negative_button_dialog=0x7f06001a;
+        public static final int templates_neutral_button_dialog=0x7f06001c;
+        public static final int templates_positive_button_dialog=0x7f06001b;
+        public static final int tvModelCategory=0x7f06001f;
         public static final int tvModelPager=0x7f06000c;
         /**  item.xml 
          */
-        public static final int tvModel_name=0x7f060020;
+        public static final int tvModel_name=0x7f060021;
         /**  Содержание текстовых элементов по-умолчанию 
          */
         public static final int tvMyList=0x7f06000b;
