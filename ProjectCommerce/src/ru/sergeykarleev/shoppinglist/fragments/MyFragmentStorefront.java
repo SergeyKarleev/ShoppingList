@@ -12,13 +12,13 @@ import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 import ru.sergeykarleev.shoppinglist.classes.MySendManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat.Action.Builder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -57,7 +57,7 @@ public class MyFragmentStorefront extends Fragment implements
 	private static final int SEND_DATA = 2;
 	private static final int SEND_TO_SMS = 21;
 	private static final int SEND_TO_BLUETOOTH = 22;
-	private static final int SEND_TO_EMAIL = 23;	
+	private static final int SEND_TO_EMAIL = 23;
 	private static final int CLEAR_LIST = 3;
 	private static final int HELP_LIST = 4;
 	private static final int EXIT_LIST = 5;
@@ -85,7 +85,7 @@ public class MyFragmentStorefront extends Fragment implements
 
 	String templateName = null;
 
-	//Класс для отправки списка на другое устройство
+	// Класс для отправки списка на другое устройство
 	MySendManager sendManager;
 
 	ArrayList<HashMap<String, String>> listProducts;
@@ -148,11 +148,15 @@ public class MyFragmentStorefront extends Fragment implements
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		SubMenu subMenuSend = menu.addSubMenu(1, SEND_DATA, 2, R.string.send_data); 
-		subMenuSend.add(1, SEND_TO_SMS, 1, R.string.send_to_sms).setIcon(android.R.drawable.sym_action_chat);
-		subMenuSend.add(2, SEND_TO_BLUETOOTH, 1, R.string.send_to_bluetooth).setIcon(android.R.drawable.stat_sys_data_bluetooth);
-		subMenuSend.add(3, SEND_TO_EMAIL, 1, R.string.send_to_email).setIcon(android.R.drawable.sym_action_email);
-				
+		SubMenu subMenuSend = menu.addSubMenu(1, SEND_DATA, 2,
+				R.string.send_data);
+		subMenuSend.add(1, SEND_TO_SMS, 1, R.string.send_to_sms).setIcon(
+				android.R.drawable.sym_action_chat);
+		subMenuSend.add(2, SEND_TO_BLUETOOTH, 1, R.string.send_to_bluetooth)
+				.setIcon(android.R.drawable.stat_sys_data_bluetooth);
+		subMenuSend.add(3, SEND_TO_EMAIL, 1, R.string.send_to_email).setIcon(
+				android.R.drawable.sym_action_email);
+
 		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(1, HELP_LIST, 4, R.string.help_list);
@@ -181,18 +185,20 @@ public class MyFragmentStorefront extends Fragment implements
 		case LOAD_FROM_TEMPLATES:
 			LoadFromTemplates();
 			break;
-		case SEND_TO_SMS:			
-			sendManager = new MySendManager(mActivity, MySendManager.SEND_TO_SMS, listProducts);
+		case SEND_TO_SMS:
+			sendManager = new MySendManager(mActivity,
+					MySendManager.SEND_TO_SMS, listProducts);
 			break;
 		case SEND_TO_EMAIL:
-			sendManager = new MySendManager(mActivity, MySendManager.SEND_TO_EMAIL, listProducts);
+			sendManager = new MySendManager(mActivity,
+					MySendManager.SEND_TO_EMAIL, listProducts);
 			break;
 		case CLEAR_LIST:
 			listProducts.clear();
 			sAdapter.notifyDataSetChanged();
 			break;
 		case HELP_LIST:
-			mActivity.openHelpDialog();		
+			mActivity.openHelpDialog();
 			break;
 		case EXIT_LIST:
 			mActivity.openQuitDialog();
@@ -229,9 +235,7 @@ public class MyFragmentStorefront extends Fragment implements
 		hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT, "");
 		listProducts.add(hm);
 		sAdapter.notifyDataSetChanged();
-		// Toast.makeText(getActivity(), "В список добавлен продукт: " +
-		// txtName,
-		// Toast.LENGTH_SHORT).show();
+
 		return true;
 	}
 
@@ -275,7 +279,7 @@ public class MyFragmentStorefront extends Fragment implements
 
 		int selectedTemplate = -1;
 
-		AlertDialog.Builder adb = new Builder(getActivity());
+		AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 		adb.setTitle(R.string.templates_load_dialog_title);
 		adb.setSingleChoiceItems(cs, -1, null);
 		adb.setNegativeButton(R.string.templates_negative_button_dialog,
@@ -322,7 +326,7 @@ public class MyFragmentStorefront extends Fragment implements
 					public void onClick(DialogInterface dialog, int which) {
 						ListView lv = ((AlertDialog) dialog).getListView();
 
-						AlertDialog.Builder adbDelete = new Builder(
+						AlertDialog.Builder adbDelete = new AlertDialog.Builder(
 								getActivity());
 						adbDelete.setTitle("Удаление шаблонов");
 						adbDelete
@@ -382,7 +386,7 @@ public class MyFragmentStorefront extends Fragment implements
 		templateName = null;
 		final EditText etName = new EditText(getActivity());
 
-		AlertDialog.Builder adb = new Builder(getActivity());
+		AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 		adb.setTitle(R.string.templates_create_dialog_title)
 				.setMessage(R.string.templates_create_dialog_message)
 				.setCancelable(true).setView(etName).setCancelable(false);

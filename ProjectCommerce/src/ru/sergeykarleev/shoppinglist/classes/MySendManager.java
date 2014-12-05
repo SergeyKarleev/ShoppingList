@@ -1,5 +1,9 @@
 package ru.sergeykarleev.shoppinglist.classes;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,10 +26,7 @@ public class MySendManager {
 
 	private static MainActivity mActivity;
 	private static MyConvertHelper mConverter;
-
-	/**
-	 * @param sendMode
-	 */
+	
 	public MySendManager(MainActivity mActivity, int sendMode,
 			ArrayList<HashMap<String, String>> listProducts) {
 		super();
@@ -44,20 +45,41 @@ public class MySendManager {
 	}
 
 	private void sendToEmail() {
-//		Intent intent = new Intent(Intent.ACTION_SEND);
-//		intent.setType("text/plain");
-//		intent.putExtra(Intent.EXTRA_EMAIL, "");
-//		intent.putExtra(Intent.EXTRA_SUBJECT, R.string.mail_subject);
-//		intent.putExtra(Intent.EXTRA_TEXT, mConverter.convertToString());
-//		intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://"));
 		
 		Log.d(LOG_TAG, "Формируем XML строку");
 		String s = mConverter.convertToXML();
-		// TODO: добавить в виде вложения файл для программы (сохранение в КЭШ)
 		Log.d(LOG_TAG, s);
 		
-
-		// mActivity.startActivity(intent);
+		// TODO: добавить в виде вложения файл для программы (сохранение в КЭШ)
+		//Разбираем код:
+		File f = null;
+		try {
+			f = File.createTempFile("listProduct", ".mlp");			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+		
+		try {
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			bw.write(s);
+			bw.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		Log.d(LOG_TAG, "Сформирован файл:\n"+f.toString());
+		
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_EMAIL, "");
+		intent.putExtra(Intent.EXTRA_SUBJECT, R.string.mail_subject);
+		intent.putExtra(Intent.EXTRA_TEXT, mConverter.convertToString());
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+		
+		Log.d(LOG_TAG, "Запускаем активити отправки почты");
+		mActivity.startActivity(intent);
 
 	}
 
