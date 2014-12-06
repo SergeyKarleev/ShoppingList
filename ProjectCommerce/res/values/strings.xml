@@ -29,13 +29,8 @@
     <string name="clear_list">Очистить список</string>
     <string name="help_list">Помощь</string>
     <string name="exit_list">Выход</string>
-    
-    <!-- Подменю SEND -->
-    <string name="send_to_sms">СМС сообщением</string>
-    <string name="send_to_bluetooth">Bluetooth</string>
-    <string name="send_to_email">Email</string>
-    
-   	<string name="mail_subject">Нужно купить</string>
+     
+   	<string name="mail_subject">Список покупок</string>
     
     <string name="templates_create_dialog_title">Создание шаблона</string>
     <string name="templates_create_dialog_message">Введите имя шаблона</string>

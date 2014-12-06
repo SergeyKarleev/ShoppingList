@@ -54,10 +54,7 @@ public class MyFragmentStorefront extends Fragment implements
 	// Константы функций контекстного меню
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
-	private static final int SEND_DATA = 2;
-	private static final int SEND_TO_SMS = 21;
-	private static final int SEND_TO_BLUETOOTH = 22;
-	private static final int SEND_TO_EMAIL = 23;
+	private static final int SEND_DATA = 2;	
 	private static final int CLEAR_LIST = 3;
 	private static final int HELP_LIST = 4;
 	private static final int EXIT_LIST = 5;
@@ -148,15 +145,7 @@ public class MyFragmentStorefront extends Fragment implements
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		SubMenu subMenuSend = menu.addSubMenu(1, SEND_DATA, 2,
-				R.string.send_data);
-		subMenuSend.add(1, SEND_TO_SMS, 1, R.string.send_to_sms).setIcon(
-				android.R.drawable.sym_action_chat);
-		subMenuSend.add(2, SEND_TO_BLUETOOTH, 1, R.string.send_to_bluetooth)
-				.setIcon(android.R.drawable.stat_sys_data_bluetooth);
-		subMenuSend.add(3, SEND_TO_EMAIL, 1, R.string.send_to_email).setIcon(
-				android.R.drawable.sym_action_email);
-
+		menu.add(1,SEND_DATA,2,R.string.send_data);
 		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(1, HELP_LIST, 4, R.string.help_list);
@@ -184,14 +173,9 @@ public class MyFragmentStorefront extends Fragment implements
 			break;
 		case LOAD_FROM_TEMPLATES:
 			LoadFromTemplates();
-			break;
-		case SEND_TO_SMS:
-			sendManager = new MySendManager(mActivity,
-					MySendManager.SEND_TO_SMS, listProducts);
-			break;
-		case SEND_TO_EMAIL:
-			sendManager = new MySendManager(mActivity,
-					MySendManager.SEND_TO_EMAIL, listProducts);
+			break;		
+		case SEND_DATA:
+			sendManager = new MySendManager(mActivity, listProducts);
 			break;
 		case CLEAR_LIST:
 			listProducts.clear();
