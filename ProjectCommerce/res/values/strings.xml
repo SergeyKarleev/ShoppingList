@@ -2,26 +2,26 @@
 <resources>
 
     <string name="pkg_name">com.example.backend</string>
-    <string name="app_name">Список покупок</string>
-        
+    <string name="app_name">Резиновая корзина</string>
+    <string name="app_mimetype">application/mlp</string>
 
     <!-- ID всех активити и фрагментов -->
-    <string name="mainActivity">MainActivity</string>    
+    <string name="mainActivity">MainActivity</string>
     <string name="fragment_storefront">MyFragmentStorefront</string>
     <string name="fragment_universal">Fr_universal</string>
     <string name="fragment_dialog">Fr_element</string>
     <string name="fragment_pager">MyFragmentPager</string>
 
     <!-- Тексты кнопок в приложении -->
-    <string name="btnAdd">Новый продукт</string>        
+    <string name="btnAdd">Новый продукт</string>
     <string name="btnCancel">Отменить</string>
     <string name="btnSave">Сохранить</string>
-    <string name="btnDelete">Удалить</string>    
+    <string name="btnDelete">Удалить</string>
 
     <!-- Содержание текстовых элементов по-умолчанию -->
     <string name="tvMyList">Купить:</string>
     <string name="tvModelPager">Здесь отображается название товара</string>
-           
+
     <!-- Фрагмент Storefront, меню -->
     <string name="save_into_templates">Сохранить как шаблон</string>
     <string name="load_from_templates">Загрузить из шаблонов</string>
@@ -29,28 +29,24 @@
     <string name="clear_list">Очистить список</string>
     <string name="help_list">Помощь</string>
     <string name="exit_list">Выход</string>
-     
-   	<string name="mail_subject">Список покупок</string>
-    
+    <string name="mail_subject">Список покупок</string>
     <string name="templates_create_dialog_title">Создание шаблона</string>
     <string name="templates_create_dialog_message">Введите имя шаблона</string>
     <string name="templates_load_dialog_title">Выбор шаблона</string>
     <string name="templates_negative_button_dialog">Отмена</string>
     <string name="templates_positive_button_dialog">ОК</string>
-    <string name="templates_neutral_button_dialog">Удалить</string>        
-        
-        
+    <string name="templates_neutral_button_dialog">Удалить</string>
+
     <!-- Метки fragment_add_product -->
     <string name="dialogProductsTitle">Продукты</string>
     <string name="modelName">Название</string>
     <string name="tvModelCategory">Категория</string>
     <string name="chkDeleteProduct">К удалению</string>
-        
+
     <!-- item.xml -->
     <string name="tvModel_name">Товар</string>
-    
+
     <!-- Диалоги -->
     <string name="dialogQuitTitle">Выйти из приложения?</string>
-    
-    
+
 </resources>

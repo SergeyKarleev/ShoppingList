@@ -55,7 +55,7 @@ public class MySendManager {
 			e1.printStackTrace();
 		}
 			
-		Intent intent = new Intent(Intent.ACTION_SEND);
+		Intent intent = new Intent(Intent.ACTION_SEND);		
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_EMAIL, "");
 		intent.putExtra(Intent.EXTRA_SUBJECT, mActivity.getResources().getString(R.string.mail_subject));
