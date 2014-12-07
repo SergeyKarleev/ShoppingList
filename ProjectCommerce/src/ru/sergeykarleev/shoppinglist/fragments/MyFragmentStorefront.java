@@ -9,11 +9,13 @@ import java.util.concurrent.TimeUnit;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
+import ru.sergeykarleev.shoppinglist.classes.MyIntentGetter;
 import ru.sergeykarleev.shoppinglist.classes.MySendManager;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -54,7 +56,7 @@ public class MyFragmentStorefront extends Fragment implements
 	// Константы функций контекстного меню
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
-	private static final int SEND_DATA = 2;	
+	private static final int SEND_DATA = 2;
 	private static final int CLEAR_LIST = 3;
 	private static final int HELP_LIST = 4;
 	private static final int EXIT_LIST = 5;
@@ -67,6 +69,7 @@ public class MyFragmentStorefront extends Fragment implements
 
 	SlidingDrawer sDrawer;
 	MainActivity mActivity;
+	MyIntentGetter intentGetter;
 
 	MyDBManager mDB;
 	Cursor cursor;
@@ -100,6 +103,9 @@ public class MyFragmentStorefront extends Fragment implements
 
 		// Делаем ссылку на активити
 		mActivity = (MainActivity) getActivity();
+
+		// Создание списка продуктов
+		listProducts = createListProduct();
 
 		// Объявляем кнопки базы и добавления
 		// btnProducts = (Button) v.findViewById(R.id.btnProductBase);
@@ -140,12 +146,21 @@ public class MyFragmentStorefront extends Fragment implements
 		return v;
 	}
 
+	private ArrayList<HashMap<String, String>> createListProduct() {
+		// Запускаем процедуру загрузки списка
+		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {			
+			intentGetter = new MyIntentGetter(mActivity);
+			return intentGetter.getListProducts();
+		}
+		return new ArrayList<HashMap<String, String>>();		
+	}
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		menu.add(1, SAVE_INTO_TEMPLATES, 0, R.string.save_into_templates);
 		menu.add(1, LOAD_FROM_TEMPLATES, 1, R.string.load_from_templates);
-		menu.add(1,SEND_DATA,2,R.string.send_data);
+		menu.add(1, SEND_DATA, 2, R.string.send_data);
 		menu.add(1, CLEAR_LIST, 3, R.string.clear_list).setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		menu.add(1, HELP_LIST, 4, R.string.help_list);
@@ -173,7 +188,7 @@ public class MyFragmentStorefront extends Fragment implements
 			break;
 		case LOAD_FROM_TEMPLATES:
 			LoadFromTemplates();
-			break;		
+			break;
 		case SEND_DATA:
 			sendManager = new MySendManager(mActivity, listProducts);
 			break;
