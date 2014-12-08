@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class MainActivity extends FragmentActivity {
 	MyFragmentStorefront fragmentF;
 	// MyFragmentDialogTemplates dialogTemplate;
 	
+	SharedPreferences sPref;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,10 @@ public class MainActivity extends FragmentActivity {
 		AlertDialog.Builder helpDialog = new Builder(
 				this,
 				android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
-		helpDialog.setPositiveButton("Ok", null);
+		
+		
+		
+		helpDialog.setPositiveButton("Ok", null);		
 		helpDialog.setNeutralButton("Поддержка на\nGoogle.Play",
 				new OnClickListener() {
 
