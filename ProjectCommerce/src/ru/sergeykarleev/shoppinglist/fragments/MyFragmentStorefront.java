@@ -121,10 +121,7 @@ public class MyFragmentStorefront extends Fragment implements
 
 		// открываем базу данных
 		mDB = new MyDBManager(getActivity());
-
-		// создаем пустую основу дл€ нашего списка
-		listProducts = new ArrayList<HashMap<String, String>>();
-
+		
 		// ‘ормируем служебные данные дл€ заполнени€ listView с нашим списком
 		// продуктов
 		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
@@ -147,6 +144,7 @@ public class MyFragmentStorefront extends Fragment implements
 	}
 
 	private ArrayList<HashMap<String, String>> createListProduct() {
+		Log.d(LOG_TAG, "ѕроцедура формировани€ списка: "+mActivity.getIntent().getAction());
 		// «апускаем процедуру загрузки списка
 		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {			
 			intentGetter = new MyIntentGetter(mActivity);

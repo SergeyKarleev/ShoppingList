@@ -38,11 +38,22 @@ public class MyIntentGetter {
 			dataParsing(data);
 		}
 	}
-	
+
 	public ArrayList<HashMap<String, String>> getListProducts() {
+		for (HashMap<String, String> item : mList) {
+			Log.d(LOG_TAG,
+					MyDBManager.ATTRIBUT_NAME_PRODUCT + ": "
+							+ item.get(MyDBManager.ATTRIBUT_NAME_PRODUCT));
+			try {
+				Log.d(LOG_TAG, MyDBManager.ATTRIBUT_COMMENT_PRODUCT + ": "
+						+ item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT));
+			} catch (Exception e) {
+				Log.d(LOG_TAG, "Нет комментариев");
+			}
+		}
 		return mList;
 	}
-	
+
 	private void dataParsing(String data) {
 		try {
 			// TODO: Здесь пишем конвертацию String to XML и парсер для
@@ -59,20 +70,20 @@ public class MyIntentGetter {
 						hm = new HashMap<String, String>();
 						hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT,
 								parser.getAttributeValue(ATTRIBUT_NAME));
-						Log.d(LOG_TAG, "Добавили имя "
-								+ parser.getAttributeName(ATTRIBUT_NAME)
-										.toString());
+//						Log.d(LOG_TAG, "Добавили имя "
+//								+ parser.getAttributeName(ATTRIBUT_NAME)
+//										.toString());
 						if (parser.getAttributeCount() == 2) {
 							hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 									parser.getAttributeValue(ATTRIBUT_COMMENT));
-							Log.d(LOG_TAG, "Добавили комментарий "
-									+ parser.getAttributeName(ATTRIBUT_COMMENT)
-											.toString());
+//							Log.d(LOG_TAG, "Добавили комментарий "
+//									+ parser.getAttributeName(ATTRIBUT_COMMENT)
+//											.toString());
 						}
 						mList.add(hm);
-						Log.d(LOG_TAG, "В список поместили " + hm.toString());
+//						Log.d(LOG_TAG, "В список поместили " + hm.toString());
 					} catch (Exception e) {
-						Log.d(LOG_TAG, "Служебный тег "+parser.getName());
+//						Log.d(LOG_TAG, "Служебный тег " + parser.getName());
 					}
 					break;
 				default:
