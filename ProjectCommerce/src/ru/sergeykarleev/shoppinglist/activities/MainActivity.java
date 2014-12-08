@@ -21,8 +21,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.opengl.ETC1;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -37,11 +39,12 @@ public class MainActivity extends FragmentActivity {
 
 	final String LOG_TAG = "myLogs";
 	private final static String ARRAY_LIST = "listProducts";
+	private final static String VOTING = "VOTED";
 
 	FragmentTransaction fTrans;
 	MyFragmentStorefront fragmentF;
 	// MyFragmentDialogTemplates dialogTemplate;
-	
+
 	SharedPreferences sPref;
 
 	@Override
@@ -58,7 +61,7 @@ public class MainActivity extends FragmentActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.string.fragment_universal, fragmentF).commit();
 		}
-		
+
 	}
 
 	@Override
@@ -83,7 +86,24 @@ public class MainActivity extends FragmentActivity {
 				// TODO Auto-generated method stub
 			}
 		});
+		
+		sPref = getPreferences(MODE_PRIVATE);		
+		if (sPref.getBoolean(VOTING, false) == false)
+			quitDialog.setNeutralButton("Голосовать",
+					new OnClickListener() {
 
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent browserIntent = new Intent(
+									Intent.ACTION_VIEW,
+									Uri.parse("https://play.google.com/store/apps/details?id=ru.sergeykarleev.shoppinglist"));
+							Editor ed = sPref.edit();
+							ed.putBoolean(VOTING, true);
+							ed.commit();
+							startActivity(browserIntent);							
+							dialog.cancel();
+						}
+					});
 		quitDialog.create().show();
 	}
 
@@ -91,22 +111,10 @@ public class MainActivity extends FragmentActivity {
 		AlertDialog.Builder helpDialog = new Builder(
 				this,
 				android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
-		
-		
-		
-		helpDialog.setPositiveButton("Ok", null);		
-		helpDialog.setNeutralButton("Поддержка на\nGoogle.Play",
-				new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent browserIntent = new Intent(
-								Intent.ACTION_VIEW,
-								Uri.parse("https://play.google.com/store/apps/details?id=ru.sergeykarleev.shoppinglist"));
-						startActivity(browserIntent);
-						dialog.cancel();
-					}
-				});
+		helpDialog.setPositiveButton("Ok", null);
+
+		
 
 		ImageView iView = new ImageView(this);
 		iView.setImageResource(R.drawable.help_screen);
