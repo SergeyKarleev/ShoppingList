@@ -206,16 +206,7 @@ public class MyFragmentStorefront extends Fragment implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	private void pause() {
-		try {
-			TimeUnit.SECONDS.sleep(3);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
