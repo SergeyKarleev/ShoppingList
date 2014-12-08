@@ -143,9 +143,7 @@ public class MyFragmentStorefront extends Fragment implements
 		return v;
 	}
 
-	private ArrayList<HashMap<String, String>> createListProduct() {
-		Log.d(LOG_TAG, "Процедура формирования списка: "
-				+ mActivity.getIntent().getAction());
+	private ArrayList<HashMap<String, String>> createListProduct() {		
 		// Запускаем процедуру загрузки списка
 		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {
 			intentGetter = new MyIntentGetter(mActivity);
