@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import ru.sergeykarleev.shoppinglist.R;
-import ru.sergeykarleev.shoppinglist.classes.MyIntentGetter;
+import ru.sergeykarleev.shoppinglist.classes.pro.MyIntentGetter;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogTemplates;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 import android.app.AlertDialog;

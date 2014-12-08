@@ -16,6 +16,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+/**
+ * Класс отвечает за отправку списка в текстовом виде и в виде вложения по всем
+ * доступным для устройства каналам (SMS, email, bluetooth...)
+ * 
+ * @author SergeyKarleev
+ * 
+ */
 public class MySendManager {
 
 	private final static String LOG_TAG = "myLogs";
@@ -39,17 +46,18 @@ public class MySendManager {
 		// TODO: добавить в виде вложения файл для программы (сохранение в КЭШ)
 		// Разбираем код:
 		File f = null;
-		
+
 		try {
 			f = File.createTempFile("listProduct", ".mlp");
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			bw.write(s);
 			bw.close();
-			
-			Intent intent = new Intent(Intent.ACTION_SEND);		
+
+			Intent intent = new Intent(Intent.ACTION_SEND);
 			intent.setType("text/plain");
 			intent.putExtra(Intent.EXTRA_EMAIL, "");
-			intent.putExtra(Intent.EXTRA_SUBJECT, mActivity.getResources().getString(R.string.mail_subject));
+			intent.putExtra(Intent.EXTRA_SUBJECT, mActivity.getResources()
+					.getString(R.string.mail_subject));
 			intent.putExtra(Intent.EXTRA_TEXT, mConverter.convertToString());
 			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
 
@@ -59,8 +67,7 @@ public class MySendManager {
 			e.printStackTrace();
 			Log.d(LOG_TAG, e.toString());
 		}
-			
-		
+
 	}
 
 	private class MyConvertHelper {

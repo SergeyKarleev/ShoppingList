@@ -1,4 +1,4 @@
-package ru.sergeykarleev.shoppinglist.classes;
+package ru.sergeykarleev.shoppinglist.classes.pro;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -13,6 +13,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
+import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -21,6 +22,11 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
+/**Класс отвечает за открытие присланного файла на устройстве
+ * Доступен в PRO версии
+ * @author SergeyKarleev
+ *
+ */
 public class MyIntentGetter {
 	private final static String LOG_TAG = "myLogs";
 	private final static int ATTRIBUT_NAME = 0;

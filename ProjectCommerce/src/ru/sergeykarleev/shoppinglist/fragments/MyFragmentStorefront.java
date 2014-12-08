@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.classes.MyDBManager;
-import ru.sergeykarleev.shoppinglist.classes.MyIntentGetter;
 import ru.sergeykarleev.shoppinglist.classes.MySendManager;
+import ru.sergeykarleev.shoppinglist.classes.pro.MyIntentGetter;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -121,7 +121,7 @@ public class MyFragmentStorefront extends Fragment implements
 
 		// открываем базу данных
 		mDB = new MyDBManager(getActivity());
-		
+
 		// Формируем служебные данные для заполнения listView с нашим списком
 		// продуктов
 		String[] from = { MyDBManager.ATTRIBUT_NAME_PRODUCT,
@@ -144,13 +144,14 @@ public class MyFragmentStorefront extends Fragment implements
 	}
 
 	private ArrayList<HashMap<String, String>> createListProduct() {
-		Log.d(LOG_TAG, "Процедура формирования списка: "+mActivity.getIntent().getAction());
+		Log.d(LOG_TAG, "Процедура формирования списка: "
+				+ mActivity.getIntent().getAction());
 		// Запускаем процедуру загрузки списка
-		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {			
+		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {
 			intentGetter = new MyIntentGetter(mActivity);
 			return intentGetter.getListProducts();
 		}
-		return new ArrayList<HashMap<String, String>>();		
+		return new ArrayList<HashMap<String, String>>();
 	}
 
 	@Override
@@ -168,7 +169,6 @@ public class MyFragmentStorefront extends Fragment implements
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		try {
 			mDB.close();
 		} catch (Exception e) {
@@ -188,11 +188,14 @@ public class MyFragmentStorefront extends Fragment implements
 			LoadFromTemplates();
 			break;
 		case SEND_DATA:
-			sendManager = new MySendManager(mActivity, listProducts);
+			if (!listProducts.isEmpty())
+				sendManager = new MySendManager(mActivity, listProducts);
 			break;
 		case CLEAR_LIST:
-			listProducts.clear();
-			sAdapter.notifyDataSetChanged();
+			if (!listProducts.isEmpty()) {
+				listProducts.clear();
+				sAdapter.notifyDataSetChanged();
+			}
 			break;
 		case HELP_LIST:
 			mActivity.openHelpDialog();
@@ -224,8 +227,7 @@ public class MyFragmentStorefront extends Fragment implements
 		String gName = treeAdapter.getGroup(groupPosition).getString(
 				treeAdapter.getCursor().getColumnIndex(
 						MyDBManager.CATEGORY_NAME));
-
-		// Log.d(LOG_TAG, "Добавили в список "+txtName+" группы "+parent.)
+	
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txtName);
 		hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT, gName);
