@@ -12,8 +12,14 @@ import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
 import ru.sergeykarleev.shoppinglist.fragments.MyFragmentStorefront;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
+import android.sax.StartElementListener;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 /**
@@ -29,16 +35,61 @@ public class MySendManager {
 	private static MainActivity mActivity;
 	private static MyConvertHelper mConverter;
 
+	public final static int SEND_ACTION_TEXT = 0;
+	public final static int SEND_ACTION_FILE = 1;
+	int sendAction;
+
 	public MySendManager(MainActivity mActivity,
 			ArrayList<HashMap<String, String>> listProducts) {
 		super();
 		this.mActivity = mActivity;
 		mConverter = new MyConvertHelper(listProducts);
-		sendData();
+
+		AlertDialog.Builder adb = new Builder(mActivity);
+		adb.setTitle("Отправка");
+		adb.setMessage("Способ отправки");
+		adb.setPositiveButton("Текст", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				sendText();
+				dialog.dismiss();
+			}
+		});
+		adb.setNegativeButton("Файл", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				sendFile();
+				dialog.dismiss();
+			}
+		});
+		adb.create().show();
+
+		// switch (sendAction) {
+		// case SEND_ACTION_TEXT:
+		// sendText();
+		// break;
+		// case SEND_ACTION_FILE:
+		// sendFile();
+		// break;
+		// default:
+		// break;
+		// }
+
 	}
 
-	private void sendData() {
+	private void sendText() {
+		// StringBuilder sb = new StringBuilder(mConverter.convertToString());
 
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_TEXT, mConverter.convertToString());
+
+		mActivity.startActivity(intent);
+	}
+
+	private void sendFile() {
 		Log.d(LOG_TAG, "Формируем XML строку");
 		String s = mConverter.convertToXML();
 		Log.d(LOG_TAG, s);
@@ -48,19 +99,16 @@ public class MySendManager {
 		File f = null;
 
 		try {
-			f = File.createTempFile("listProduct", ".mlp");
+			f = File.createTempFile("listProduct", ".mlp",mActivity.getExternalCacheDir());
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			bw.write(s);
 			bw.close();
 
 			Intent intent = new Intent(Intent.ACTION_SEND);
-			intent.setType("text/plain");
-			intent.putExtra(Intent.EXTRA_EMAIL, "");
+			intent.setType("application/*");			
 			intent.putExtra(Intent.EXTRA_SUBJECT, mActivity.getResources()
 					.getString(R.string.mail_subject));
-			intent.putExtra(Intent.EXTRA_TEXT, mConverter.convertToString());
 			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
-
 			mActivity.startActivity(intent);
 
 		} catch (IOException e) {
@@ -86,14 +134,15 @@ public class MySendManager {
 				sb.append(item.get(MyDBManager.ATTRIBUT_NAME_PRODUCT)
 						.toString());
 				if (item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT).isEmpty())
-					sb.append(";\n");
+					sb.append("\n");
 				else {
-					sb.append(": "
+					sb.append(" ("
 							+ item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT)
-									.toString() + ";\n");
+									.toString() + ")\n");
 				}
 			}
-			return sb.toString();
+			return sb.substring(0, sb.length() - 1).toString();
+
 		}
 
 		/** Функция конвертирует список продуктов из ArrayList в String */
