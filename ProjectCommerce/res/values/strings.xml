@@ -48,5 +48,11 @@
 
     <!-- Диалоги -->
     <string name="dialogQuitTitle">Выйти из приложения?</string>
-
+	<!-- Диалог отправки -->
+	
+	<string name="dialogSendTitle">Отправка</string>
+	<string name="dialogSendMessage">В приложение на другом телефоне или обычным текстом?</string>
+	<string name="dialogSendInAPP">В приложение</string>
+	<string name="dialogSendSimpleText">Текстом</string>
+    
 </resources>

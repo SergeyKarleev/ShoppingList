@@ -46,24 +46,28 @@ public class MySendManager {
 		mConverter = new MyConvertHelper(listProducts);
 
 		AlertDialog.Builder adb = new Builder(mActivity);
-		adb.setTitle("Отправка");
-		adb.setMessage("Способ отправки");
-		adb.setPositiveButton("Текст", new OnClickListener() {
+		adb.setTitle(mActivity.getResources().getString(R.string.dialogSendTitle));
+		adb.setMessage(mActivity.getResources().getString(R.string.dialogSendMessage));
+		adb.setPositiveButton(
+				mActivity.getResources().getString(R.string.dialogSendSimpleText),
+				new OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				sendText();
-				dialog.dismiss();
-			}
-		});
-		adb.setNegativeButton("Файл", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						sendText();
+						dialog.dismiss();
+					}
+				});
+		adb.setNegativeButton(
+				mActivity.getResources().getString(
+						R.string.dialogSendInAPP), new OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				sendFile();
-				dialog.dismiss();
-			}
-		});
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						sendFile();
+						dialog.dismiss();
+					}
+				});
 		adb.create().show();
 
 		// switch (sendAction) {
@@ -99,13 +103,14 @@ public class MySendManager {
 		File f = null;
 
 		try {
-			f = File.createTempFile("listProduct", ".mlp",mActivity.getExternalCacheDir());
+			f = File.createTempFile("listProduct", ".mlp",
+					mActivity.getExternalCacheDir());
 			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 			bw.write(s);
 			bw.close();
 
 			Intent intent = new Intent(Intent.ACTION_SEND);
-			intent.setType("application/*");			
+			intent.setType("application/*");
 			intent.putExtra(Intent.EXTRA_SUBJECT, mActivity.getResources()
 					.getString(R.string.mail_subject));
 			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));

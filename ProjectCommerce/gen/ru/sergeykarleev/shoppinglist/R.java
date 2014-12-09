@@ -111,6 +111,12 @@ public final class R {
         /**  Диалоги 
          */
         public static final int dialogQuitTitle=0x7f060020;
+        public static final int dialogSendInAPP=0x7f060023;
+        public static final int dialogSendMessage=0x7f060022;
+        public static final int dialogSendSimpleText=0x7f060024;
+        /**  Диалог отправки 
+         */
+        public static final int dialogSendTitle=0x7f060021;
         public static final int exit_list=0x7f060013;
         public static final int fragment_dialog=0x7f060006;
         public static final int fragment_pager=0x7f060007;
