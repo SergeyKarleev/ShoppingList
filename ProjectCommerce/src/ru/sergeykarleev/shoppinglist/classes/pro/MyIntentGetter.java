@@ -22,15 +22,18 @@ import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
 
-/**Класс отвечает за открытие присланного файла на устройстве
- * Доступен в PRO версии
+/**
+ * Класс отвечает за открытие присланного файла на устройстве Доступен в PRO
+ * версии
+ * 
  * @author SergeyKarleev
- *
+ * 
  */
 public class MyIntentGetter {
 	private final static String LOG_TAG = "myLogs";
 	private final static int ATTRIBUT_NAME = 0;
 	private final static int ATTRIBUT_COMMENT = 1;
+	private static final int ATTRIBUT_CATEGORY = 2;
 
 	MainActivity mActivity;
 	ArrayList<HashMap<String, String>> mList;
@@ -76,20 +79,21 @@ public class MyIntentGetter {
 						hm = new HashMap<String, String>();
 						hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT,
 								parser.getAttributeValue(ATTRIBUT_NAME));
-//						Log.d(LOG_TAG, "Добавили имя "
-//								+ parser.getAttributeName(ATTRIBUT_NAME)
-//										.toString());
-						if (parser.getAttributeCount() == 2) {
+						try {
 							hm.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 									parser.getAttributeValue(ATTRIBUT_COMMENT));
-//							Log.d(LOG_TAG, "Добавили комментарий "
-//									+ parser.getAttributeName(ATTRIBUT_COMMENT)
-//											.toString());
+						} catch (Exception e) {
 						}
+
+						try {
+							hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT,
+									parser.getAttributeValue(ATTRIBUT_CATEGORY));
+						} catch (Exception e) {
+						}
+
 						mList.add(hm);
-//						Log.d(LOG_TAG, "В список поместили " + hm.toString());
 					} catch (Exception e) {
-//						Log.d(LOG_TAG, "Служебный тег " + parser.getName());
+
 					}
 					break;
 				default:
@@ -126,6 +130,7 @@ public class MyIntentGetter {
 			}
 			is.close();
 
+			Log.d(LOG_TAG, "Загрузили данные:\n"+mData.toString());
 			return mData.toString();
 
 		} catch (Exception e) {

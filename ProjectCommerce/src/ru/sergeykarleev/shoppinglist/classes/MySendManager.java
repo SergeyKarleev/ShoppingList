@@ -46,11 +46,13 @@ public class MySendManager {
 		mConverter = new MyConvertHelper(listProducts);
 
 		AlertDialog.Builder adb = new Builder(mActivity);
-		adb.setTitle(mActivity.getResources().getString(R.string.dialogSendTitle));
-		adb.setMessage(mActivity.getResources().getString(R.string.dialogSendMessage));
+		adb.setTitle(mActivity.getResources().getString(
+				R.string.dialogSendTitle));
+		adb.setMessage(mActivity.getResources().getString(
+				R.string.dialogSendMessage));
 		adb.setPositiveButton(
-				mActivity.getResources().getString(R.string.dialogSendSimpleText),
-				new OnClickListener() {
+				mActivity.getResources().getString(
+						R.string.dialogSendSimpleText), new OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -59,8 +61,8 @@ public class MySendManager {
 					}
 				});
 		adb.setNegativeButton(
-				mActivity.getResources().getString(
-						R.string.dialogSendInAPP), new OnClickListener() {
+				mActivity.getResources().getString(R.string.dialogSendInAPP),
+				new OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -69,18 +71,6 @@ public class MySendManager {
 					}
 				});
 		adb.create().show();
-
-		// switch (sendAction) {
-		// case SEND_ACTION_TEXT:
-		// sendText();
-		// break;
-		// case SEND_ACTION_FILE:
-		// sendFile();
-		// break;
-		// default:
-		// break;
-		// }
-
 	}
 
 	private void sendText() {
@@ -94,9 +84,7 @@ public class MySendManager {
 	}
 
 	private void sendFile() {
-		Log.d(LOG_TAG, "Формируем XML строку");
 		String s = mConverter.convertToXML();
-		Log.d(LOG_TAG, s);
 
 		// TODO: добавить в виде вложения файл для программы (сохранение в КЭШ)
 		// Разбираем код:
@@ -147,30 +135,32 @@ public class MySendManager {
 				}
 			}
 			return sb.substring(0, sb.length() - 1).toString();
-
 		}
 
-		/** Функция конвертирует список продуктов из ArrayList в String */
+		/** Функция конвертирует список продуктов из ArrayList в XMLString */
 		private String convertToXML() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("<data>");
 			for (HashMap<String, String> item : listProducts) {
+				
 				sb.append("<product name='");
 				sb.append(item.get(MyDBManager.ATTRIBUT_NAME_PRODUCT)
 						.toString() + "'");
-				if (item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT).isEmpty())
-					sb.append("/>");
-
-				else {
+				if (!item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT).isEmpty())
 					sb.append(" comment='"
 							+ item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT)
+									.toString() + "'");
+				if (item.get(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT).isEmpty())
+					sb.append("/>");
+				else {
+					sb.append(" category='"
+							+ item.get(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT)
 									.toString() + "'/>");
 				}
 
 			}
 
 			sb.append("</data>");
-			// TODO: возможно здесь уместно сформировать файл
 			return sb.toString();
 
 		}
