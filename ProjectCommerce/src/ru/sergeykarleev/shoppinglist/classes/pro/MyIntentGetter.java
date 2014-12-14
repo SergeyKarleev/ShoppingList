@@ -48,6 +48,9 @@ public class MyIntentGetter {
 		}
 	}
 
+	/**Вызывается из MainActivity при открытии экспортированного из другого девайса файла списка
+	 * @return загруженный список продуктов 
+	 */
 	public ArrayList<HashMap<String, String>> getListProducts() {
 		for (HashMap<String, String> item : mList) {
 			Log.d(LOG_TAG,

@@ -146,8 +146,8 @@ public class MySendManager {
 				sb.append("<product name='");
 				sb.append(item.get(MyDBManager.ATTRIBUT_NAME_PRODUCT)
 						.toString() + "'");
-				if (!item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT).isEmpty())
-					sb.append(" comment='"
+				//if (!item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT).isEmpty())
+				sb.append(" comment='"
 							+ item.get(MyDBManager.ATTRIBUT_COMMENT_PRODUCT)
 									.toString() + "'");
 				if (item.get(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT).isEmpty())
