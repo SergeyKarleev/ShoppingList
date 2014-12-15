@@ -470,8 +470,7 @@ public class MyFragmentStorefront extends Fragment implements
 			ctvName.setOnClickListener(new android.view.View.OnClickListener() {
 
 				@Override
-				public void onClick(View v) {
-					Toast.makeText(mActivity, "Position "+position, Toast.LENGTH_SHORT).show();
+				public void onClick(View v) {					
 					CheckedTextView ctv = (CheckedTextView) v;
 					if (ctv.isChecked()) {
 						ctv.setChecked(false);
