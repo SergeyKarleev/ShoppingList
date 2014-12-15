@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.zip.Inflater;
 
 import ru.sergeykarleev.shoppinglist.R;
 import ru.sergeykarleev.shoppinglist.activities.MainActivity;
@@ -13,6 +14,7 @@ import ru.sergeykarleev.shoppinglist.classes.MySendManager;
 import ru.sergeykarleev.shoppinglist.classes.pro.MyIntentGetter;
 import ru.sergeykarleev.shoppinglist.dialogues.MyFragmentDialogProducts;
 import android.app.AlertDialog;
+import android.content.ClipData.Item;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -51,8 +54,9 @@ public class MyFragmentStorefront extends Fragment implements
 		OnChildClickListener, OnItemLongClickListener, OnDrawerOpenListener,
 		android.view.View.OnClickListener {
 
-	private final static String LOG_TAG = "myLogs";
-
+	private final static String LOG_TAG = "myLogs";	
+	private final static String ISCHECKED = "isChecked";
+	
 	// Константы функций контекстного меню
 	private static final int SAVE_INTO_TEMPLATES = 0;
 	private static final int LOAD_FROM_TEMPLATES = 1;
@@ -136,6 +140,7 @@ public class MyFragmentStorefront extends Fragment implements
 		lvMyProductList = (ListView) v.findViewById(R.id.lvMyProductList);
 		lvMyProductList.setAdapter(sAdapter);
 		lvMyProductList.setItemsCanFocus(true);
+		lvMyProductList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		elProducts = (ExpandableListView) v.findViewById(R.id.elProducts);
 		elProducts.setOnChildClickListener(this);
@@ -143,7 +148,7 @@ public class MyFragmentStorefront extends Fragment implements
 		return v;
 	}
 
-	private ArrayList<HashMap<String, String>> createListProduct() {		
+	private ArrayList<HashMap<String, String>> createListProduct() {
 		// Запускаем процедуру загрузки списка
 		if (mActivity.getIntent().getAction() == Intent.ACTION_VIEW) {
 			intentGetter = new MyIntentGetter(mActivity);
@@ -206,7 +211,7 @@ public class MyFragmentStorefront extends Fragment implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
@@ -216,7 +221,7 @@ public class MyFragmentStorefront extends Fragment implements
 		String gName = treeAdapter.getGroup(groupPosition).getString(
 				treeAdapter.getCursor().getColumnIndex(
 						MyDBManager.CATEGORY_NAME));
-	
+
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put(MyDBManager.ATTRIBUT_NAME_PRODUCT, txtName);
 		hm.put(MyDBManager.ATTRIBUT_CATEGORY_PRODUCT, gName);
@@ -257,8 +262,7 @@ public class MyFragmentStorefront extends Fragment implements
 		}
 
 		mDB.close();
-
-		// Log.d(LOG_TAG, "Формируем из массива CharSequence");
+		
 		CharSequence[] cs = arr.toArray(new CharSequence[arr.size()]);
 
 		for (CharSequence charSequence : cs) {
@@ -296,10 +300,9 @@ public class MyFragmentStorefront extends Fragment implements
 								.toString();
 						// TODO: Здесь загружаем готовый список с помощью метода
 						// базы
-						// данных loadFromTemplates(name)
+				
 						MyDBManager mDB = new MyDBManager(getActivity());
 						listProducts.addAll(mDB.loadFromTemplates(tName));
-
 						sAdapter.notifyDataSetChanged();
 						mDB.close();
 						dialog.dismiss();
@@ -402,9 +405,14 @@ public class MyFragmentStorefront extends Fragment implements
 					}
 				});
 		adb.create().show();
-
 	}
 
+	/**
+	 * Класс кастомного адаптера для базы продуктов
+	 * 
+	 * @author SergeyKarleev
+	 * 
+	 */
 	private class MyTreeAdapter extends SimpleCursorTreeAdapter {
 
 		public MyTreeAdapter(Context context, Cursor cursor, int groupLayout,
@@ -422,8 +430,16 @@ public class MyFragmentStorefront extends Fragment implements
 		}
 	}
 
+	/**
+	 * Класс кастомного адаптера для списка
+	 * 
+	 * @author SergeyKarleev
+	 * 
+	 */
 	private class MyListAdapter extends SimpleAdapter implements
 			OnLongClickListener {
+
+		private ArrayList<Boolean> checkList = new ArrayList<Boolean>();
 
 		public MyListAdapter(Context context,
 				List<? extends Map<String, ?>> data, int resource,
@@ -432,11 +448,42 @@ public class MyFragmentStorefront extends Fragment implements
 		}
 
 		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			View view = super.getView(position, convertView, parent);
+		public int getCount() {
+			return super.getCount();
+		}
 
-			final TextView tvName = (TextView) view
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+			Inflater inflater = new Inflater();
+			final View view = super.getView(position, convertView, parent);
+
+			final CheckedTextView ctvName = (CheckedTextView) view
 					.findViewById(R.id.tvSItemName);
+
+			if (checkList.get(position)){
+				ctvName.setChecked(true);
+			}else{
+				ctvName.setChecked(false);
+			}
+			
+			ctvName.setOnClickListener(new android.view.View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(mActivity, "Position "+position, Toast.LENGTH_SHORT).show();
+					CheckedTextView ctv = (CheckedTextView) v;
+					if (ctv.isChecked()) {
+						ctv.setChecked(false);
+						checkList.set(position, false);
+					} else {
+						ctv.setChecked(true);
+						checkList.set(position, true);
+					}
+
+				}
+			});
+
 			EditText etComment = (EditText) view
 					.findViewById(R.id.tvSItemComment);
 
@@ -445,7 +492,7 @@ public class MyFragmentStorefront extends Fragment implements
 				@Override
 				public void afterTextChanged(Editable s) {
 					for (HashMap<String, String> i : listProducts) {
-						if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == tvName
+						if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == ctvName
 								.getText().toString()) {
 							i.put(MyDBManager.ATTRIBUT_COMMENT_PRODUCT,
 									s.toString());
@@ -469,9 +516,35 @@ public class MyFragmentStorefront extends Fragment implements
 				}
 			});
 
-			tvName.setOnLongClickListener(this);
+			ctvName.setOnLongClickListener(new android.view.View.OnLongClickListener() {
+				
+				@Override
+				public boolean onLongClick(View v) {
+					TextView tvName = (TextView) v.findViewById(R.id.tvSItemName);
+					String name = tvName.getText().toString();
+
+					for (HashMap<String, String> i : listProducts) {
+						if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == name) {
+							listProducts.remove(i);
+							checkList.remove(position);
+							sAdapter.notifyDataSetChanged();
+							return true;
+						}
+					}
+					return false;
+				}
+			});
 			return view;
 		}
+
+		@Override
+		public void notifyDataSetChanged() {
+			super.notifyDataSetChanged();
+			while (getCount()>checkList.size()){
+				checkList.add(false);
+			}
+		}		
+				
 
 		@Override
 		public boolean onLongClick(View v) {
@@ -481,13 +554,14 @@ public class MyFragmentStorefront extends Fragment implements
 			for (HashMap<String, String> i : listProducts) {
 				if (i.get(MyDBManager.ATTRIBUT_NAME_PRODUCT) == name) {
 					listProducts.remove(i);
-					// mActivity.setListProducts(listProducts);
 					sAdapter.notifyDataSetChanged();
 					return true;
 				}
 			}
 			return false;
 		}
+		
+		
 
 	}
 

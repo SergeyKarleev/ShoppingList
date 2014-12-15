@@ -11,20 +11,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <TextView
+        <CheckedTextView
             android:id="@+id/tvSItemName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:clickable="true"
             android:text="Название"
             android:textColor="#0000FF"
             android:textSize="@dimen/item_product_size"
             android:textStyle="italic" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
@@ -42,7 +39,6 @@
         android:singleLine="true"
         android:text="Комментарий"
         android:textSize="@dimen/item_comment_size"
-        android:textStyle="italic"        
-         />
+        android:textStyle="italic" />
 
 </LinearLayout>
