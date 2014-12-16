@@ -445,6 +445,10 @@ public class MyFragmentStorefront extends Fragment implements
 				List<? extends Map<String, ?>> data, int resource,
 				String[] from, int[] to) {
 			super(context, data, resource, from, to);
+			
+			for (int i=0; i<listProducts.size();i++){
+				checkList.add(false);
+			}
 		}
 
 		@Override
